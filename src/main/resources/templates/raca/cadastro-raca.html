@@ -158,6 +158,7 @@
 
 	<form method="POST" class="form-vertical  js-form-loading" th:object="${raca}">
 		
+		<!--
 		<div class="form-group">
 			<label for="nome">Nome da Raça</label>
 			<input id="nome" type="text" class="form-control" th:field=*{nome_raca}/>
@@ -167,17 +168,36 @@
 			<label for="especie">Especie</label>
 			<select id="especie" class="form-control" th:field="*{especie}">
 				<option value="">Selecione a especie</option>
-				<option th:each="especie : ${especies}"></option>
+				<option th:each="especie : ${especies}" th:value="${especie}" th:text="${especie}"></option>
 			</select>
 		</div>
-
+		 FUNFAA-->
+		 
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="nome">Nome da Raça</label>
+					<input id="nome" type="text" class="form-control" th:field=*{nome_raca}/>
+				</div>
+			</div>
+			
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="especie">Especie</label>
+					<select id="especie" class="form-control" th:field="*{especie}">
+						<option value="">Selecione a especie</option>
+						<option th:each="especie : ${especies}" th:value="${especie}" th:text="#{|tipoEspecie.${especie}|}"></option>
+					</select>
+				</div>
+			</div>
+		</div>
 		<!--
 		<div class="form-group">
 			<label for="input-produto-descricao">Descrição</label>
 			<textarea id="input-produto-descricao" rows="3" class="form-control"></textarea>
 		</div>
-		
-		
+		-->
+		<!--
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group">
