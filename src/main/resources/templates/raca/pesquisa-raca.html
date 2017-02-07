@@ -3,6 +3,7 @@
 	xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:data="http://www.thymeleaf.org/extras/data-attribute" 
 	layout:decorate="~{layout/layout-default}">
 
 <head>
@@ -54,12 +55,14 @@
 				<tr th:each="raca : ${racas}">
 					<td class="aw-table-checkbox"><input type="checkbox"></td>
 					<td th:text="${raca.codigo}" class="text-center"></td>
-					<td><a href="cadastro-produto.html" th:text="${raca.nome}"></a></td>
+					<td><a th:href="@{/racas/{codigo}(codigo=${raca.codigo})}" th:text="${raca.nome}"></a></td>
 					<td th:text="#{|tipoEspecie.${raca.especie}|}"></td>
 					<td class="table-pesq-raca-col-acoes">
 						<div class="btn-group">
-								<i class="fa  fa-pencil" style="cursor:pointer"></i>
-								<i class="fa  fa-trash" style="cursor:pointer"></i>
+								<a th:href="@{/racas/{codigo}(codigo=${raca.codigo})}"><i class="fa  fa-pencil" style="cursor:pointer"></i></a>
+								<i class="fa  fa-trash" style="cursor:pointer"
+									data-toggle="modal" data-target="#confirmaExclusaoModal"  
+									data:nome="${raca.nome}"></i>
 						</div>
 					</td>
 				</tr>
@@ -71,7 +74,42 @@
 	</div>
 </div>
 
+<div class="modal fade" id="confirmaExclusaoModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form th:action="@{/racas}" method="POST">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Excluir raça</h4>
+				</div>
+				<div class="modal-body">
+					<span>Tem certeza?</span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Excluir</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 </section>
+
+<th:block layout:fragment="javascript-extra">
+	<script>
+	$('#confirmaExclusaoModal').on('show.bs.modal', function (event){
+		  var botao = $(event.relatedTarget); // Botao que acionou o modal
+		  var nome = botao.data('nome');
+		  
+		  var modal = $(this);
+		  modal.find('.modal-body span').html('Tem certeza que deseja excluir o <strong>' + nome + '</strong>?');
+	});
+	</script>
+	
+</th:block>
 
 </body>
 </html>

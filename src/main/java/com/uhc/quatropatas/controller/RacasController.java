@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +29,7 @@ public class RacasController {
 	@GetMapping("/novo")
 	public ModelAndView novo(Raca raca){
 		ModelAndView mv = new ModelAndView("raca/cadastro-raca");
+		mv.addObject(raca);
 		mv.addObject("especies", TipoEspecie.values());
 		
 		return mv;
@@ -51,4 +53,22 @@ public class RacasController {
 				Optional.ofNullable(racaFilter.getNome()).orElse("%")));
 		return mv;
 	}
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo){
+		/*
+		 *  Procura uma raça com o código que recebeu de 
+		 *  parametro da URL mapeada
+		 */
+		Raca raca = racas.findOne(codigo);
+		
+		/*
+		 * Já retorna uma raça preenchido
+		 */
+		return novo(raca);
+	}
+	/*
+	public ModelAndView exluir(){
+		
+	}*/
 }

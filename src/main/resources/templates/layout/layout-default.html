@@ -105,5 +105,15 @@
 <script th:src="@{/layout/javascripts/vendors.min.js}"></script>
 <script th:src="@{/layout/javascripts/algaworks.min.js}"></script>
 
+<script th:src="@{/javascripts/vendors/jquery.masknumber.min.js}"></script>
+<script>
+	$('.js-moeda').maskNumber({
+		decimal: ',',
+		thousands: '.'
+	});
+</script>
+
+<th:block layout:fragment="javascript-extra"></th:block>
+
 </body>
 </html>
