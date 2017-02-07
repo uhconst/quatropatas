@@ -2,7 +2,7 @@ package com.uhc.quatropatas.repository.filter;
 
 public class RacaFilter {
 	
-	private String nome = "%";
+	private String nome;
 
 	public String getNome() {
 		return nome;
