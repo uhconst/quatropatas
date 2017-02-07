@@ -25,6 +25,11 @@
 
 <div class="container-fluid">
 
+	<div class="alert  alert-success  alert-dismissible" th:if="${!#strings.isEmpty(mensagem)}">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span th:text="${mensagem}"></span>
+	</div>
+	
 	<form method="GET" class="form-vertical  js-form-loading" th:object="${racaFilter}">
 		<div class="form-group">
 			<div class="input-group">
@@ -62,7 +67,8 @@
 								<a th:href="@{/racas/{codigo}(codigo=${raca.codigo})}"><i class="fa  fa-pencil" style="cursor:pointer"></i></a>
 								<i class="fa  fa-trash" style="cursor:pointer"
 									data-toggle="modal" data-target="#confirmaExclusaoModal"  
-									data:nome="${raca.nome}"></i>
+									data:nome="${raca.nome}" 
+									data:url-deletar="@{/racas/{codigo}(codigo=${raca.codigo})}"></i>
 						</div>
 					</td>
 				</tr>
@@ -78,6 +84,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<form th:action="@{/racas}" method="POST">
+				<input type="hidden" name="_method" value="DELETE"/>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -103,8 +110,11 @@
 	$('#confirmaExclusaoModal').on('show.bs.modal', function (event){
 		  var botao = $(event.relatedTarget); // Botao que acionou o modal
 		  var nome = botao.data('nome');
+		  var url = botao.data('url-deletar');
 		  
 		  var modal = $(this);
+		  var form = modal.find('form');
+		  form.attr('action', url);
 		  modal.find('.modal-body span').html('Tem certeza que deseja excluir o <strong>' + nome + '</strong>?');
 	});
 	</script>

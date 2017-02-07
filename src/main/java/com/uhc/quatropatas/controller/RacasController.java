@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,8 +68,11 @@ public class RacasController {
 		 */
 		return novo(raca);
 	}
-	/*
-	public ModelAndView exluir(){
-		
-	}*/
+	
+	@DeleteMapping("/{codigo}")
+	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
+		racas.delete(codigo);
+		attributes.addFlashAttribute("mensagem", "Raça deletada com sucesso!");
+		return "redirect:/racas";
+	}
 }
