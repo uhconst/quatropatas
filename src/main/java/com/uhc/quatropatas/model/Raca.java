@@ -18,7 +18,7 @@ public class Raca {
 	private Long codigo;
 	
 	@NotBlank
-	private String nome_raca;
+	private String nome;
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -32,12 +32,12 @@ public class Raca {
 		this.codigo = codigo;
 	}
 
-	public String getNome_raca() {
-		return nome_raca;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNome_raca(String nome_raca) {
-		this.nome_raca = nome_raca;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public TipoEspecie getEspecie() {

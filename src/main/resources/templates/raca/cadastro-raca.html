@@ -22,12 +22,6 @@
 </head>
 <body>
 
-<div class="aw-layout-loading  js-loading-overlay">
-	<div class="aw-layout-loading__container">
-		<span class="aw-balls-spinner">Carregando...</span>
-	</div>
-</div>
-
 <div class="aw-layout-page">
 
 	<nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar">
@@ -153,7 +147,7 @@
 
 	<form method="POST" class="form-vertical  js-form-loading" th:object="${raca}">
 		
-		<div class="alert  alert-danger  alert-dismissible" role="alert" th:if=${#fields.hasAnyErrors()}>
+		<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<th:block th:each="error: ${#fields.detailedErrors()}">
 				<div>
@@ -161,11 +155,16 @@
 					<span th:text="${error.message}"></span>
 				</div>
 		</div>
-	
+		
+		<div class="alert  alert-success  alert-dismissible" th:if="${!#strings.isEmpty(mensagem)}">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span th:text="${mensagem}"></span>
+		</div>
+		
 		<!--
 		<div class="form-group">
 			<label for="nome">Nome da Raça</label>
-			<input id="nome" type="text" class="form-control" th:field=*{nome_raca}/>
+			<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 		</div>
 		
 		<div class="form-group">
@@ -181,7 +180,7 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="nome">Nome da Raça</label>
-					<input id="nome" type="text" class="form-control" th:field=*{nome_raca}/>
+					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 				</div>
 			</div>
 			
