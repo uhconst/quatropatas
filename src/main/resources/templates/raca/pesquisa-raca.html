@@ -138,7 +138,7 @@
 			<tbody>
 				<tr th:each="raca : ${racas}">
 					<td class="aw-table-checkbox"><input type="checkbox"></td>
-					<td th:text="${raca.codigo}"></td>
+					<td th:text="${raca.codigo}" class="text-center"></td>
 					<td><a href="cadastro-produto.html" th:text="${raca.nome}"></a></td>
 					<td th:text="#{|tipoEspecie.${raca.especie}|}"></td>
 					<td class="table-pesq-raca-col-acoes">
