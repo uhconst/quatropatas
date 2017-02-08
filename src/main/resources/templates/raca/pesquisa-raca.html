@@ -4,6 +4,7 @@
 	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
 	xmlns:data="http://www.thymeleaf.org/extras/data-attribute" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" 
 	layout:decorate="~{layout/layout-default}">
 
 <head>
@@ -53,16 +54,20 @@
 					<th class="table-pesq-raca-col-codigo">Código</th>
 					<th>Nome</th>
 					<th class="table-pesq-raca-col-espécie">Espécie</th>
-					<th class="table-pesq-raca-col-acoes">Ações</th>
+					<th class="table-pesq-raca-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">Ações</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="raca : ${racas}">
 					<td class="aw-table-checkbox"><input type="checkbox"></td>
 					<td th:text="${raca.codigo}" class="text-center"></td>
-					<td><a th:href="@{/racas/{codigo}(codigo=${raca.codigo})}" th:text="${raca.nome}"></a></td>
+					<td th:text="${raca.nome}">
+						<!--
+						<a th:href="@{/racas/{codigo}(codigo=${raca.codigo})}" th:text="${raca.nome}"></a>
+						  -->
+					</td>
 					<td th:text="#{|tipoEspecie.${raca.especie}|}"></td>
-					<td class="table-pesq-raca-col-acoes">
+					<td class="table-pesq-raca-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
 						<div class="btn-group">
 								<a th:href="@{/racas/{codigo}(codigo=${raca.codigo})}"><i class="fa  fa-pencil" style="cursor:pointer"></i></a>
 								<i class="fa  fa-trash" style="cursor:pointer"
@@ -106,19 +111,7 @@
 </section>
 
 <th:block layout:fragment="javascript-extra">
-	<script>
-	$('#confirmaExclusaoModal').on('show.bs.modal', function (event){
-		  var botao = $(event.relatedTarget); // Botao que acionou o modal
-		  var nome = botao.data('nome');
-		  var url = botao.data('url-deletar');
-		  
-		  var modal = $(this);
-		  var form = modal.find('form');
-		  form.attr('action', url);
-		  modal.find('.modal-body span').html('Tem certeza que deseja excluir o <strong>' + nome + '</strong>?');
-	});
-	</script>
-	
+	<script th:src="@{/javascripts/excluir-raca-modal.js}"></script>
 </th:block>
 
 </body>
