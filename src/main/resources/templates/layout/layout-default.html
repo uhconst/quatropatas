@@ -2,13 +2,14 @@
 <html lang="pt"
 	xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org" 
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-	<title>AlgaWorks</title>
+	<title>QuatroPatas</title>
 
 	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/algaworks.min.css}"/>
@@ -41,9 +42,12 @@
 	    </div>
 
 	    <ul class="nav navbar-nav  navbar-right">
-	      <li>
-	        <a href="#"><em class="fa  fa-sign-out"></em></a>
-	      </li> 
+			<li>
+				<p class="navbar-text" th:text="${#authentication.name}"></p>
+			</li>
+			<li>
+				<a th:href="@{/logout}"><em class="fa  fa-sign-out"></em></a>
+			</li> 
 	    </ul>
 
 	  </div>
@@ -66,9 +70,15 @@
 		          </a>
 		      
 		          <ul class="aw-menu__list  aw-menu__list--sublist">
-		            <li class="aw-menu__item  aw-menu__item--link"><a href="../racas/novo">Cadastro de raça</a></li>
-		            <li class="aw-menu__item  aw-menu__item--link  is-active"><a href="../racas">Pesquisa de raça</a></li>
-		            <li class="aw-menu__item  aw-menu__item--link"><a href="tabela-sem-dados.html">Tabela sem dados</a></li>
+		            <li class="aw-menu__item  aw-menu__item--link" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
+		            	<a th:href="@{/racas/novo}">Cadastro de raça</a>
+		            </li>
+		            <li class="aw-menu__item  aw-menu__item--link  is-active" sec:authorize="hasRole('ROLE_PESQUISAR_RACA')">
+		            	<a th:href="@{/racas}">Pesquisa de raça</a>
+		            </li>
+		            <li class="aw-menu__item  aw-menu__item--link">
+		            	<a href="tabela-sem-dados.html">Tabela sem dados</a>
+		            </li>
 		          </ul>
 		        </li>
 		
