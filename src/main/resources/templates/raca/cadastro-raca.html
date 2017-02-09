@@ -41,14 +41,14 @@
 		 
 		<div class="row">
 			<div class="col-sm-6">
-				<div class="form-group">
+				<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
 					<label for="nome">Nome da Raça</label>
 					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 				</div>
 			</div>
 			
 			<div class="col-sm-6">
-				<div class="form-group">
+				<div class="form-group" th:classappend="${#fields.hasErrors('especie')} ? has-error">
 					<label for="especie">Especie</label>
 					<select id="especie" class="form-control" th:field="*{especie}">
 						<option value="">Selecione a especie</option>
