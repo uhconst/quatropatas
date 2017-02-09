@@ -12,11 +12,17 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-public class Raca {
+public class Animal {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+	
+	/*
+	private Pessoa pessoa;
+	
+	private Raca raca;
+	*/
 	
 	@NotBlank
 	@Size(max=45)
@@ -24,7 +30,7 @@ public class Raca {
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	private TipoEspecie especie;
+	private TipoSexoAnimal sexo;
 
 	public Long getCodigo() {
 		return codigo;
@@ -42,12 +48,12 @@ public class Raca {
 		this.nome = nome;
 	}
 
-	public TipoEspecie getEspecie() {
-		return especie;
+	public TipoSexoAnimal getSexo() {
+		return sexo;
 	}
 
-	public void setEspecie(TipoEspecie especie) {
-		this.especie = especie;
+	public void setSexo(TipoSexoAnimal sexo) {
+		this.sexo = sexo;
 	}
 
 	@Override
@@ -66,13 +72,13 @@ public class Raca {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Raca other = (Raca) obj;
+		Animal other = (Animal) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	} 
+	}
 	
 }
