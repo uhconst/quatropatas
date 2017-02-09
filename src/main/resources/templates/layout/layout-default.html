@@ -31,7 +31,7 @@
 
 	    <div class="navbar-header">
 	      <a class="navbar-brand  hidden-xs" href="#">
-	        <img alt="AlgaWorks" th:src="@{/layout/images/logo.png}"/>
+	        <img alt="QuatroPatas" th:src="@{/layout/images/logo.png}"/>
 	      </a>
 
 	      <ul class="nav  navbar-nav">
@@ -75,9 +75,6 @@
 		            </li>
 		            <li class="aw-menu__item  aw-menu__item--link  is-active" sec:authorize="hasRole('ROLE_PESQUISAR_RACA')">
 		            	<a th:href="@{/racas}">Pesquisa de raça</a>
-		            </li>
-		            <li class="aw-menu__item  aw-menu__item--link">
-		            	<a href="tabela-sem-dados.html">Tabela sem dados</a>
 		            </li>
 		          </ul>
 		        </li>
