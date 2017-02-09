@@ -19,7 +19,6 @@ public class Raca {
 	private Long codigo;
 	
 	@NotBlank
-	@NotNull
 	@Size(max=45)
 	private String nome;
 	
