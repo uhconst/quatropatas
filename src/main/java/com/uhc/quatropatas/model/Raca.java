@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -18,6 +19,8 @@ public class Raca {
 	private Long codigo;
 	
 	@NotBlank
+	@NotNull
+	@Size(max=45)
 	private String nome;
 	
 	@NotNull
