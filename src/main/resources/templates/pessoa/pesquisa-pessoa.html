@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:data="http://www.thymeleaf.org/extras/data-attribute" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" 
+	layout:decorate="~{layout/layout-default}">
+
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/pesquisa-pessoas.css}"/>
+</head>
+
+<body>
+
+<section layout:fragment="conteudo">
+
+
+<div class="page-header">
+	<div class="container-fluid">
+		<h1>
+			Pesquisa de pessoa
+		</h1>
+	</div>
+</div>
+
+<div class="container-fluid">
+
+	<div class="alert  alert-success  alert-dismissible" th:if="${!#strings.isEmpty(mensagem)}">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span th:text="${mensagem}"></span>
+	</div>
+	
+	<form method="GET" class="form-vertical  js-form-loading" th:object="${pessoaFilter}">
+		<div class="form-group">
+			<div class="input-group">
+				<input id="nome" type="text" th:field="*{nome}" class="form-control" placeholder="Pesquise pelo nome do pessoa..."/>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div>
+		</div>
+	</form>
+	
+	<div class="table-responsive">
+		<table id="tabela-pessoas" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+			<thead class="aw-table-header-solid">
+				<tr>
+					<th class="aw-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_PESSOA')">
+						<input type="checkbox">
+					</th>
+					<th class="table-pesq-pessoa-col-codigo">Código</th>
+					<th class="table-pesq-pessoa-col-codigo">Nome</th>
+					<th class="table-pesq-pessoa-col-codigo">Sobrenome</th>
+					<th class="table-pesq-pessoa-col-codigo">Email</th>
+					<th class="table-pesq-pessoa-col-codigo">Nascimento</th>
+					<th class="table-pesq-pessoa-col-codigo">CPF</th>
+					<th class="table-pesq-pessoa-col-sexo">Sexo</th>
+					<th class="table-pesq-pessoa-col-codigo">CEP</th>
+					<th class="table-pesq-pessoa-col-codigo">Rua</th>
+					<th class="table-pesq-pessoa-col-codigo">Número</th>
+					<th class="table-pesq-pessoa-col-codigo">Bairro</th>
+					<th class="table-pesq-pessoa-col-codigo">Telefone</th>
+					<th class="table-pesq-pessoa-col-codigo">Celular</th>
+					<th class="table-pesq-pessoa-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_PESSOA')">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="pessoa : ${pessoas}">
+					<td class="aw-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_PESSOA')">
+						<input type="checkbox">
+					</td>
+					<td th:text="${pessoa.codigo}" class="text-center"></td>
+					<td th:text="${pessoa.nome}"></td>
+					<td th:text="${pessoa.sobrenome}"></td>
+					<td>EMAIL</td>
+					<td>NASCIMENTO</td>
+					<td th:text="${pessoa.cpf}"></td>
+					<td th:text="#{|tipoSexo.${pessoa.sexo}|}"></td>
+					<td th:text="${pessoa.cep}"></td>
+					<td th:text="${pessoa.rua}"></td>
+					<td th:text="${pessoa.numero}"></td>
+					<td th:text="${pessoa.bairro}"></td>
+					<td>TELEFONE</td>
+					<td>CELULAR</td>
+					<td class="table-pesq-pessoa-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_PESSOA')">
+						<div class="btn-group">
+								<a th:href="@{/pessoas/{codigo}(codigo=${pessoa.codigo})}"><i class="fa  fa-pencil" style="cursor:pointer"></i></a>
+								<i class="fa  fa-trash" style="cursor:pointer"
+									data-toggle="modal" data-target="#confirmaExclusaoModal"  
+									data:nome="${pessoa.nome}" 
+									data:url-deletar="@{/pessoas/{codigo}(codigo=${pessoa.codigo})}"></i>
+						</div>
+					</td>
+				</tr>
+				<tr th:if="${pessoas.empty}">
+					<td colspan="13" class="text-center">Nenhum pessoa cadastrada!</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="modal fade" id="confirmaExclusaoModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form th:action="@{/pessoas}" method="POST">
+				<input type="hidden" name="_method" value="DELETE"/>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Excluir pessoa</h4>
+				</div>
+				<div class="modal-body">
+					<span>Tem certeza?</span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Excluir</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+</section>
+
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/excluir-modal.js}"></script>
+</th:block>
+
+</body>
+</html>

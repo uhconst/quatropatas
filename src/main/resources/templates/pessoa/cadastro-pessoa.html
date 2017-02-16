@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorate="~{layout/layout-default}">
+
+<body>
+
+<section layout:fragment="conteudo">
+
+
+<div class="page-header">
+	<div class="container-fluid">
+		<h1>
+			Cadastro de pessoa
+		</h1>
+	</div>
+</div>
+
+<div class="container-fluid">
+
+	
+	<form method="POST" class="form-vertical  js-form-loading" th:object="${pessoa}" th:action="@{/pessoas/novo}">
+	
+		<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<th:block th:each="error: ${#fields.detailedErrors()}">
+				<div>
+					<i class="fa  fa-exclamation-circle"></i> 
+					<span th:text="${error.message}"></span>
+				</div>
+		</div>
+		
+		<div class="alert  alert-success  alert-dismissible" th:if="${!#strings.isEmpty(mensagem)}">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<span th:text="${mensagem}"></span>
+		</div>
+		
+		<input type="hidden" th:field="*{codigo}"/>
+		
+	<div class="row">
+		<div class="col-sm-4">		
+			<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+				<label for="input-produto-nome">Nome</label>
+				<input id="input-produto-nome" type="text" class="form-control" th:field=*{nome}>
+			</div>
+		</div>
+		
+		<div class="col-sm-4">		
+			<div class="form-group" th:classappend="${#fields.hasErrors('sobrenome')} ? has-error">
+				<label for="input-produto-nome">Sobrenome</label>
+				<input id="input-produto-nome" type="text" class="form-control" th:field=*{sobrenome}>
+			</div>
+		</div>
+		
+		<div class="col-sm-4">		
+			<div class="form-group">
+				<label for="input-produto-nome">Email</label>
+				<input id="input-produto-nome" type="text" class="form-control">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4">		
+			<div class="form-group">
+				<label for="input-produto-nome">Nascimento</label>
+				<input id="input-produto-nome" type="text" class="form-control">
+			</div>
+		</div>
+		
+		<div class="col-sm-4">		
+			<div class="form-group" th:classappend="${#fields.hasErrors('cpf')} ? has-error">
+				<label for="input-produto-nome">CPF</label>
+				<input id="input-produto-nome" type="text" class="form-control" th:field=*{cpf}>
+			</div>
+		</div>
+		
+		<div class="form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
+			<label class="col-sm-2 control-label">Sexo</label>
+			<div class="col-sm-4">
+				<label th:each="sexo : ${sexos}" class="radio-inline">
+					<input type="radio" th:value="${sexo}" th:field="*{sexo}"/>
+					<span th:text="#{|tipoSexo.${sexo}|}"></span>
+				</label> 
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-2">		
+			<div class="form-group" th:classappend="${#fields.hasErrors('cep')} ? has-error">
+				<label for="input-produto-nome">CEP</label>
+				<input id="input-produto-nome" type="text" class="form-control" th:field=*{cep}>
+			</div>
+		</div>
+		
+		<div class="col-sm-4">		
+			<div class="form-group" th:classappend="${#fields.hasErrors('rua')} ? has-error">
+				<label for="input-produto-nome">Rua</label>
+				<input id="input-produto-nome" type="text" class="form-control" th:field=*{rua}>
+			</div>
+		</div>
+		
+		<div class="col-sm-2">		
+			<div class="form-group" th:classappend="${#fields.hasErrors('numero')} ? has-error">
+				<label for="input-produto-nome">Número</label>
+				<input id="input-produto-nome" type="text" class="form-control" th:field=*{numero}>
+			</div>
+		</div>
+		
+		<div class="col-sm-4">		
+			<div class="form-group" th:classappend="${#fields.hasErrors('bairro')} ? has-error">
+				<label for="input-produto-nome">Bairro</label>
+				<input id="input-produto-nome" type="text" class="form-control" th:field=*{bairro}>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-4">		
+			<div class="form-group">
+				<label for="input-produto-nome">Telefone</label>
+				<input id="input-produto-nome" type="text" class="form-control">
+			</div>
+		</div>
+		
+		<div class="col-sm-4">		
+			<div class="form-group">
+				<label for="input-produto-nome">Celular</label>
+				<input id="input-produto-nome" type="text" class="form-control">
+			</div>
+		</div>
+	</div>
+		
+		<div class="form-group">
+			<button class="btn  btn-primary" type="submit">Salvar</button>
+		</div>
+
+	</form>
+
+</div>
+
+</section>
+</body>
+</html>
