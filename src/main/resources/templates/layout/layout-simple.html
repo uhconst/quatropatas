@@ -10,8 +10,12 @@
 
 	<title>QuatroPatas</title>
 
-	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/algaworks.min.css}"/>
+	<!--
+		O HREF é default, caso de algum erro no thymeleaf ele usa o HREF.
+		Caso o TH:HREF funcione corretamente, ele ignora o HREF.
+	-->
+	<link rel="stylesheet" type="text/css" href="../../static/layout/stylesheets/vendors.min.css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../static/layout/stylesheets/algaworks.min.css" th:href="@{/layout/stylesheets/algaworks.min.css}"/>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,8 +38,12 @@
 	
 	</div>
 
-	<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
-	<script th:src="@{/layout/javascripts/algaworks.min.js}"></script>
+	<!--
+		O SRC é default, caso de algum erro no thymeleaf ele usa o SRC.
+		Caso o TH:SRC funcione corretamente, ele ignora o SRC.
+	-->
+	<script src="../../static/layout/javascripts/vendors.min.js" th:src="@{/layout/javascripts/vendors.min.js}"></script>
+	<script src="../../static/layout/javascripts/algaworks.min.js" th:src="@{/layout/javascripts/algaworks.min.js}"></script>
 
 </body>
 </html>
