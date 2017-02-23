@@ -29,19 +29,16 @@
 <body>
 	<div class="aw-layout-page">
 		
-		<!-- Replacing a DIV pelo navbar (barra-navegacao) -->
+		<!-- Replacing a DIV pelo navbar (barra-navegacao.html) -->
 		<div th:replace='layout/fragments/barra-navegacao :: navbar'></div>
 
-		<!-- Replacing a DIV pelo menulateral (menu-lateral) -->
-		<div th:replace='layout/fragments/menu-lateral :: menulateral'></div>
+		<!-- Replacing a DIV pelo menulateral (menu-lateral.html) -->
+		<div th:replace='layout/fragments/menu-lateral :: layout-sidebar'></div>
 
 		<section class="aw-layout-content  js-content" layout:fragment="conteudo"></section>
 		
-		<footer class="aw-layout-footer  js-content">
-			<div class="container-fluid">
-				<span class="aw-footer-disclaimer">&copy; 2017 QuatroPatas. Todos os direitos reservados.</span>
-			</div>
-		</footer>
+		<!-- Replacing a DIV pelo footer (footer.html) -->
+		<div th:replace='layout/fragments/footer :: layout-footer'></div>
 
 	</div>	
 

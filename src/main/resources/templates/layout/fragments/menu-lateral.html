@@ -8,14 +8,13 @@
 
 <!-- Usando BODY só pela estética -->
 <body>
-	
 	<!-- 
 		Usando o th:fragment na DIV para dizer que o fragment é apenas tudo dentro da tag NAV. 
 		Sem isso ele inclui o HTML e o BODY no codigo fonte da página, ficando duplicado.
 		Funciona sem isso, mas fica visualmente feio.
 	-->
 	
-	<aside class="aw-layout-sidebar  js-sidebar" th:fragment="menulateral">
+	<aside class="aw-layout-sidebar  js-sidebar" th:fragment="layout-sidebar">
 			<div class="aw-layout-sidebar__content">
 			
 			<nav class="aw-menu  js-menu">
@@ -109,3 +108,4 @@
 		</div>
 	</aside>
 </body>
+</html>
