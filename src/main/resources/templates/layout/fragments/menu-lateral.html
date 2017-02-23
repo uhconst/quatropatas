@@ -1,0 +1,111 @@
+<!-- Usando o cabeçalho aqui apenas para parar com warnings do Thymeleaf -->
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<!-- Usando BODY só pela estética -->
+<body>
+	
+	<!-- 
+		Usando o th:fragment na DIV para dizer que o fragment é apenas tudo dentro da tag NAV. 
+		Sem isso ele inclui o HTML e o BODY no codigo fonte da página, ficando duplicado.
+		Funciona sem isso, mas fica visualmente feio.
+	-->
+	
+	<aside class="aw-layout-sidebar  js-sidebar" th:fragment="menulateral">
+			<div class="aw-layout-sidebar__content">
+			
+			<nav class="aw-menu  js-menu">
+				<ul class="aw-menu__list">
+					
+					<li class="aw-menu__item">
+						<a href="dashboard.html"><i class="fa  fa-fw  fa-home"></i><span>Dashboard</span></a>
+					</li>
+					
+					<li class="aw-menu__item  is-active  is-expanded">
+						<a href="#">
+							<i class="fa  fa-fw  fa-venus-mars"></i><span>Raça</span>
+							<i class="aw-menu__navigation-icon  fa"></i>
+						</a>
+					
+						<ul class="aw-menu__list  aw-menu__list--sublist">
+							<li class="aw-menu__item  aw-menu__item--link" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
+								<a th:href="@{/racas/novo}">Cadastro de raça</a>
+							</li>
+							<li class="aw-menu__item  aw-menu__item--link" sec:authorize="hasRole('ROLE_PESQUISAR_RACA')">
+								<a th:href="@{/racas}">Pesquisa de raça</a>
+							</li>
+						</ul>
+					</li>
+		
+					<li class="aw-menu__item">
+						<a href="#">
+							<i class="fa  fa-fw  fa-file-text"></i><span>Animal</span>
+							<i class="aw-menu__navigation-icon  fa"></i>
+						</a>
+						
+						<ul class="aw-menu__list  aw-menu__list--sublist">
+							<li class="aw-menu__item  aw-menu__item--link">
+								<a th:href="@{/animals/novo}">Cadastro de animal</a>
+							</li>
+							<li class="aw-menu__item  aw-menu__item--link">
+								<a th:href="@{/animals}">Pesquisa de animal</a>
+							</li>
+						</ul>
+					</li>
+					
+					<li class="aw-menu__item">
+						<a href="#">
+							<i class="fa  fa-fw  fa-file-text"></i><span>Serviço</span>
+							<i class="aw-menu__navigation-icon  fa"></i>
+						</a>
+						
+						<ul class="aw-menu__list  aw-menu__list--sublist">
+							<li class="aw-menu__item  aw-menu__item--link">
+								<a href="#">Cadastro de serviço</a>
+							</li>
+							<li class="aw-menu__item  aw-menu__item--link">
+								<a href="#">Pesquisa de serviço</a>
+							</li>
+						</ul>
+					</li>
+					
+					<li class="aw-menu__item">
+						<a href="#">
+							<i class="fa  fa-fw  fa-male"></i><span>Pessoa</span>
+							<i class="aw-menu__navigation-icon  fa"></i>
+						</a>
+						
+						<ul class="aw-menu__list  aw-menu__list--sublist">
+							<li class="aw-menu__item  aw-menu__item--link">
+								<a th:href="@{/pessoas/novo}">Cadastro de pessoa</a>
+							</li>
+							<li class="aw-menu__item  aw-menu__item--link">
+								<a th:href="@{/pessoas}">Pesquisa de pessoa</a>
+							</li>
+						</ul>
+					</li>
+					
+					<li class="aw-menu__item">
+						<a href="#">
+							<i class="fa  fa-fw  fa-calendar-check-o"></i><span>Agendamento</span>
+							<i class="aw-menu__navigation-icon  fa"></i>
+						</a>
+						
+						<ul class="aw-menu__list  aw-menu__list--sublist">
+							<li class="aw-menu__item  aw-menu__item--link">
+								<a href="#">Cadastro de agendamento</a>
+							</li>
+							<li class="aw-menu__item  aw-menu__item--link">
+								<a href="#">Pesquisa de agendamento</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+</body>
