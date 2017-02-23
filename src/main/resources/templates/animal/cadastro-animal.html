@@ -6,91 +6,91 @@
 	layout:decorate="~{layout/layout-default}">
 
 <body>
-
-<section layout:fragment="conteudo">
-
-
-<div class="page-header">
-	<div class="container-fluid">
-		<h1>
-			Cadastro de animal
-		</h1>
+	
+	<section layout:fragment="conteudo">
+	
+	
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>
+				Cadastro de animal
+			</h1>
+		</div>
 	</div>
-</div>
-
-<div class="container-fluid">
-
-	<form method="POST" class="form-vertical  js-form-loading" 
-		th:object="${animal}" th:action="@{/animals/novo}">
-		
-		<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<th:block th:each="error: ${#fields.detailedErrors()}">
-				<div>
-					<i class="fa  fa-exclamation-circle"></i> 
-					<span th:text="${error.message}"></span>
-				</div>
-		</div>
-		
-		<div class="alert  alert-success  alert-dismissible" th:if="${!#strings.isEmpty(mensagem)}">
+	
+	<div class="container-fluid">
+	
+		<form method="POST" class="form-vertical  js-form-loading" 
+			th:object="${animal}" th:action="@{/animals/novo}">
+			
+			<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<span th:text="${mensagem}"></span>
-		</div>
-		
-		<input type="hidden" th:field="*{codigo}"/>
-		 
-		 <div class="row">
-			<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
-				<label for="nome" class="control-label">Nome do Animal</label>
-				<input id="nome" type="text" class="form-control" th:field=*{nome}/>
+				<th:block th:each="error: ${#fields.detailedErrors()}">
+					<div>
+						<i class="fa  fa-exclamation-circle"></i> 
+						<span th:text="${error.message}"></span>
+					</div>
 			</div>
-		
-			<div class="col-sm-6  form-group">
-				<label for="raça" class="control-label">Raça</label>
-				<input id="raça" type="text" class="form-control"/>
+			
+			<div class="alert  alert-success  alert-dismissible" th:if="${!#strings.isEmpty(mensagem)}">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span th:text="${mensagem}"></span>
 			</div>
-		</div>
-		
-		<div class="row">
-			<div class="form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
-				<label class="col-sm-2 control-label">Sexo</label>
-				<div class="col-sm-4">
-					<label th:each="sexo : ${sexos}" class="radio-inline">
-						<input type="radio" th:value="${sexo}" th:field="*{sexo}"/>
-						<span th:text="#{|tipoSexoAnimal.${sexo}|}"></span>
-					</label> 
+			
+			<input type="hidden" th:field="*{codigo}"/>
+			 
+			 <div class="row">
+				<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+					<label for="nome" class="control-label">Nome do Animal</label>
+					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
+				</div>
+			
+				<div class="col-sm-6  form-group">
+					<label for="raça" class="control-label">Raça</label>
+					<input id="raça" type="text" class="form-control"/>
 				</div>
 			</div>
-		</div>
-<!--
-		<div class="row">
-			<div class="form-group  col-sm-4  bw-required">
-				<label class="control-label" for="nomeCliente">Cliente</label>
-				<div class="input-group">
-			      <input id="nomeCliente" type="text" readonly="readonly" class="form-control" th:field="*{cliente.nome}" 
-			      	placeholder="Clique na lupa para pesquisar o cliente"/>
-			      <input id="codigoCliente" type="hidden" th:field="*{cliente}"/>
-			      <span class="input-group-btn">
-			        <button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada"
-			        		data-toggle="modal" data-target="#pesquisaRapidaClientes">
-			        	<i class="glyphicon  glyphicon-search"></i>
-			        </button>
-			      </span>
-			    </div>
+			
+			<div class="row">
+				<div class="col-lg-3  col-sm-6  form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
+					<label class="control-label">Sexo</label>
+					<div>
+						<label th:each="sexo : ${sexos}" class="radio-inline">
+							<input type="radio" th:value="${sexo}" th:field="*{sexo}"/>
+							<span th:text="#{|tipoSexoAnimal.${sexo}|}"></span>
+						</label> 
+					</div>
+				</div>
 			</div>
-		</div>
-  -->				
-		<div class="form-group">
-			<button class="btn  btn-primary" type="submit">Salvar</button>
-			<!--
-			<a href="pesquisa-produtos.html" class="btn  btn-default">Cancelar</a>
-			<a href="#" class="btn  btn-link  aw-btn-link-danger" onclick="excluir()">Excluir este produto</a>
-			-->
-		</div>
-
-	</form>
-</div>
-
-</section>
+	<!--
+			<div class="row">
+				<div class="form-group  col-sm-4  bw-required">
+					<label class="control-label" for="nomeCliente">Cliente</label>
+					<div class="input-group">
+				      <input id="nomeCliente" type="text" readonly="readonly" class="form-control" th:field="*{cliente.nome}" 
+				      	placeholder="Clique na lupa para pesquisar o cliente"/>
+				      <input id="codigoCliente" type="hidden" th:field="*{cliente}"/>
+				      <span class="input-group-btn">
+				        <button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada"
+				        		data-toggle="modal" data-target="#pesquisaRapidaClientes">
+				        	<i class="glyphicon  glyphicon-search"></i>
+				        </button>
+				      </span>
+				    </div>
+				</div>
+			</div>
+	  -->				
+			<div class="form-group">
+				<button class="btn  btn-primary" type="submit">Salvar</button>
+				<!--
+				<a href="pesquisa-produtos.html" class="btn  btn-default">Cancelar</a>
+				<a href="#" class="btn  btn-link  aw-btn-link-danger" onclick="excluir()">Excluir este produto</a>
+				-->
+			</div>
+	
+		</form>
+	</div>
+	
+	</section>
 </body>
 </html>
