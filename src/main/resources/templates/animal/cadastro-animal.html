@@ -40,18 +40,14 @@
 		<input type="hidden" th:field="*{codigo}"/>
 		 
 		 <div class="row">
-			<div class="col-sm-6">
-				<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
-					<label for="nome" class="control-label">Nome do Animal</label>
-					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
-				</div>
+			<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+				<label for="nome" class="control-label">Nome do Animal</label>
+				<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 			</div>
-			
-			<div class="col-sm-6">
-				<div class="form-group">
-					<label for="raça" class="control-label">Raça</label>
-					<input id="raça" type="text" class="form-control"/>
-				</div>
+		
+			<div class="col-sm-6  form-group">
+				<label for="raça" class="control-label">Raça</label>
+				<input id="raça" type="text" class="form-control"/>
 			</div>
 		</div>
 		

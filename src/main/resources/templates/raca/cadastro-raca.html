@@ -40,21 +40,17 @@
 		<input type="hidden" th:field="*{codigo}"/>
 		 
 		<div class="row">
-			<div class="col-sm-6">
-				<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
-					<label for="nome" class="control-label">Nome da Raça</label>
-					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
-				</div>
+			<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+				<label for="nome" class="control-label">Nome da Raça</label>
+				<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 			</div>
-			
-			<div class="col-sm-6">
-				<div class="form-group" th:classappend="${#fields.hasErrors('especie')} ? has-error">
-					<label for="especie" class="control-label">Especie</label>
-					<select id="especie" class="form-control" th:field="*{especie}">
-						<option value="">Selecione a especie</option>
-						<option th:each="especie : ${especies}" th:value="${especie}" th:text="#{|tipoEspecie.${especie}|}"></option>
-					</select>
-				</div>
+		
+			<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('especie')} ? has-error">
+				<label for="especie" class="control-label">Especie</label>
+				<select id="especie" class="form-control" th:field="*{especie}">
+					<option value="">Selecione a especie</option>
+					<option th:each="especie : ${especies}" th:value="${especie}" th:text="#{|tipoEspecie.${especie}|}"></option>
+				</select>
 			</div>
 		</div>
 		
