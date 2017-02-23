@@ -78,19 +78,20 @@
 			</div>
 			
 			<div class="row">	
-				<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('cep')} ? has-error">
-					<label for="input-produto-nome">CEP</label>
-					<input id="input-produto-nome" type="text" class="form-control" th:field=*{cep}>
-				</div>
 				
 				<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('rua')} ? has-error">
 					<label for="input-produto-nome">Rua</label>
 					<input id="input-produto-nome" type="text" class="form-control" th:field=*{rua}>
 				</div>
-			
+				
 				<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('numero')} ? has-error">
 					<label for="input-produto-nome">Número</label>
 					<input id="input-produto-nome" type="text" class="form-control" th:field=*{numero}>
+				</div>
+				
+				<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('cep')} ? has-error">
+					<label for="input-produto-nome">CEP</label>
+					<input id="input-produto-nome" type="text" class="form-control" th:field=*{cep}>
 				</div>
 				
 				<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('bairro')} ? has-error">
