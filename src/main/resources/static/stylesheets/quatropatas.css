@@ -1,0 +1,27 @@
+/*
+#######################
+# UTILIDADES
+#######################
+*/
+
+.qp-glyphicon-large {
+	font-size: 18px;
+}
+
+
+
+/*
+#######################
+# COMPONENTES
+#######################
+*/
+
+/* Field Action */
+.qp-field-action {
+	display: flex;
+}
+
+.qp-field-action__icon {
+	margin: 6px 0 0 5px;
+}
+
