@@ -49,7 +49,7 @@ public class Pessoa {
     
     @NotBlank
 	@Size(max=45)
-    private String bairro;
+    private String logradouro;
     
 
     /*
@@ -135,12 +135,12 @@ public class Pessoa {
 		this.numero = numero;
 	}
 
-	public String getBairro() {
-		return bairro;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	@Override
