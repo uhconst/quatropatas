@@ -23,19 +23,11 @@
 		<form method="POST" class="form-vertical  js-form-loading" 
 			th:object="${animal}" th:action="@{/animals/novo}">
 			
-			<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<th:block th:each="error: ${#fields.detailedErrors()}">
-					<div>
-						<i class="fa  fa-exclamation-circle"></i> 
-						<span th:text="${error.message}"></span>
-					</div>
-			</div>
+			<!-- MENSAGEM DE ERRO NA VALIDAÇÃO -->
+			<div th:replace="fragments/mensagem-erro-validacao :: alert"></div>
 			
-			<div class="alert  alert-success  alert-dismissible" th:if="${!#strings.isEmpty(mensagem)}">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<span th:text="${mensagem}"></span>
-			</div>
+			<!-- MENSAGEM DE SUCESSO -->
+			<div th:replace="fragments/mensagem-sucesso :: alert"></div>
 			
 			<input type="hidden" th:field="*{codigo}"/>
 			 

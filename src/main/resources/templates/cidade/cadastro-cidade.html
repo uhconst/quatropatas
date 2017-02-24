@@ -13,7 +13,7 @@
 <div class="page-header">
 	<div class="container-fluid">
 		<h1>
-			Cadastro de raça
+			Cadastro de cidade
 		</h1>
 	</div>
 </div>
@@ -21,7 +21,7 @@
 <div class="container-fluid">
 
 	<form method="POST" class="form-vertical  js-form-loading" 
-		th:object="${raca}" th:action="@{/racas/novo}">
+		th:object="${cidade}" th:action="@{/cidades/novo}">
 		
 		<!-- MENSAGEM DE ERRO NA VALIDAÇÃO -->
 		<div th:replace="fragments/mensagem-erro-validacao :: alert"></div>
@@ -32,25 +32,17 @@
 		<input type="hidden" th:field="*{codigo}"/>
 		 
 		<div class="row">
-			<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
-				<label for="nome" class="control-label">Nome da Raça</label>
-				<input id="nome" type="text" class="form-control" th:field=*{nome}/>
+
+			<div class="form-group  col-sm-4" >
+				<label for="estado">Estado</label>
+				<select id="estado" class="form-control">
+                    <option value="">Selecione o estado</option>
+                </select>
 			</div>
-		
-			<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('especie')} ? has-error">
-				<label for="especie" class="control-label">Especie</label>
-				<div class="qp-field-action">
-					<select id="especie" class="form-control" th:field="*{especie}">
-						<option value="">Selecione a especie</option>
-						<option th:each="especie : ${especies}" th:value="${especie}" th:text="#{|tipoEspecie.${especie}|}"></option>
-					</select>
-					<div class="qp-field-action__icon">
-						<a href="#" data-toggle="modal" data-target="#cadastroRapidoEspecieModal">
-							
-							<i class="glyphicon  glyphicon-plus-sign  qp-glyphicon-large"></i>
-						</a>
-					</div>
-				</div>
+
+			<div class="col-sm-8  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+				<label for="nome" class="control-label">Nome da Cidade</label>
+				<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 			</div>
 		</div>
 		
@@ -61,10 +53,9 @@
 			<a href="#" class="btn  btn-link  aw-btn-link-danger" onclick="excluir()">Excluir este produto</a>
 			-->
 		</div>
-
+		
 	</form>
 </div>
-<div th:replace="especie/cadastro-rapido-especie :: modal"></div>
 </section>
 </body>
 </html>
