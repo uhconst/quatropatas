@@ -5,6 +5,9 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
 	layout:decorate="~{layout/layout-default}">
 
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/stylesheets/vendors/bootstrap-switch.min.css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
+</head>
 <body>
 
 	<section layout:fragment="conteudo">
@@ -56,8 +59,9 @@
 
 					<div class="form-group  col-sm-3">
 						<label class="control-label">Status</label>
-						<div class="checkbox">
-							<input type="checkbox" /> <label>Ativo</label>
+						<div>
+							<input type="checkbox" class="js-status" data-size="small" 
+									data-off-color="danger" data-on-text="Ativo" data-off-text="Inativo" />
 						</div>
 					</div>
 
@@ -82,5 +86,12 @@
 		</div>
 
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script src="../../static/javascripts/vendors/bootstrap-switch.min.js" th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+		<script>
+			$('.js-status').bootstrapSwitch();
+		</script>
+	</th:block>
 </body>
 </html>
