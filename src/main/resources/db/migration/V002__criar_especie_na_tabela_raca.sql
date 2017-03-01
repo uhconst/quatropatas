@@ -1,0 +1,2 @@
+ALTER TABLE RACA
+	ADD especie VARCHAR(50);

@@ -61,7 +61,7 @@
 					<th class="table-pesq-pessoa-col-codigo">CEP</th>
 					<th class="table-pesq-pessoa-col-codigo">Rua</th>
 					<th class="table-pesq-pessoa-col-codigo">Número</th>
-					<th class="table-pesq-pessoa-col-codigo">Bairro</th>
+					<th class="table-pesq-pessoa-col-codigo">Logradouro</th>
 					<th class="table-pesq-pessoa-col-codigo">Telefone</th>
 					<th class="table-pesq-pessoa-col-codigo">Celular</th>
 					<th class="table-pesq-pessoa-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_PESSOA')">Ações</th>
@@ -82,7 +82,7 @@
 					<td th:text="${pessoa.cep}"></td>
 					<td th:text="${pessoa.rua}"></td>
 					<td th:text="${pessoa.numero}"></td>
-					<td th:text="${pessoa.bairro}"></td>
+					<td th:text="${pessoa.logradouro}"></td>
 					<td>TELEFONE</td>
 					<td>CELULAR</td>
 					<td class="table-pesq-pessoa-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_PESSOA')">
