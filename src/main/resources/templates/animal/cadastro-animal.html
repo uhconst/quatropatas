@@ -36,10 +36,20 @@
 					<label for="nome" class="control-label">Nome do Animal</label>
 					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 				</div>
-			
+				<!--
 				<div class="col-sm-6  form-group">
 					<label for="raça" class="control-label">Raça</label>
 					<input id="raça" type="text" class="form-control"/>
+				</div>
+				  -->
+				<div class="col-sm-6  form-group">
+					<label for="raca">Raça</label>
+					<div class="qp-field-action">
+						<select id="raca" class="form-control" th:field="*{raca}">
+							<option value="">Selecione a raça</option>
+							<option th:each="raca : ${racas}" th:value="${raca.codigo}" th:text="${raca.nome}">Raça</option>
+						</select>
+					</div>
 				</div>
 			</div>
 			

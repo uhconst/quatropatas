@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.uhc.quatropatas.model.Animal;
 import com.uhc.quatropatas.model.TipoSexoAnimal;
 import com.uhc.quatropatas.repository.Animals;
+import com.uhc.quatropatas.repository.Racas;
 import com.uhc.quatropatas.repository.filter.AnimalFilter;
 
 @Controller
@@ -27,11 +28,15 @@ public class AnimalsController {
 	@Autowired
 	private Animals animals;
 	
+	@Autowired
+	private Racas racas;
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(Animal animal){
 		ModelAndView mv = new ModelAndView("animal/cadastro-animal");
 		mv.addObject(animal);
 		mv.addObject("sexos", TipoSexoAnimal.values());
+		mv.addObject("racas", racas.findAll());
 		
 		return mv;
 	}
@@ -41,6 +46,8 @@ public class AnimalsController {
 		if(result.hasErrors()){
 			return novo(animal);
 		}
+		
+		System.out.println(">>>>> Raca: " + animal.getRaca().getCodigo()); // APAGAR...
 		
 		animals.save(animal);
 		attributes.addFlashAttribute("mensagem", "Animal salvo com sucesso!");

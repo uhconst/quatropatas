@@ -6,12 +6,16 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
+@Table(name = "animal")
 public class Animal {
 
 	@Id
@@ -21,7 +25,6 @@ public class Animal {
 	/*
 	private Pessoa pessoa;
 	
-	private Raca raca;
 	*/
 	
 	@NotBlank
@@ -31,7 +34,11 @@ public class Animal {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoSexoAnimal sexo;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "codigo_raca")
+	private Raca raca;
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -54,6 +61,15 @@ public class Animal {
 
 	public void setSexo(TipoSexoAnimal sexo) {
 		this.sexo = sexo;
+	}
+
+	
+	public Raca getRaca() {
+		return raca;
+	}
+
+	public void setRaca(Raca raca) {
+		this.raca = raca;
 	}
 
 	@Override
