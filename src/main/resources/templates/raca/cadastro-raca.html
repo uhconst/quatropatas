@@ -44,6 +44,8 @@
 						<option value="">Selecione a especie</option>
 						<option th:each="especie : ${especies}" th:value="${especie}" th:text="#{|tipoEspecie.${especie}|}"></option>
 					</select>
+					
+					<!-- CADASTRO RAPIDO DE ESPECIE -->
 					<div class="qp-field-action__icon">
 						<a href="#" data-toggle="modal" data-target="#cadastroRapidoEspecieModal">
 							

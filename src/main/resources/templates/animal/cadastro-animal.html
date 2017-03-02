@@ -49,6 +49,13 @@
 							<option value="">--Selecione a raça--</option>
 							<option th:each="raca : ${racas}" th:value="${raca.codigo}" th:text="${raca.nome}">Raça</option>
 						</select>
+						
+						<!-- CADASTRO RAPIDO DE RAÇA -->
+						<div class="qp-field-action__icon">
+							<a href="#" data-toggle="modal" data-target="#cadastroRapidoRacaModal">
+								<i class="glyphicon  glyphicon-plus-sign  qp-glyphicon-large"></i>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -88,6 +95,8 @@
 	
 		</form>
 	</div>
+	
+	<div th:replace="raca/cadastro-rapido-raca :: modal"></div>
 	
 	</section>
 </body>
