@@ -8,7 +8,10 @@
 	font-size: 18px;
 }
 
-
+/* Asterisco para labels obrigatórias */
+.qp-required > .control-label:after{
+	content: "*";
+}
 
 /*
 #######################
