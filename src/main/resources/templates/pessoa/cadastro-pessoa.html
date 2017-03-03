@@ -79,7 +79,7 @@
 				
 				<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('cep')} ? has-error">
 					<label for="input-produto-nome" class="control-label">CEP</label>
-					<input id="input-produto-nome" type="text" class="form-control" th:field=*{cep}>
+					<input id="input-produto-nome" type="text" class="form-control  js-cep-number" th:field=*{cep}>
 				</div>
 				
 				<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('logradouro')} ? has-error">
@@ -96,7 +96,7 @@
 				
 				<div class="col-sm-4  form-group">
 					<label for="input-produto-nome" class="control-label">Celular</label>
-					<input id="input-produto-nome" type="text" class="form-control">
+					<input id="input-produto-nome" type="text" class="form-control  js-phone-number">
 				</div>
 				
 				<div class="col-sm-4  form-group">
@@ -131,6 +131,7 @@
 	</section>
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/pessoa.mask-cpf.js}"></script>
+		<script th:src="@{/javascripts/pessoa.mask-cep.js}"></script>
 	</th:block>
 </body>
 </html>
