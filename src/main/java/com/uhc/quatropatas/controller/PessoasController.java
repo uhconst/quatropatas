@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uhc.quatropatas.model.Pessoa;
 import com.uhc.quatropatas.model.TipoSexo;
+import com.uhc.quatropatas.repository.Cidades;
+import com.uhc.quatropatas.repository.Estados;
 import com.uhc.quatropatas.repository.Pessoas;
 import com.uhc.quatropatas.repository.filter.PessoaFilter;
 
@@ -27,11 +29,20 @@ public class PessoasController {
 	@Autowired
 	private Pessoas pessoas;
 	
+	@Autowired
+	private Estados estados;
+	
+	/*
+	@Autowired
+	private Cidades cidades;*/
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(Pessoa pessoa){
 		ModelAndView mv = new ModelAndView("pessoa/cadastro-pessoa");
 		mv.addObject(pessoa);
 		mv.addObject("sexos", TipoSexo.values());
+		mv.addObject("estados", estados.findAll());
+		//mv.addObject("cidades", cidades.findAll());
 		
 		return mv;
 	}

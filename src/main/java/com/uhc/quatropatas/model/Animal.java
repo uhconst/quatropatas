@@ -1,5 +1,7 @@
 package com.uhc.quatropatas.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,8 +18,10 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "animal")
-public class Animal {
+public class Animal implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;

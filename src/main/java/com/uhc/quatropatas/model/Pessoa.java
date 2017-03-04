@@ -1,11 +1,15 @@
 package com.uhc.quatropatas.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -13,8 +17,10 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-public class Pessoa {
+public class Pessoa implements Serializable  {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
@@ -30,7 +36,7 @@ public class Pessoa {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoSexo sexo;
-
+	
     //private java.util.Date nascimento;
     
     @CPF
@@ -58,10 +64,13 @@ public class Pessoa {
     private Email email;
 	*/
     
-    /*   
-    @OneToMany(mappedBy = "pessoa")
-    private List<Email> emails;
-     */  
+	@ManyToOne
+	@JoinColumn(name = "codigo_cidade")
+	private Cidade cidade;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigo_estado")
+	private Estado estado;
     
 	public Long getCodigo() {
 		return codigo;
@@ -141,6 +150,24 @@ public class Pessoa {
 
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
+	}
+
+	
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	@Override

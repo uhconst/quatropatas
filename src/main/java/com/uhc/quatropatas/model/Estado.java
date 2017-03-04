@@ -4,22 +4,21 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "raca")
-public class Raca implements Serializable {
-
+@Table(name = "estado")
+public class Estado implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -27,16 +26,20 @@ public class Raca implements Serializable {
 	private Long codigo;
 	
 	@NotBlank
-	@Size(max=45)
+	@Size(max=40)
 	private String nome;
 	
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	private TipoEspecie especie;
-
-	@OneToMany(mappedBy = "raca")
-	private List<Animal> animals;
+	@NotBlank
+	@Size(max=2)
+	private String sigla;
+	/*
+	@OneToMany(mappedBy = "estado")
+	private List<Cidade> cidades;*/
 	
+	@ManyToOne
+	@JoinColumn(name = "codigo_pais")
+	private Pais pais;
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -53,20 +56,28 @@ public class Raca implements Serializable {
 		this.nome = nome;
 	}
 
-	public TipoEspecie getEspecie() {
-		return especie;
+	public String getSigla() {
+		return sigla;
 	}
 
-	public void setEspecie(TipoEspecie especie) {
-		this.especie = especie;
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+/*
+	public List<Cidade> getCidades() {
+		return cidades;
 	}
 
-	public List<Animal> getAnimals() {
-		return animals;
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
+	}
+*/
+	public Pais getPais() {
+		return pais;
 	}
 
-	public void setAnimals(List<Animal> animals) {
-		this.animals = animals;
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 	@Override
@@ -85,13 +96,14 @@ public class Raca implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Raca other = (Raca) obj;
+		Estado other = (Estado) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	} 
+	}
+	
 	
 }

@@ -10,4 +10,8 @@ public interface Cidades extends JpaRepository<Cidade, Long>{
 	
 	public List<Cidade> findByNomeContainingIgnoreCase(String nome);
 	
+	/*
+	 * Busca pelo código da entidade Estado
+	 */
+	public List<Cidade> findByEstadoCodigo(Long codigoEstado);
 }

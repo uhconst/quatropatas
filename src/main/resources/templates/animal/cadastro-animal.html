@@ -46,7 +46,7 @@
 					<label for="raca">Raça</label>
 					<div class="qp-field-action">
 						<select id="raca" class="form-control" th:field="*{raca}">
-							<option value="">--Selecione a raça--</option>
+							<option value="">-- Selecione a raça --</option>
 							<option th:each="raca : ${racas}" th:value="${raca.codigo}" th:text="${raca.nome}">Raça</option>
 						</select>
 						
