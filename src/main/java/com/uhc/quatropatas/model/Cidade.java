@@ -32,6 +32,10 @@ public class Cidade implements Serializable {
 	@Size(max=45)
 	private String nome;
 	
+	/*
+	 * Usando Fetch LAZY para não iniciar o Estado quando mapear
+	 * Ignorar o Estado quando forem arquivos JSon.
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_estado")
 	@JsonIgnore

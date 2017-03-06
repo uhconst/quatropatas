@@ -27,10 +27,11 @@ import com.uhc.quatropatas.repository.filter.PessoaFilter;
 public class PessoasController {
 	
 	@Autowired
-	private Pessoas pessoas;
+	private Estados estados;
 	
 	@Autowired
-	private Estados estados;
+	private Pessoas pessoas;
+	
 	
 	/*
 	@Autowired

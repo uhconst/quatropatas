@@ -2,6 +2,7 @@ package com.uhc.quatropatas.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -42,20 +43,9 @@ public class Pessoa implements Serializable  {
     @CPF
     private String cpf;
     
-    //@CEP
-    private String cep;
-    
-    @NotBlank
-	@Size(max=45)
-    private String rua;
-    
-    @NotBlank
-	@Size(max=7)
-    private String numero;
-    
-    @NotBlank
-	@Size(max=45)
-    private String logradouro;
+    @Embedded
+    private Endereco endereco;
+
     
 
     /*
@@ -64,13 +54,6 @@ public class Pessoa implements Serializable  {
     private Email email;
 	*/
     
-	@ManyToOne
-	@JoinColumn(name = "codigo_cidade")
-	private Cidade cidade;
-	
-	@ManyToOne
-	@JoinColumn(name = "codigo_estado")
-	private Estado estado;
     
 	public Long getCodigo() {
 		return codigo;
@@ -120,54 +103,13 @@ public class Pessoa implements Serializable  {
 		this.cpf = cpf;
 	}
 
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getRua() {
-		return rua;
-	}
-
-	public void setRua(String rua) {
-		this.rua = rua;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
 	
-	public Cidade getCidade() {
-		return cidade;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
-	}
-
-	
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override
