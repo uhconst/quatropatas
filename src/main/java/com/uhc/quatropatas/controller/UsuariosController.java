@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.uhc.quatropatas.model.Usuario;
 import com.uhc.quatropatas.model.TipoEspecie;
 import com.uhc.quatropatas.repository.Usuarios;
+import com.uhc.quatropatas.service.UsuarioService;
 
 @Controller
 @RequestMapping("/usuarios") //Definindo o "/usuarios" antes de todo mapping
@@ -25,6 +26,9 @@ public class UsuariosController {
 	
 	@Autowired
 	private Usuarios usuarios;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Usuario usuario){
@@ -41,7 +45,7 @@ public class UsuariosController {
 			return novo(usuario);
 		}
 		
-		usuarios.save(usuario);
+		usuarioService.salvar(usuario);
 		attributes.addFlashAttribute("mensagem", "Usuário salva com sucesso!");
 		return new ModelAndView("redirect:/usuarios/novo");
 	}
@@ -70,7 +74,7 @@ public class UsuariosController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		usuarios.delete(codigo);
+		usuarioService.deletar(codigo);
 		attributes.addFlashAttribute("mensagem", "Usuário deletado com sucesso!");
 		return "redirect:/usuarios";
 	}

@@ -19,6 +19,7 @@ import com.uhc.quatropatas.model.Raca;
 import com.uhc.quatropatas.model.TipoEspecie;
 import com.uhc.quatropatas.repository.Racas;
 import com.uhc.quatropatas.repository.filter.RacaFilter;
+import com.uhc.quatropatas.service.RacaService;
 
 @Controller
 @RequestMapping("/racas") //Definindo o "/racas" antes de todo mapping
@@ -26,6 +27,9 @@ public class RacasController {
 	
 	@Autowired
 	private Racas racas;
+	
+	@Autowired
+	private RacaService racaService;
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Raca raca){
@@ -42,7 +46,7 @@ public class RacasController {
 			return novo(raca);
 		}
 		
-		racas.save(raca);
+		racaService.salvar(raca);
 		attributes.addFlashAttribute("mensagem", "Raça salva com sucesso!");
 		return new ModelAndView("redirect:/racas/novo");
 	}
@@ -71,7 +75,7 @@ public class RacasController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		racas.delete(codigo);
+		racaService.deletar(codigo);
 		attributes.addFlashAttribute("mensagem", "Raça deletada com sucesso!");
 		return "redirect:/racas";
 	}

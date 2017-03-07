@@ -20,6 +20,7 @@ import com.uhc.quatropatas.model.TipoSexoAnimal;
 import com.uhc.quatropatas.repository.Animals;
 import com.uhc.quatropatas.repository.Racas;
 import com.uhc.quatropatas.repository.filter.AnimalFilter;
+import com.uhc.quatropatas.service.AnimalService;
 
 @Controller
 @RequestMapping("/animals") //Definindo o "/animals" antes de todo mapping
@@ -30,6 +31,9 @@ public class AnimalsController {
 	
 	@Autowired
 	private Racas racas;
+	
+	@Autowired
+	private AnimalService animalService;
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Animal animal){
@@ -49,7 +53,7 @@ public class AnimalsController {
 		
 		System.out.println(">>>>> Raca: " + animal.getRaca().getCodigo()); // APAGAR...
 		
-		animals.save(animal);
+		animalService.salvar(animal);
 		attributes.addFlashAttribute("mensagem", "Animal salvo com sucesso!");
 		return new ModelAndView("redirect:/animals/novo");
 	}
@@ -78,7 +82,7 @@ public class AnimalsController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		animals.delete(codigo);
+		animalService.deletar(codigo);
 		attributes.addFlashAttribute("mensagem", "Animal deletado com sucesso!");
 		return "redirect:/animals";
 	}

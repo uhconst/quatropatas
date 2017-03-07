@@ -22,7 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.uhc.quatropatas.model.Cidade;
 import com.uhc.quatropatas.model.TipoEspecie;
 import com.uhc.quatropatas.repository.Cidades;
+import com.uhc.quatropatas.repository.Estados;
 import com.uhc.quatropatas.repository.filter.CidadeFilter;
+import com.uhc.quatropatas.service.CidadeService;
 
 @Controller
 @RequestMapping("/cidades") //Definindo o "/cidades" antes de todo mapping
@@ -31,11 +33,17 @@ public class CidadesController {
 	@Autowired
 	private Cidades cidades;
 	
+	@Autowired
+	private Estados estados;
+	
+	@Autowired
+	private CidadeService cidadeService;
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(Cidade cidade){
 		ModelAndView mv = new ModelAndView("cidade/cadastro-cidade");
 		mv.addObject(cidade);
-		mv.addObject("especies", TipoEspecie.values());
+		mv.addObject("estados", estados.findAll());
 		
 		return mv;
 	}
@@ -46,7 +54,7 @@ public class CidadesController {
 			return novo(cidade);
 		}
 		
-		cidades.save(cidade);
+		cidadeService.salvar(cidade);
 		attributes.addFlashAttribute("mensagem", "Cidade salva com sucesso!");
 		return new ModelAndView("redirect:/cidades/novo");
 	}
@@ -75,7 +83,7 @@ public class CidadesController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		cidades.delete(codigo);
+		cidadeService.deletar(codigo);
 		attributes.addFlashAttribute("mensagem", "Cidade deletado com sucesso!");
 		return "redirect:/cidades";
 	}

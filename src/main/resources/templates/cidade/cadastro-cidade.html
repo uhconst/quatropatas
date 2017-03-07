@@ -35,9 +35,10 @@
 
 			<div class="form-group  col-sm-4" >
 				<label for="estado">Estado</label>
-				<select id="estado" class="form-control">
-                    <option value="">Selecione o estado</option>
-                </select>
+					<select id="estado" class="form-control" th:field="*{estado}">
+	                    <option value="">-- Selecione o estado --</option>
+	                    <option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">Estado</option>
+	                </select>
 			</div>
 
 			<div class="col-sm-8  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">

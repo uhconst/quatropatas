@@ -58,7 +58,7 @@ public class PessoasController {
 		}
 
 		try{
-			pessoaService.savar(pessoa);
+			pessoaService.salvar(pessoa);
 		}
 		catch (CpfPessoaJaCadastradoException e){
 			result.rejectValue("cpf", e.getMessage(), e.getMessage());

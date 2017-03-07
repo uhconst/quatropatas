@@ -17,7 +17,7 @@ public class PessoaService {
 	private Pessoas pessoas;
 	
 	@Transactional
-	public void savar(Pessoa pessoa) {
+	public void salvar(Pessoa pessoa) {
 		
 		Optional<Pessoa> pessoaExistente = pessoas.findByCpf(pessoa.getCpfSemFormatacao());
 		
