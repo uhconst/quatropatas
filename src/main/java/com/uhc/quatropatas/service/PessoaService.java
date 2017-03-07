@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.uhc.quatropatas.controller.exception.CpfPessoaJaCadastradoException;
+import com.uhc.quatropatas.service.exception.CpfPessoaJaCadastradoException;
 import com.uhc.quatropatas.model.Pessoa;
 import com.uhc.quatropatas.repository.Pessoas;
 
@@ -20,6 +20,7 @@ public class PessoaService {
 	public void savar(Pessoa pessoa) {
 		
 		Optional<Pessoa> pessoaExistente = pessoas.findByCpf(pessoa.getCpfSemFormatacao());
+		
 		if(pessoaExistente.isPresent()){
 			throw new CpfPessoaJaCadastradoException("CPF já cadastrado");
 		}

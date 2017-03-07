@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.uhc.quatropatas.controller.exception.CpfPessoaJaCadastradoException;
+import com.uhc.quatropatas.service.exception.CpfPessoaJaCadastradoException;
 import com.uhc.quatropatas.model.Pessoa;
 import com.uhc.quatropatas.model.TipoSexo;
 import com.uhc.quatropatas.repository.Estados;

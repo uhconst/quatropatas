@@ -1,4 +1,4 @@
-package com.uhc.quatropatas.controller.exception;
+package com.uhc.quatropatas.service.exception;
 
 public class CpfPessoaJaCadastradoException extends RuntimeException{
 
