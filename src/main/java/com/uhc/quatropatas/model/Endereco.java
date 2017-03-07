@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -37,11 +38,9 @@ public class Endereco implements Serializable {
 	@JoinColumn(name = "codigo_cidade")
 	private Cidade cidade;
 	
-	/*
-	@ManyToOne
-	@JoinColumn(name = "codigo_estado")
+	@Transient
 	private Estado estado;
-*/
+
 	public String getCep() {
 		return cep;
 	}
@@ -89,7 +88,7 @@ public class Endereco implements Serializable {
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
-/*
+
 	public Estado getEstado() {
 		return estado;
 	}
@@ -97,6 +96,6 @@ public class Endereco implements Serializable {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-*/	
+
 	
 }

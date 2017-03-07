@@ -51,6 +51,7 @@ public class Pessoa implements Serializable  {
     /*
     private List<Telefone> telefones;
     
+    @email
     private Email email;
 	*/
     
