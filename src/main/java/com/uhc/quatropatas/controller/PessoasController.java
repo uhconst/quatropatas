@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uhc.quatropatas.controller.exception.CpfPessoaJaCadastradoException;
 import com.uhc.quatropatas.model.Pessoa;
 import com.uhc.quatropatas.model.TipoSexo;
-import com.uhc.quatropatas.repository.Cidades;
 import com.uhc.quatropatas.repository.Estados;
 import com.uhc.quatropatas.repository.Pessoas;
 import com.uhc.quatropatas.repository.filter.PessoaFilter;
+import com.uhc.quatropatas.service.PessoaService;
 
 @Controller
 @RequestMapping("/pessoas") //Definindo o "/pessoas" antes de todo mapping
@@ -30,8 +31,10 @@ public class PessoasController {
 	private Estados estados;
 	
 	@Autowired
-	private Pessoas pessoas;
+	private PessoaService pessoaService;
 	
+	@Autowired
+	private Pessoas pessoas;
 	
 	/*
 	@Autowired
@@ -53,8 +56,15 @@ public class PessoasController {
 		if(result.hasErrors()){
 			return novo(pessoa);
 		}
+
+		try{
+			pessoaService.savar(pessoa);
+		}
+		catch (CpfPessoaJaCadastradoException e){
+			result.rejectValue("cpf", e.getMessage(), e.getMessage());
+			return novo(pessoa);
+		}
 		
-		pessoas.save(pessoa);
 		attributes.addFlashAttribute("mensagem", "Pessoa salva com sucesso!");
 		return new ModelAndView("redirect:/pessoas/novo");
 	}
@@ -83,7 +93,8 @@ public class PessoasController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		pessoas.delete(codigo);
+		pessoaService.deletar(codigo);
+		
 		attributes.addFlashAttribute("mensagem", "Pessoa deletada com sucesso!");
 		return "redirect:/pessoas";
 	}

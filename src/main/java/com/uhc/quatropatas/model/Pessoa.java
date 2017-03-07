@@ -59,7 +59,7 @@ public class Pessoa implements Serializable  {
     
     @PrePersist @PreUpdate
     private void prePersistPreUpdate(){
-    	this.cpf = this.cpf.replaceAll("\\.|-", "");
+    	this.cpf = getCpfSemFormatacao();
     }
     
 	public Long getCodigo() {
@@ -119,6 +119,10 @@ public class Pessoa implements Serializable  {
 		this.endereco = endereco;
 	}
 
+	public String getCpfSemFormatacao(){
+		return this.cpf.replaceAll("\\.|-", "");
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
