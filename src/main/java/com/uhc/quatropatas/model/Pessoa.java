@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -55,6 +57,10 @@ public class Pessoa implements Serializable  {
     private Email email;
 	*/
     
+    @PrePersist @PreUpdate
+    private void prePersistPreUpdate(){
+    	this.cpf = this.cpf.replaceAll("\\.|-", "");
+    }
     
 	public Long getCodigo() {
 		return codigo;
