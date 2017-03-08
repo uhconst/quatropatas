@@ -104,11 +104,18 @@
 					<label for="input-produto-nome" class="control-label">Celular</label>
 					<input id="input-produto-nome" type="text" class="form-control  js-phone-number">
 				</div>
-				
+				<!-- <th:block th:each:="email : ${emails}"> -->
+					<div class="col-sm-4  form-group">
+						<label for="input-produto-nome" class="control-label">Email</label>
+						<input id="input-produto-nome" type="text" class="form-control" th:field=*{emails[0].endereco}>
+					</div>
+				<!-- </th:block> -->
+				<!--
 				<div class="col-sm-4  form-group">
 					<label for="input-produto-nome" class="control-label">Email</label>
-					<input id="input-produto-nome" type="text" class="form-control">
+					<input id="input-produto-nome" type="text" class="form-control" th:field=*{emails[0].endereco}>
 				</div>
+				  -->
 			</div>
 			
 			<div class="row">

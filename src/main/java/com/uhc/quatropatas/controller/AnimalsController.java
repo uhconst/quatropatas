@@ -51,8 +51,6 @@ public class AnimalsController {
 			return novo(animal);
 		}
 		
-		System.out.println(">>>>> Raca: " + animal.getRaca().getCodigo()); // APAGAR...
-		
 		animalService.salvar(animal);
 		attributes.addFlashAttribute("mensagem", "Animal salvo com sucesso!");
 		return new ModelAndView("redirect:/animals/novo");

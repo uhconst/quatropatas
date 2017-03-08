@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uhc.quatropatas.service.exception.CpfPessoaJaCadastradoException;
+import com.uhc.quatropatas.model.Email;
 import com.uhc.quatropatas.model.Pessoa;
 import com.uhc.quatropatas.model.TipoSexo;
 import com.uhc.quatropatas.repository.Estados;
@@ -57,6 +58,7 @@ public class PessoasController {
 			return novo(pessoa);
 		}
 
+		//System.out.println(">>>>>> Pessoa: ");
 		try{
 			pessoaService.salvar(pessoa);
 		}

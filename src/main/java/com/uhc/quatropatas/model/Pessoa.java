@@ -1,18 +1,25 @@
 package com.uhc.quatropatas.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,7 +27,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-public class Pessoa implements Serializable  {
+@Table(name = "pessoa")
+public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -52,10 +60,18 @@ public class Pessoa implements Serializable  {
 
     /*
     private List<Telefone> telefones;
+    */
     
-    @email
-    private Email email;
-	*/
+    //@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    /*@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="codigo_pessoa")*/
+    
+    /*@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinTable(name="email", joinColumns={@JoinColumn(name="codigo_pessoa", referencedColumnName="codigo")}, inverseJoinColumns={@JoinColumn(name="DOG_ID", referencedColumnName="id")})*/
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
+    private List<Email> emails;
     
     @PrePersist @PreUpdate
     private void prePersistPreUpdate(){
@@ -123,6 +139,24 @@ public class Pessoa implements Serializable  {
 		return this.cpf.replaceAll("\\.|-", "");
 	}
 	
+	/*
+	public Email getEmail() {
+		return email;
+	}
+
+	public void setEmail(Email email) {
+		this.email = email;
+	}
+	*/
+	
+	public List<Email> getEmails() {
+		return emails;
+	}
+
+	public void setEmails(List<Email> emails) {
+		this.emails = emails;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -146,6 +180,11 @@ public class Pessoa implements Serializable  {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+/*
+	public void adicionaEmail() {
+		this.emails.add(email);
+		emails[0].setPessoa(this); // mantém a consistência
 	} 
-
+*/
 }
