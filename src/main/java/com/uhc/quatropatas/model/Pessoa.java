@@ -97,15 +97,15 @@ public class Pessoa implements Serializable {
 	public void setSexo(TipoSexo sexo) {
 		this.sexo = sexo;
 	}
-/*
-	public java.util.Date getNascimento() {
+
+	public LocalDate getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(java.util.Date nascimento) {
+	public void setNascimento(LocalDate nascimento) {
 		this.nascimento = nascimento;
 	}
-*/
+
 	public String getCpf() {
 		return cpf;
 	}
