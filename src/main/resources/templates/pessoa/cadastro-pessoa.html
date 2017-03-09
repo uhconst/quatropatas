@@ -97,12 +97,12 @@
 			<div class="row">	
 				<div class="col-sm-4  form-group">
 					<label for="input-produto-nome" class="control-label">Telefone</label>
-					<input id="input-produto-nome" type="text" class="form-control  js-phone-number">
+					<input id="input-produto-nome" type="text" class="form-control  js-phone-number" th:field=*{telefones[0].numero}>
 				</div>
 				
 				<div class="col-sm-4  form-group">
 					<label for="input-produto-nome" class="control-label">Celular</label>
-					<input id="input-produto-nome" type="text" class="form-control  js-phone-number">
+					<input id="input-produto-nome" type="text" class="form-control  js-phone-number" th:field=*{telefones[1].numero}>
 				</div>
 				<!-- <th:block th:each:="email : ${emails}"> -->
 					<div class="col-sm-4  form-group">

@@ -8,15 +8,11 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -55,19 +51,10 @@ public class Pessoa implements Serializable {
     
     @Embedded
     private Endereco endereco;
-
     
-
-    /*
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
     private List<Telefone> telefones;
-    */
-    
-    //@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
-    /*@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="codigo_pessoa")*/
-    
-    /*@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinTable(name="email", joinColumns={@JoinColumn(name="codigo_pessoa", referencedColumnName="codigo")}, inverseJoinColumns={@JoinColumn(name="DOG_ID", referencedColumnName="id")})*/
     
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
@@ -139,16 +126,6 @@ public class Pessoa implements Serializable {
 		return this.cpf.replaceAll("\\.|-", "");
 	}
 	
-	/*
-	public Email getEmail() {
-		return email;
-	}
-
-	public void setEmail(Email email) {
-		this.email = email;
-	}
-	*/
-	
 	public List<Email> getEmails() {
 		return emails;
 	}
@@ -157,6 +134,15 @@ public class Pessoa implements Serializable {
 		this.emails = emails;
 	}
 	
+	
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -13,8 +13,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "email")
-public class Email implements Serializable {
+@Table(name = "telefone")
+public class Telefone implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class Email implements Serializable {
 	
 	@NotBlank
 	@Size(max=45)
-	private String endereco;
+	private String numero;
 
 	@Column(name="codigo_pessoa", insertable = false, updatable = false)
 	private Long codigoPessoa;
@@ -36,15 +36,15 @@ public class Email implements Serializable {
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
 	
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
 	public long getCodigoPessoa() {
 		return codigoPessoa;
 	}
@@ -52,7 +52,7 @@ public class Email implements Serializable {
 	public void setCodigoPessoa(Long codigoPessoa) {
 		this.codigoPessoa = codigoPessoa;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,7 +69,7 @@ public class Email implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Email other = (Email) obj;
+		Telefone other = (Telefone) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
