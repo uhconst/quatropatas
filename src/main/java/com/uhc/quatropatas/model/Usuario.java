@@ -1,16 +1,28 @@
 package com.uhc.quatropatas.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.uhc.quatropatas.validation.AtributoConfirmacao;
+
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Senhas devem ser iguais")
 @Entity
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -24,21 +36,23 @@ public class Usuario implements Serializable {
 	private String nome;
 	
 	@NotBlank
-	@Size(max=45)
-	private String sobrenome;
-	
-	@NotBlank
 	@Size(max=65)
+	@Email
 	private String email;
 	
-	@NotBlank
-	@Size(max=45)
-	private String nascimento;
-	
-	@NotBlank
-	@Size(max=45)
 	private String senha;
 
+	@Transient
+	private String confirmacaoSenha;
+	
+	private Boolean ativo;
+	
+	@NotNull
+	@ManyToMany
+	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario")
+				, inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
+	private List<Grupo> grupos;
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -55,14 +69,6 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getSobrenome() {
-		return sobrenome;
-	}
-
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -71,20 +77,37 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
-	public String getNascimento() {
-		return nascimento;
-	}
-
-	public void setNascimento(String nascimento) {
-		this.nascimento = nascimento;
-	}
-
 	public String getSenha() {
 		return senha;
 	}
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 
 	@Override

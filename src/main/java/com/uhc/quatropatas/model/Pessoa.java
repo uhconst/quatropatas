@@ -1,6 +1,7 @@
 package com.uhc.quatropatas.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -44,7 +45,7 @@ public class Pessoa implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoSexo sexo;
 	
-    //private java.util.Date nascimento;
+    private LocalDate nascimento;
     
     @CPF
     private String cpf;
