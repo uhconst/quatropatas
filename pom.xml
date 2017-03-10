@@ -41,6 +41,9 @@
 		
 		<!-- APACHE BEANS UTILS -->
 		<commons-beanutils.version>1.9.2</commons-beanutils.version>
+		
+		<!-- THYMELEAF EXTRAS JAVA8TIME -->
+		<!--  <thymeleaf-extras-java8time.version>3.0.0.RELEASE</thymeleaf-extras-java8time.version>  -->
 	</properties>
 
 	<dependencies>
@@ -121,6 +124,15 @@
 			<version>${commons-beanutils.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- THYMELEAF EXTRAS JAVA8TIME -->
+		<!--
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-java8time</artifactId>
+			<version>${thymeleaf-extras-java8time.version}</version>
+		</dependency>
+		-->
 	</dependencies>
 
 	<build>

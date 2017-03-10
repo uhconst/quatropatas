@@ -1,14 +1,20 @@
 package com.uhc.quatropatas.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uhc.quatropatas.service.exception.CpfPessoaJaCadastradoException;
-import com.uhc.quatropatas.model.Email;
 import com.uhc.quatropatas.model.Pessoa;
 import com.uhc.quatropatas.model.TipoSexo;
 import com.uhc.quatropatas.repository.Estados;
@@ -41,6 +46,17 @@ public class PessoasController {
 	@Autowired
 	private Cidades cidades;*/
 	
+	/*
+	 * Convertendo data para formato brasileiro
+	 */
+    @InitBinder("pessoa")
+    public void customizeBinding (WebDataBinder binder) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormatter.setLenient(false);
+        binder.registerCustomEditor(Date.class, "nascimento",
+                                    new CustomDateEditor(dateFormatter, true));
+    }
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(Pessoa pessoa){
 		ModelAndView mv = new ModelAndView("pessoa/cadastro-pessoa");
@@ -55,11 +71,12 @@ public class PessoasController {
 	@PostMapping("/novo")
 	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult result, RedirectAttributes attributes){
 		if(result.hasErrors()){
+			System.out.println(">>>>>NASCIMENTO NO SALVAR: " + pessoa.getNascimento()); // Apagar test
 			return novo(pessoa);
 		}
 
-		//System.out.println(">>>>>> Pessoa: ");
 		try{
+			System.out.println(">>>>>NASCIMENTO NO SALVAR: " + pessoa.getNascimento()); // Apagar test
 			pessoaService.salvar(pessoa);
 		}
 		catch (CpfPessoaJaCadastradoException e){

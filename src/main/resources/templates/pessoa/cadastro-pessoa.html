@@ -8,7 +8,10 @@
 
 <body>
 
-	<section layout:fragment="conteudo">
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/stylesheets/vendors/bootstrap-datepicker.standalone.min.css" th:href="@{/stylesheets/vendors/bootstrap-datepicker.standalone.min.css}"/>
+</head>
+<section layout:fragment="conteudo">
 	
 	
 	<div class="page-header">
@@ -47,7 +50,9 @@
 			<div class="row">	
 				<div class="col-sm-4  form-group">
 					<label for="input-produto-nome" class="control-label">Nascimento</label>
-					<input id="input-produto-nome" type="text" class="form-control">
+					<input id="input-produto-nome" type="text" class="form-control  js-date" th:field=*{nascimento}
+						data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
+						data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off"/>
 				</div>
 				
 				<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('cpf')} ? has-error">
@@ -143,11 +148,13 @@
 	
 	</div>
 	
-	</section>
+</section>
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/pessoa.mask-cpf.js}"></script>
 		<script th:src="@{/javascripts/pessoa.mask-cep.js}"></script>
 		<script th:src="@{/javascripts/pessoa.combo-estado-cidade.js}"></script>
+		<script th:src="@{/javascripts/vendors/bootstrap-datepicker.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/bootstrap-datepicker.pt-BR.min.js}"></script>
 	</th:block>
 </body>
 </html>

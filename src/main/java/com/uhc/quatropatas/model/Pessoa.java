@@ -2,6 +2,7 @@ package com.uhc.quatropatas.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,6 +23,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "pessoa")
@@ -45,7 +47,10 @@ public class Pessoa implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoSexo sexo;
 	
-    private LocalDate nascimento;
+	
+	//@DateTimeFormat(pattern = "dd/MM/yyyy")
+	//@DateTimeFormat(pattern = "yyyy-dd-MM")
+    private Date nascimento;
     
     @CPF
     private String cpf;
@@ -98,11 +103,11 @@ public class Pessoa implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public LocalDate getNascimento() {
+	public Date getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(LocalDate nascimento) {
+	public void setNascimento(Date nascimento) {
 		this.nascimento = nascimento;
 	}
 
