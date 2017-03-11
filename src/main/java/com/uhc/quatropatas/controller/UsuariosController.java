@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uhc.quatropatas.model.Usuario;
 import com.uhc.quatropatas.model.TipoEspecie;
+import com.uhc.quatropatas.repository.Grupos;
 import com.uhc.quatropatas.repository.Usuarios;
 
 import com.uhc.quatropatas.service.UsuarioService;
@@ -30,10 +31,14 @@ public class UsuariosController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private Grupos grupos;
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(Usuario usuario){
 		ModelAndView mv = new ModelAndView("usuario/cadastro-usuario");
 		mv.addObject(usuario);
+		mv.addObject("grupos", grupos.findAll());
 		
 		return mv;
 	}

@@ -3,23 +3,23 @@ package com.uhc.quatropatas.controller.converter;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.util.StringUtils;
 
-import com.uhc.quatropatas.model.Raca;
+import com.uhc.quatropatas.model.Grupo;
 
-public class RacaConverter implements Converter<String, Raca>{
+public class GrupoConverter implements Converter<String, Grupo>{
 	
 	/* 
 	 * Quando vem NULL ele nem tenta converter (Quando nao seleciona nada) 
 	 */
 	@Override
-	public Raca convert(String codigo){
+	public Grupo convert(String codigo){
 		
 		/*
 		 * Usando if para nao converter caso esteja vazio
 		 */
 		if(!StringUtils.isEmpty(codigo)){
-			Raca raca = new Raca();
-			raca.setCodigo(Long.valueOf(codigo));
-			return raca;
+			Grupo grupo = new Grupo();
+			grupo.setCodigo(Long.valueOf(codigo));
+			return grupo;
 		}
 		
 		return null;
