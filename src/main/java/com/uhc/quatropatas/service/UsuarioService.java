@@ -1,11 +1,14 @@
 package com.uhc.quatropatas.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uhc.quatropatas.model.Usuario;
 import com.uhc.quatropatas.repository.Usuarios;
+import com.uhc.quatropatas.service.exception.EmailUsuarioJaCadastradoException;
 
 @Service
 public class UsuarioService {
@@ -15,6 +18,13 @@ public class UsuarioService {
 	
 	@Transactional
 	public void salvar(Usuario usuario) {
+		
+		Optional<Usuario> emailUsuarioExistente = usuarios.findByEmail(usuario.getEmail());
+		
+		if(emailUsuarioExistente.isPresent()){
+			throw new EmailUsuarioJaCadastradoException("Email já cadastrado");
+		}
+		
 		usuarios.save(usuario);
 	}
 	

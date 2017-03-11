@@ -1,7 +1,6 @@
 package com.uhc.quatropatas.controller;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -47,7 +46,7 @@ public class PessoasController {
 	private Cidades cidades;*/
 	
 	/*
-	 * Convertendo data para formato brasileiro
+	 * Convertendo Data para formato brasileiro
 	 */
     @InitBinder("pessoa")
     public void customizeBinding (WebDataBinder binder) {

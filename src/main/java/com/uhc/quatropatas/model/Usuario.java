@@ -47,7 +47,7 @@ public class Usuario implements Serializable {
 	
 	private Boolean ativo;
 	
-	@NotNull
+	//@NotNull
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario")
 				, inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))

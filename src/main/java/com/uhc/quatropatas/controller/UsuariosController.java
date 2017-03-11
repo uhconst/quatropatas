@@ -1,7 +1,5 @@
 package com.uhc.quatropatas.controller;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.uhc.quatropatas.model.Usuario;
 import com.uhc.quatropatas.model.TipoEspecie;
 import com.uhc.quatropatas.repository.Usuarios;
+
 import com.uhc.quatropatas.service.UsuarioService;
+import com.uhc.quatropatas.service.exception.EmailUsuarioJaCadastradoException;
 
 @Controller
 @RequestMapping("/usuarios") //Definindo o "/usuarios" antes de todo mapping
@@ -34,7 +34,6 @@ public class UsuariosController {
 	public ModelAndView novo(Usuario usuario){
 		ModelAndView mv = new ModelAndView("usuario/cadastro-usuario");
 		mv.addObject(usuario);
-		mv.addObject("especies", TipoEspecie.values());
 		
 		return mv;
 	}
@@ -44,8 +43,15 @@ public class UsuariosController {
 		if(result.hasErrors()){
 			return novo(usuario);
 		}
+
+		try{
+			usuarioService.salvar(usuario);
+		}
+		catch (EmailUsuarioJaCadastradoException e){
+			result.rejectValue("email", e.getMessage(), e.getMessage());
+			return novo(usuario);
+		}
 		
-		usuarioService.salvar(usuario);
 		attributes.addFlashAttribute("mensagem", "Usuário salva com sucesso!");
 		return new ModelAndView("redirect:/usuarios/novo");
 	}
