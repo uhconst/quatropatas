@@ -14,12 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uhc.quatropatas.model.Usuario;
-import com.uhc.quatropatas.model.TipoEspecie;
 import com.uhc.quatropatas.repository.Grupos;
 import com.uhc.quatropatas.repository.Usuarios;
 
 import com.uhc.quatropatas.service.UsuarioService;
 import com.uhc.quatropatas.service.exception.EmailUsuarioJaCadastradoException;
+import com.uhc.quatropatas.service.exception.SenhaObrigatoriaUsuarioException;
 
 @Controller
 @RequestMapping("/usuarios") //Definindo o "/usuarios" antes de todo mapping
@@ -52,8 +52,14 @@ public class UsuariosController {
 		try{
 			usuarioService.salvar(usuario);
 		}
+		
 		catch (EmailUsuarioJaCadastradoException e){
 			result.rejectValue("email", e.getMessage(), e.getMessage());
+			return novo(usuario);
+		}
+		
+		catch(SenhaObrigatoriaUsuarioException e){
+			result.rejectValue("senha", e.getMessage(), e.getMessage());
 			return novo(usuario);
 		}
 		

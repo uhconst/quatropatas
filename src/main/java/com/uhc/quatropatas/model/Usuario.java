@@ -109,6 +109,14 @@ public class Usuario implements Serializable {
 		this.grupos = grupos;
 	}
 
+	/*
+	 * Usando para o usuário não ter que inserir a senha novamente,
+	 * caso já esteja cadastrado e está editando
+	 */
+	public boolean isNovo(){
+		return codigo == null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
