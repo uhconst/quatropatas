@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uhc.quatropatas.model.Cidade;
-import com.uhc.quatropatas.model.TipoEspecie;
 import com.uhc.quatropatas.repository.Cidades;
 import com.uhc.quatropatas.repository.Estados;
 import com.uhc.quatropatas.repository.filter.CidadeFilter;

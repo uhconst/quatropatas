@@ -1,7 +1,6 @@
 package com.uhc.quatropatas.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +22,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pessoa")
@@ -53,17 +53,21 @@ public class Pessoa implements Serializable {
     private Date nascimento;
     
     @CPF
+    @JsonIgnore
     private String cpf;
     
     @Embedded
+    @JsonIgnore
     private Endereco endereco;
     
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
+    @JsonIgnore
     private List<Telefone> telefones;
     
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
+    @JsonIgnore
     private List<Email> emails;
     
     @PrePersist @PreUpdate
@@ -128,6 +132,7 @@ public class Pessoa implements Serializable {
 		this.endereco = endereco;
 	}
 
+	@JsonIgnore
 	public String getCpfSemFormatacao(){
 		return this.cpf.replaceAll("\\.|-", "");
 	}

@@ -38,7 +38,9 @@ public class UsuarioService {
 		}
 		
 		/*
-		 * Criptografando a senha do usuario antes de salvar no banco
+		 * Criptografando a senha do usuario antes de salvar no banco.
+		 * Como ele Valida duas vezes, no model e antes de salva, setando
+		 * a confirmação igual a senha antes de Salvar.
 		 */
 		if(usuario.isNovo()){
 			usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
