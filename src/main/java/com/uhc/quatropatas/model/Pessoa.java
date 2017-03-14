@@ -53,7 +53,7 @@ public class Pessoa implements Serializable {
     private Date nascimento;
     
     @CPF
-    @JsonIgnore
+    //@JsonIgnore
     private String cpf;
     
     @Embedded

@@ -26,10 +26,9 @@ public class Animal implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	/*
+	@ManyToOne
+	@JoinColumn(name = "codigo_pessoa")
 	private Pessoa pessoa;
-	
-	*/
 	
 	@NotBlank
 	@Size(max=45)
@@ -74,6 +73,15 @@ public class Animal implements Serializable {
 
 	public void setRaca(Raca raca) {
 		this.raca = raca;
+	}
+
+	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	@Override
