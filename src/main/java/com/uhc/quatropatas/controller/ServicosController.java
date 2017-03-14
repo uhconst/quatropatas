@@ -19,18 +19,19 @@ import com.uhc.quatropatas.model.Servico;
 //import com.uhc.quatropatas.repository.Servicos;
 //import com.uhc.quatropatas.repository.filter.ServicoFilter;
 //import com.uhc.quatropatas.service.ServicoService;
+import com.uhc.quatropatas.repository.Servicos;
+import com.uhc.quatropatas.service.ServicoService;
 
 @Controller
 @RequestMapping("/servicos") //Definindo o "/servicos" antes de todo mapping
 public class ServicosController {
 	
-	/*
 	@Autowired
 	private Servicos servicos;
 	
 	@Autowired
 	private ServicoService servicoService;
-	*/
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(Servico servico){
 		ModelAndView mv = new ModelAndView("servico/cadastro-servico");
@@ -45,10 +46,11 @@ public class ServicosController {
 			return novo(servico);
 		}
 		
-		//servicoService.salvar(servico);
-		//attributes.addFlashAttribute("mensagem", "Raça salva com sucesso!");
+		servicoService.salvar(servico);
+		attributes.addFlashAttribute("mensagem", "Serviço salvo com sucesso!");
 		return new ModelAndView("redirect:/servicos/novo");
 	}
+	
 	/*
 	@GetMapping
 	public ModelAndView pesquisar(ServicoFilter servicoFilter){
@@ -57,22 +59,20 @@ public class ServicosController {
 				Optional.ofNullable(servicoFilter.getNome()).orElse("%")));
 		return mv;
 	}
-	
 	*/
-	/*
 	@GetMapping("/{codigo}")
 	public ModelAndView editar(@PathVariable Long codigo){
-	*/
+	
 		/*
 		 *  Procura uma raça com o código que recebeu de 
 		 *  parametro da URL mapeada
 		 */
-		//Servico servico = servicos.findOne(codigo);
+		Servico servico = servicos.findOne(codigo);
 		
 		/*
 		 * Já retorna uma raça preenchido
 		 */
-	/*
+	
 		return novo(servico);
 	}
 	
@@ -82,5 +82,5 @@ public class ServicosController {
 		attributes.addFlashAttribute("mensagem", "Raça deletada com sucesso!");
 		return "redirect:/servicos";
 	}
-	*/
+
 }
