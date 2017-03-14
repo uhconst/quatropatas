@@ -29,7 +29,7 @@ public class Servico implements Serializable {
 	@Size(max=45)
 	private String descricao;
 	
-	@NotBlank
+	@NotNull
 	private Integer duracao;
 	
 	@NotNull
