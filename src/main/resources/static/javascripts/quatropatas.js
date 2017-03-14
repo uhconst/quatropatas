@@ -33,6 +33,41 @@ Quatropatas.MaskDate = (function(){
 	return MaskDate;
 }());
 
+
+Quatropatas.MaskMoney = (function(){
+	function MaskMoney(){
+		this.inputMoney = $('.js-money');
+	};
+	
+	MaskMoney.prototype.enable = function(){
+		
+		this.inputMoney.maskNumber({
+			decimal: ',',
+			thousands: '.'
+		});
+	}
+	
+	return MaskMoney;
+}());
+
+
+Quatropatas.MaskMinuto = (function(){
+	function MaskMinuto(){
+		this.inputMinuto = $('.js-minuto');
+	};
+	
+	MaskMinuto.prototype.enable = function(){
+		
+		this.inputMinuto.maskNumber({
+			integer: 2,
+			thousands: '.'
+		});
+	}
+	
+	return MaskMinuto;
+}());
+
+
 $(function(){
 	
 	var maskPhoneNumber = new Quatropatas.MaskPhoneNumber();
@@ -40,6 +75,12 @@ $(function(){
 	
 	var maskDate = new Quatropatas.MaskDate();
 	maskDate.enable();
+	
+	var maskMoney = new Quatropatas.MaskMoney();
+	maskMoney.enable();
+	
+	var maskMinuto = new Quatropatas.MaskMinuto();
+	maskMinuto.enable();
 });
 
 

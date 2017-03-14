@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorate="~{layout/layout-default}">
+
+<body>
+
+<section layout:fragment="conteudo">
+
+
+<div class="page-header">
+	<div class="container-fluid">
+		<h1>
+			Cadastro de serviço
+		</h1>
+	</div>
+</div>
+
+<div class="container-fluid">
+
+	<form method="POST" class="form-vertical  js-form-loading" 
+		th:object="${servico}" th:action="@{/servicos/novo}">
+		
+		<!-- MENSAGEM DE ERRO NA VALIDAÇÃO -->
+		<div th:replace="fragments/mensagem-erro-validacao :: alert"></div>
+		
+		<!-- MENSAGEM DE SUCESSO -->
+		<div th:replace="fragments/mensagem-sucesso :: alert"></div>
+		
+		<input type="hidden" th:field="*{codigo}"/>
+		
+		<div class="row">
+			<div class="col-sm-8  form-group  qp-required" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+				<label for="nome" class="control-label">Descrição</label>
+				<input id="nome" type="text" class="form-control" th:field=*{descricao}/>
+			</div>
+		
+			<div class="col-sm-2  form-group  qp-required" th:classappend="${#fields.hasErrors('duracao')} ? has-error">
+				<label for="duracao" class="control-label">Duração</label>
+				<div class="input-group">
+					<input id="duracao" type="text" class="form-control  js-minuto" th:field=*{duracao}/>
+					<div class="input-group-addon">Minutos</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-2  form-group  qp-required" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+					<label for="valor" class="control-label">Valor</label>
+					<div class="input-group">
+						<div class="input-group-addon">R$</div>
+						<input id="valor" type="text" class="form-control  js-money" th:field="*{valor}"/>
+					</div>
+				</div>
+		</div>
+
+		<!-- BOTÕES DO FORMULÁRIO -->
+		<div th:replace="fragments/botoes-formulario :: botoes-form"></div>
+
+	</form>
+</div>
+<div th:replace="especie/cadastro-rapido-especie :: modal"></div>
+</section>
+</body>
+</html>
