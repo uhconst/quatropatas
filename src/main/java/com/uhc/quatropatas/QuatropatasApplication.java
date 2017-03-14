@@ -40,30 +40,16 @@ public class QuatropatasApplication extends WebMvcConfigurerAdapter{
         registry.addConverter(new LocalDateTimeConverter("yyyy-MM-dd'T'HH:mm:ss.SSS"));*/
         
 		// API de Datas do Java 8
-    	/*
 		DateTimeFormatterRegistrar dateTimeFormatter = new DateTimeFormatterRegistrar();
 		dateTimeFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		dateTimeFormatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
-		dateTimeFormatter.registerFormatters(registry);*/
+		dateTimeFormatter.registerFormatters(registry);
 		
+    	
 		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
 		registry.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
 		
 		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
 		registry.addFormatterForFieldType(Integer.class, integerFormatter);
     }
-    /*
-	@Bean
-	public FormattingConversionService mvcConversionService() {
-		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
-		
-		
-		// API de Datas do Java 8
-		DateTimeFormatterRegistrar dateTimeFormatter = new DateTimeFormatterRegistrar();
-		dateTimeFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		dateTimeFormatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
-		dateTimeFormatter.registerFormatters(conversionService);
-		
-		return conversionService;
-	}*/
 }

@@ -1,6 +1,7 @@
 package com.uhc.quatropatas.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class Pessoa implements Serializable {
 	
 	//@DateTimeFormat(pattern = "dd/MM/yyyy")
 	//@DateTimeFormat(pattern = "yyyy-dd-MM")
-    private Date nascimento;
+    private LocalDate nascimento;
     
     @CPF
     //@JsonIgnore
@@ -107,11 +108,11 @@ public class Pessoa implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public Date getNascimento() {
+	public LocalDate getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(Date nascimento) {
+	public void setNascimento(LocalDate nascimento) {
 		this.nascimento = nascimento;
 	}
 

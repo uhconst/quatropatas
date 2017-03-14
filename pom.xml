@@ -42,6 +42,9 @@
 		<!-- APACHE BEANS UTILS -->
 		<commons-beanutils.version>1.9.2</commons-beanutils.version>
 		
+		<!-- JPA / Hibernate -->
+		<hibernate.version>5.1.0.Final</hibernate.version>
+		
 		<!-- THYMELEAF EXTRAS JAVA8TIME -->
 		<!--  <thymeleaf-extras-java8time.version>3.0.0.RELEASE</thymeleaf-extras-java8time.version>  -->
 	</properties>
@@ -125,6 +128,21 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- JPA / Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Hibernate - Java 8 support -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-java8</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>compile</scope>
+		</dependency>
 		<!-- THYMELEAF EXTRAS JAVA8TIME -->
 		<!--
 		<dependency>

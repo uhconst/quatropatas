@@ -54,6 +54,7 @@ public class PessoasController {
 	/*
 	 * Convertendo Data para formato brasileiro
 	 */
+	/*
     @InitBinder("pessoa")
     public void customizeBinding (WebDataBinder binder) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -61,6 +62,7 @@ public class PessoasController {
         binder.registerCustomEditor(Date.class, "nascimento",
                                     new CustomDateEditor(dateFormatter, true));
     }
+	*/
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Pessoa pessoa){
@@ -75,13 +77,12 @@ public class PessoasController {
 	
 	@PostMapping("/novo")
 	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult result, RedirectAttributes attributes){
+		System.out.println(">>>>>NASCIMENTO NO SALVAR: " + pessoa.getNascimento()); // Apagar test
 		if(result.hasErrors()){
-			System.out.println(">>>>>NASCIMENTO NO SALVAR: " + pessoa.getNascimento()); // Apagar test
 			return novo(pessoa);
 		}
 
 		try{
-			System.out.println(">>>>>NASCIMENTO NO SALVAR: " + pessoa.getNascimento()); // Apagar test
 			pessoaService.salvar(pessoa);
 		}
 		catch (CpfPessoaJaCadastradoException e){
