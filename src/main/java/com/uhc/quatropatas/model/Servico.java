@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,6 +32,8 @@ public class Servico implements Serializable {
 	private String descricao;
 	
 	@NotNull
+	@Max(value = 240, message = "O tempo deve ser de no máximo 240 minutos")
+	@Min(value = 5, message = "O tempo deve ser de no mínimo 5 minutos")
 	private Integer duracao;
 	
 	@NotNull
