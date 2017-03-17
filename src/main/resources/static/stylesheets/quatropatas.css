@@ -40,3 +40,100 @@
   font-family: 'FontAwesome';
   content: "\f00c";
 }
+
+
+/* ############### Tabela Item ############### */
+.qp-tabela-servico {
+	position: relative; /* Para que o painel de exclusão apareça dentro da linha */
+	
+	padding: 15px 0;
+	
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.qp-tabela-servico:after {
+	clear: both;
+	display: block;
+    content: "";
+}
+
+.qp-tabela-servico ~ .qp-tabela-servico {
+	border-top: 1px solid #ddd;
+}
+
+.qp-tabela-servico__coluna {
+	padding: 0 10px;
+}
+
+/*
+.qp-tabela-servico__coluna--foto {
+	float: left;
+	width: 60px;
+	
+	text-align: center;
+}
+*/
+.qp-tabela-servico__coluna--valores {
+	padding-right: 0px;
+}
+
+.qp-tabela-servico__coluna--detalhes, .qp-tabela-servico__coluna--valores {
+	margin-left: 60px;
+}
+
+.qp-tabela-servico-descricao {
+	font-weight: 500;
+	font-size: 1.1em;
+	display: block;
+}
+
+.qp-tabela-animal-nome {
+	color: #aaa;
+	display: block;
+	font-weight: 200;
+}
+
+/*
+.qp-tabela-servico-campo-quantidade {
+	width: 30px;
+	text-align: right;
+}
+
+/*.
+.qp-tabela-servico-valor-pequeno {
+	font-weight: 300;
+	font-size: 1em;
+}
+*/
+
+
+.qp-tabela-servico-valor-medio {
+	font-weight: 300;
+	font-size: 1.3em;
+}
+
+
+.qp-tabela-servico-valor-grande {
+	font-weight: 300;
+	font-size: 1.6em;
+}
+
+@media (min-width: 768px) { /* screen-sm-min */
+	.qp-tabela-servico__coluna {
+		float: left;
+		margin-left: 0px;
+	}
+	
+	.qp-tabela-servico__coluna--detalhes {
+		width: calc(70% - 30px);
+	}
+	
+	.qp-tabela-servico__coluna--valores {
+		width: calc(30% - 30px);
+
+		text-align: right;
+	}
+}

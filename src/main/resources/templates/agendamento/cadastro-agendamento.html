@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:data="http://www.thymeleaf.org/extras/data" 
+	layout:decorate="~{layout/layout-default}">
+	
+<body>
+	
+<head>
+<link rel="stylesheet" type="text/css"
+	href="../../static/stylesheets/vendors/bootstrap-datepicker.standalone.min.css"
+	th:href="@{/stylesheets/vendors/bootstrap-datepicker.standalone.min.css}" />
+</head>
+<section layout:fragment="conteudo">
+
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>Cadastro de agendamento</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<form method="POST" class="form-vertical  js-form-loading" ><!-- th:object="${agendamento}" th:action="@{/agendamentos/novo}">  -->
+
+				<!-- MENSAGEM DE ERRO NA VALIDAÇÃO -->
+				<!--<div th:replace="fragments/mensagem-erro-validacao :: alert"></div>  -->
+
+				<!-- MENSAGEM DE SUCESSO -->
+				<!--<div th:replace="fragments/mensagem-sucesso :: alert"></div>  -->
+
+				<!-- <input type="hidden" th:field="*{codigo}"/> -->
+
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="aw-box">
+							<div class="aw-box__icon">
+								<i class="fa  fa-usd  fa-3x"></i>
+							</div>
+							<div class="aw-box__value">R$0,00</div>
+							<div class="aw-box__title">Total</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-4">
+						<div class="aw-box">
+							<div class="aw-box__icon">
+								<i class="fa  fa-tag  fa-3x"></i>
+							</div>
+							<div class="aw-box__value">Orçamento</div>
+							<div class="aw-box__title">Status</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-4">
+						<div class="aw-box">
+							<div class="aw-box__icon">
+								<i class="fa  fa-calendar  fa-3x"></i>
+							</div>
+							<div class="aw-box__value">
+								<span class="js-tooltip">Hoje</span>
+							</div>
+							<div class="aw-box__title">Criação</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="row">
+
+					<div class="col-sm-4  form-group">
+						<label for="input-produto-nome" class="control-label">Data</label>
+						<input id="input-produto-nome" type="text"
+							class="form-control  js-date" 
+							data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
+							data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off" />
+							<!-- th:field=*{dataAgendamento}  -->
+					</div>
+
+					<div class="form-group  col-sm-4  qp-required">
+						<label class="control-label" for="nomePessoa">Cliente</label>
+						<div class="input-group">
+							<input id="nomePessoa" type="text" readonly="readonly"
+								class="form-control"
+								placeholder="Clique na lupa para pesquisar o cliente"/> 
+								<input id="codigoPessoa" type="hidden" /> <!-- th:field="*{pessoa}" -->
+								<span class="input-group-btn">
+								<button class="btn  btn-default  js-tooltip" type="button"
+									title="Pesquisa avançada" data-toggle="modal"
+									data-target="#pesquisaRapidaPessoa">
+									<i class="glyphicon  glyphicon-search"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+					
+					<div class="form-group  col-sm-4">
+						<label for="animal" class="control-label">Animal</label>
+						<input type="hidden" id="inputHiddenAnimalSelecionado" /><!-- th:value="*{animal} != null ? *{animal.codigo}" -->
+						<select id="animal" class="form-control" data:url="@{/animals}" disabled><!--  th:field="*{animal}"  -->
+		                    <option value="">-- Selecione um animal --</option>
+		                </select>
+					</div>
+				</div>
+				<div class="row">
+					
+					<div class="form-group  col-sm-4">
+						<label for="servico" class="control-label">Serviço</label>
+						<select id="servico" class="form-control" ><!-- th:field="*{servicos}" -->
+		                    <option value="">-- Selecione um serviço --</option>
+		                    <option th:each="servico : ${servicos}" th:value="${servico.codigo}" th:text="${servico.descricao}">Serviço</option> 
+		                </select>
+					</div>
+					<div class="form-group  col-sm-4">
+						<button class="btn  btn-primary  js-adicionar-servico-animal-btn">Adicionar</button>
+					</div>
+				</div>
+
+				<!-- #### DETALHES DO AGENDAMENTO #### -->
+				
+			<div class="tab-content">
+				<div class="tab-pane active" id="cervejas">
+				<div class="qp-tabela-servicos">
+						<div class="qp-tabela-servico">
+							<div class="qp-tabela-servico__coluna  qp-tabela-servico__coluna--detalhes">
+								<span class="qp-tabela-servico-descricao">Banho</span>
+								<span class="label  label-default">Dona Maria</span>
+								<span class="qp-tabela-animal-nome">Buffy</span>
+							</div>
+							
+							<div class="qp-tabela-servico__coluna  qp-tabela-servico__coluna--valores">
+								<div class="qp-tabela-servico-valor-grande">R$8,90</div>
+							</div>
+						
+						</div>
+					
+						<!-- <div class="qp-tabela-servicos__vazio">
+							<i class="glyphicon  glyphicon-shopping-cart"></i> 
+							<span>Você ainda não adicionou nenhuma servico.</span>
+						</div> -->
+				</div>
+				</div></div>
+				<!-- BOTÕES DO FORMULÁRIO -->
+				<div th:replace="fragments/botoes-formulario :: botoes-form"></div>
+
+			</form>
+		</div>
+		
+		<th:block th:replace="pessoa/pesquisa-rapida-pessoa :: pesquisaRapidaPessoa"></th:block>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/bootstrap-datepicker.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/bootstrap-datepicker.pt-BR.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+		
+		<!--<script th:src="@{/javascripts/agendamento.combo-animal.js}"></script>  -->
+		<script th:src="@{/javascripts/pessoa.pesquisa-rapida.js}"></script>
+		<script th:src="@{/javascripts/agendamento.tabela-adicionar.js}"></script>
+		
+	</th:block>
+</body>
+
+</html>

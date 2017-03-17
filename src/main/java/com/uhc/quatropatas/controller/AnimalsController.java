@@ -1,10 +1,12 @@
 package com.uhc.quatropatas.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -83,5 +87,18 @@ public class AnimalsController {
 		animalService.deletar(codigo);
 		attributes.addFlashAttribute("mensagem", "Animal deletado com sucesso!");
 		return "redirect:/animals";
+	}
+	
+	/*
+	 * Se fizer um GET em animal dizendo que precisa 
+	 * receber um request, cai nesse metodo.
+	 * Usa Default como -1 para caso nao passar nada retornar um array vazio.
+	 * Isso aconteceria caso selecionar uma pessoa que não tem animais, não 
+	 * encontraria nada.
+	 */
+	@GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Animal> pesquisaPorCodigoPessoa(
+			@RequestParam(name="pessoa", defaultValue = "-1") Long codigoPessoa){
+		return animals.findByPessoaCodigo(codigoPessoa);
 	}
 }

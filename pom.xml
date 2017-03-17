@@ -47,6 +47,10 @@
 		
 		<!-- THYMELEAF EXTRAS JAVA8TIME -->
 		<!--  <thymeleaf-extras-java8time.version>3.0.0.RELEASE</thymeleaf-extras-java8time.version>  -->
+		
+		<!-- JUnit -->
+		<junit.version>4.12</junit.version>
+		
 	</properties>
 
 	<dependencies>
@@ -151,6 +155,15 @@
 			<version>${thymeleaf-extras-java8time.version}</version>
 		</dependency>
 		-->
+
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

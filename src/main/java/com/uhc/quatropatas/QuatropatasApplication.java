@@ -5,18 +5,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.number.NumberStyleFormatter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 
+import com.uhc.quatropatas.session.TabelaServicosAgendamento;
+
 
 
 @SpringBootApplication
+//@Configuration
+//@EnableAutoConfiguration
+//@ComponentScan(basePackageClasses={TabelaServicosAgendamento.class})
 public class QuatropatasApplication extends WebMvcConfigurerAdapter{
 
 	public static void main(String[] args) {
@@ -52,4 +61,5 @@ public class QuatropatasApplication extends WebMvcConfigurerAdapter{
 		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
 		registry.addFormatterForFieldType(Integer.class, integerFormatter);
     }
+
 }

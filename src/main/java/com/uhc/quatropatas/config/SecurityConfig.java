@@ -37,7 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
+		//http.csrf().disable();
 		http
+			.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/racas").hasRole("PESQUISAR_RACA")
 				.antMatchers("/racas/**").hasRole("CADASTRAR_RACA")
@@ -55,5 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder PasswordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
+	
 	
 }

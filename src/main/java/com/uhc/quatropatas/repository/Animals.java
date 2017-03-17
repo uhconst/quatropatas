@@ -10,4 +10,8 @@ public interface Animals extends JpaRepository<Animal, Long>{
 
 	public List<Animal> findByNomeContainingIgnoreCase(String nome);
 	
+	/*
+	 * Busca pelo código da entidade Pessoa
+	 */
+	public List<Animal> findByPessoaCodigo(Long codigoAnimal);
 }

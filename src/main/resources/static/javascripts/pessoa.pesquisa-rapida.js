@@ -11,6 +11,7 @@ Quatropatas.PesquisaRapidaPessoa = (function(){
 		this.template = Handlebars.compile(this.htmlTabelaPesquisa);
 		this.mensagemErro = $('.js-mensagem-erro');
 		this.pessoa = $('.js-pessoa-pesquisa-rapida');
+		this.inputAnimal = $('#animal');
 	}
 	
 	PesquisaRapidaPessoa.prototype.iniciar = function(){
@@ -73,7 +74,52 @@ Quatropatas.TabelaPessoaPesquisaRapida = (function(){
 		
 		$('#nomePessoa').val(pessoaSelecionada.data('nome') + ' ' + pessoaSelecionada.data('sobrenome'));
 		$('#codigoPessoa').val(pessoaSelecionada.data('codigo'));
+	 
+		/*
+		 * Verificando se precisa preencher o campo do animal também, no caso do agendamento
+		 */
+		this.inputAnimal = $('#animal');
+		if (this.inputAnimal.length !== 0) {
+			console.log("Não é null, dentro da pesquisa: ", pessoaSelecionada.data('codigo'));
+			reset.call(this);
+			inicializarAnimals(pessoaSelecionada.data('codigo'));
+		}
 	}
+	
+	function inicializarAnimals(codigoPessoa) {
+		this.inputAnimal = $('#animal');
+		if (codigoPessoa) {
+			var resposta = $.ajax({
+				url: this.inputAnimal.data('url'),
+				method: 'GET',
+				contentType: 'application/json',
+				data: { 'pessoa': codigoPessoa }
+			});
+			resposta.done(onBuscarAnimalsFinalizado.bind(this));
+		}
+		else {
+			reset.call(this);
+		}
+	}
+	
+	function reset() {
+		//this.inputAnimal.html('<option value="">-- Selecione a animal --</option>');
+		this.inputAnimal.val('');
+		this.inputAnimal.attr('disabled', 'disabled');
+	}
+	
+	function onBuscarAnimalsFinalizado(animals) {
+		var options = [];
+		options.push('<option value="">-- Selecione a animal --</option>');
+		animals.forEach(function(animal) {
+			options.push('<option value="' + animal.codigo + '">' + animal.nome + '</option>');
+		});
+		
+		this.inputAnimal.html(options.join(''));
+		this.inputAnimal.removeAttr('disabled');
+	}
+	/* ### Final do Animal ### */
+	
 	
 	return TabelaPessoaPesquisaRapida;
 }());

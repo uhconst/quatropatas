@@ -79,7 +79,7 @@ public class ServicosController {
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
 		servicoService.deletar(codigo);
-		attributes.addFlashAttribute("mensagem", "Raça deletada com sucesso!");
+		attributes.addFlashAttribute("mensagem", "Serviço deletado com sucesso!");
 		return "redirect:/servicos";
 	}
 

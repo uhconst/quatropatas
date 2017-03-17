@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "animal")
 public class Animal implements Serializable {
@@ -28,6 +30,7 @@ public class Animal implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_pessoa")
+	@JsonIgnore
 	private Pessoa pessoa;
 	
 	@NotBlank
@@ -40,6 +43,7 @@ public class Animal implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_raca")
+	@JsonIgnore
 	private Raca raca;
 	
 	public Long getCodigo() {
