@@ -63,14 +63,12 @@ public class AgendamentosController {
 	*/
 	
 	@PostMapping("/agendamentoservico")
-	public @ResponseBody String adicionarServico(Long codigoServico, Long codigoAnimal){
-		System.out.println(">>Dentro do controller: " + codigoServico);
+	public @ResponseBody ModelAndView adicionarServico(Long codigoServico, Long codigoAnimal){
 		Animal animal = animals.findOne(codigoAnimal);
 		Servico servico = servicos.findOne(codigoServico);
-		//Animal animal = new Animal();
-		//Servico servico = new Servico();
 		tabelaServicosAgendamento.adicionarServico(servico, animal);
-		System.out.println(">>Total de servicos: " + tabelaServicosAgendamento.total());
-		return "Servico adicionado!";
+		ModelAndView mv = new ModelAndView("agendamento/tabela-servicos-agendamento");
+		mv.addObject("agendamentos", tabelaServicosAgendamento.getAgendamentos());
+		return mv;
 	}
 }

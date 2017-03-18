@@ -15,14 +15,14 @@ import com.uhc.quatropatas.model.Servico;
 @Component
 public class TabelaServicosAgendamento {
 
-	private List<AgendamentoServico> servicos = new ArrayList<>();
+	private List<AgendamentoServico> agendamentos = new ArrayList<>();
 	
 	/*
 	 * Mapeando o array e retornando a soma de todos os valores unitários. 
 	 * Reduce é pra isso(retorna um Optional). E se não tiver nada pra somar, retorna ZERO
 	 */
 	public BigDecimal getValorTotal(){
-		return servicos.stream()
+		return agendamentos.stream()
 				.map(AgendamentoServico::getValorUnitario)
 				.reduce(BigDecimal::add)
 				.orElse(BigDecimal.ZERO);
@@ -34,10 +34,14 @@ public class TabelaServicosAgendamento {
 		agendamentoServico.setAnimal(animal);
 		agendamentoServico.setValorUnitario(servico.getValor());
 		
-		servicos.add(agendamentoServico);
+		agendamentos.add(agendamentoServico);
 	}
 	
 	public int total(){
-		return servicos.size();
+		return agendamentos.size();
+	}
+
+	public Object getAgendamentos() {
+		return agendamentos;
 	}
 }

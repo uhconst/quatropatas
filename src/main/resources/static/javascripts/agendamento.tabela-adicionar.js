@@ -7,6 +7,7 @@ Quatropatas.TabelaAdicionar = (function(){
 		this.adicionarServicoBtn = $('.js-adicionar-servico-animal-btn');
 		this.selectAnimal = $('#animal');
 		this.selectServico = $('#servico');
+		this.tabelaAgendamentosContainer = $('.js-tabela-servicos-agendamentos-container');
 	}
 	
 	TabelaAdicionar.prototype.iniciar = function(){
@@ -28,9 +29,11 @@ Quatropatas.TabelaAdicionar = (function(){
 			}
 		});
 
-		resposta.done(function(data){
-			console.log('retorno: ', data);
-		});
+		resposta.done(onServicoAdicionadoNoServidor.bind(this));
+	}
+	
+	function onServicoAdicionadoNoServidor(html){
+		this.tabelaAgendamentosContainer.html(html)
 	}
 	
 	return TabelaAdicionar;
