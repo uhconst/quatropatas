@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt"
 	xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:data="http://www.thymeleaf.org/extras/data">
 	
 
-	<div class="qp-tabela-servico" th:each="agendamento: ${agendamentos}">
+	<div class="qp-tabela-servico  js-tabela-servico" th:each="agendamento: ${agendamentos}">
 		<div class="qp-tabela-servico__coluna  qp-tabela-servico__coluna--detalhes">
 			<span class="qp-tabela-servico-descricao" th:text="${agendamento.servico.descricao}">Banho</span>
 			<span class="label  label-default" th:text="${agendamento.animal.nome}">Buffy</span>
@@ -14,5 +15,17 @@
 		<div class="qp-tabela-servico__coluna  qp-tabela-servico__coluna--valores">
 			<div class="qp-tabela-servico-valor-grande">R$[[${agendamento.valorUnitario}]]</div>
 		</div>
-	
+
+		<div class="qp-tabela-servico__painel-exclusao">
+			<span class="qp-tabela-servico__titulo-exclusao">Escluir este serviço do agendamento?</span>
+			<button type="button" class="btn  btn-danger  js-exclusao-agendamento-btn"
+				data:codigo-servico="${agendamento.servico.codigo}" 
+				data:codigo-animal="${agendamento.animal.codigo}">Sim, excluir</button>
+		</div>
 	</div>
+
+	<div class="qp-tabela-servicos__vazio" th:if="${agendamentos.empty}">
+		<i class="glyphicon  glyphicon-shopping-cart"></i>
+		<span>Você ainda não adicionou nenhuma servico.</span>
+	</div>
+</html>

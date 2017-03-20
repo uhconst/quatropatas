@@ -34,6 +34,9 @@
 # PÁGINAS DO SISTEMA
 ###################
 */
+.qp-tabela-servicos {
+	margin-bottom: 15px;
+}
 
 .qp-tabela-servicos__vazio {
 	padding: 15px 15px;
@@ -137,7 +140,40 @@
 	font-size: 1.6em;
 }
 
+.qp-tabela-servico__painel-exclusao {
+    position: absolute;
+    top: 0;
+    right: 100000px;
+	height: 100%;
+    width: 50%;
+    
+    text-align: center;
+    padding-top: 35px;
+    
+	background-color: #f0ad4e;
+	
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+.solicitando-exclusao .qp-tabela-servico__painel-exclusao {
+	right: 0;
+	opacity: 1;
+}
+
+.qp-tabela-servico__titulo-exclusao {
+    display: block;
+    margin-bottom: 5px;
+    
+	color: #fff;
+    font-size: 1.3em;
+}
 @media (min-width: 768px) { /* screen-sm-min */
+	.qp-tabela-servico__painel-exclusao {
+		width: 40%;
+		padding-top: 10px;
+	}
+	
 	.qp-tabela-servico__coluna {
 		float: left;
 		margin-left: 0px;
@@ -149,7 +185,6 @@
 	
 	.qp-tabela-servico__coluna--valores {
 		width: calc(30% - 30px);
-
 		text-align: right;
 	}
 }

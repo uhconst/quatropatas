@@ -34,6 +34,23 @@ Quatropatas.TabelaAdicionar = (function(){
 	
 	function onServicoAdicionadoNoServidor(html){
 		this.tabelaAgendamentosContainer.html(html)
+		$('.js-tabela-servico').on('dblclick', onDoubleClick);
+		$('.js-exclusao-agendamento-btn').on('click', onExclusaoAgendamentoClick.bind(this));
+	}
+	
+	
+	function onDoubleClick(evento){
+		$(this).toggleClass('solicitando-exclusao');
+	}
+	
+	function onExclusaoAgendamentoClick(evento){
+		var codigoServico = $(evento.target).data('codigo-servico');
+		var codigoAnimal = $(evento.target).data('codigo-animal');
+		var resposta = $.ajax({
+			url: 'agendamentoservico/' + codigoServico + '/' + codigoAnimal,
+			method: 'DELETE'
+		});
+		resposta.done(onServicoAdicionadoNoServidor.bind(this));
 	}
 	
 	return TabelaAdicionar;

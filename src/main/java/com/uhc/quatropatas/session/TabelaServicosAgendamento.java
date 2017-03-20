@@ -3,6 +3,7 @@ package com.uhc.quatropatas.session;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -34,14 +35,31 @@ public class TabelaServicosAgendamento {
 		agendamentoServico.setAnimal(animal);
 		agendamentoServico.setValorUnitario(servico.getValor());
 		
-		agendamentos.add(agendamentoServico);
+		/*
+		 * Usando o 0 para adicionar sempre no inicio da Tabela
+		 */
+		agendamentos.add(0, agendamentoServico);
+	}
+	
+	public void deletarServico(Servico servico, Animal animal){
+		int indice = IntStream.range(0, agendamentos.size())
+				.filter((i) -> agendamentos.get(i).getServico().equals(servico) && agendamentos.get(i).getAnimal().equals(animal))
+				.findAny().getAsInt();
+		/*int indice = IntStream.range(0, agendamentos.size())
+				.filter(i -> agendamentos.get(i).getServico().equals(servico))
+				.findAny().getAsInt();*/
+		/*int indice = IntStream.range(0, agendamentos.size())
+				.filter(i -> agendamentos.get(i).getServico().equals(servico))
+				.filter(i -> agendamentos.get(i).getAnimal().equals(animal))
+				.findAny().getAsInt();*/
+		agendamentos.remove(indice);
 	}
 	
 	public int total(){
 		return agendamentos.size();
 	}
 
-	public Object getAgendamentos() {
+	public List<AgendamentoServico> getAgendamentos() {
 		return agendamentos;
 	}
 }

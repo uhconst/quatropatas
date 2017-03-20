@@ -56,4 +56,38 @@ public class TabelaServicosAgendamentoTest {
 		
 		assertEquals(v1.add(v2), tabelaServicosAgendamento.getValorTotal());
 	}
+	
+	@Test
+	public void deveExcluirAgendamento() throws Exception {
+		Animal a1 = new Animal();
+		a1.setNome("Test1");
+		
+		Animal a2 = new Animal();
+		a2.setNome("Test2");
+		
+		Animal a3 = new Animal();
+		a3.setNome("Test3");
+		
+		Servico s1 = new Servico();
+		BigDecimal v1 = new BigDecimal("10.00");
+		s1.setValor(v1);
+		
+		Servico s2 = new Servico();
+		BigDecimal v2 = new BigDecimal("5.00");
+		s2.setValor(v2);
+		
+		Servico s3 = new Servico();
+		BigDecimal v3 = new BigDecimal("2.00");
+		s3.setValor(v3);
+		
+		tabelaServicosAgendamento.adicionarServico(s2, a1);
+		tabelaServicosAgendamento.adicionarServico(s2, a2);
+		tabelaServicosAgendamento.adicionarServico(s3, a2);
+		
+		
+		tabelaServicosAgendamento.deletarServico(s2, a2);
+		
+		assertEquals(2, tabelaServicosAgendamento.total());
+		assertEquals(v2.add(v2), tabelaServicosAgendamento.getValorTotal());
+	}
 }
