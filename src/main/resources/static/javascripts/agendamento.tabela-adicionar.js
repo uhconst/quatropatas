@@ -9,6 +9,8 @@ Quatropatas.TabelaAdicionar = (function(){
 		this.selectServico = $('#servico');
 		this.tabelaAgendamentosContainer = $('.js-tabela-servicos-agendamentos-container');
 		this.uuid = $('#uuid').val();
+		this.emitter = $({});
+		this.on = this.emitter.on.bind(this.emitter);
 	}
 	
 	TabelaAdicionar.prototype.iniciar = function(){
@@ -31,13 +33,16 @@ Quatropatas.TabelaAdicionar = (function(){
 			}
 		});
 
-		resposta.done(onServicoAdicionadoNoServidor.bind(this));
+		resposta.done(onServicoAtualizadoNoServidor.bind(this));
 	}
 	
-	function onServicoAdicionadoNoServidor(html){
+	function onServicoAtualizadoNoServidor(html){
 		this.tabelaAgendamentosContainer.html(html)
-		$('.js-tabela-servico').on('dblclick', onDoubleClick);
+		var tabelaServico = $('.js-tabela-servico')
+		tabelaServico.on('dblclick', onDoubleClick);
 		$('.js-exclusao-agendamento-btn').on('click', onExclusaoAgendamentoClick.bind(this));
+		
+		this.emitter.trigger('tabela-agendamentos-atualizada', tabelaServico.data('valor-total'));
 	}
 	
 	
@@ -52,15 +57,8 @@ Quatropatas.TabelaAdicionar = (function(){
 			url: 'agendamentoservico/' + this.uuid + '/' + codigoServico + '/' + codigoAnimal,
 			method: 'DELETE'
 		});
-		resposta.done(onServicoAdicionadoNoServidor.bind(this));
+		resposta.done(onServicoAtualizadoNoServidor.bind(this));
 	}
 	
 	return TabelaAdicionar;
 }());
-
-$(function(){
-	
-	var tabelaAdicionar = new Quatropatas.TabelaAdicionar();
-	tabelaAdicionar.iniciar();
-	
-});

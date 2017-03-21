@@ -67,9 +67,7 @@ public class AgendamentosController {
 		Animal animal = animals.findOne(codigoAnimal);
 		Servico servico = servicos.findOne(codigoServico);
 		tabelaServicosAgendamento.adicionarServico(uuid, servico, animal);
-		ModelAndView mv = new ModelAndView("agendamento/tabela-servicos-agendamento");
-		mv.addObject("agendamentos", tabelaServicosAgendamento.getAgendamentos(uuid));
-		return mv;
+		return mvTabelaServicosAgendamento(uuid);
 	}
 	
 	@DeleteMapping("agendamentoservico/{uuid}/{codigoServico}/{codigoAnimal}")
@@ -78,8 +76,13 @@ public class AgendamentosController {
 		Animal animal = animals.findOne(codigoAnimal);
 		Servico servico = servicos.findOne(codigoServico);
 		tabelaServicosAgendamento.deletarServico(uuid, servico, animal);
+		return mvTabelaServicosAgendamento(uuid);
+	}
+
+	private ModelAndView mvTabelaServicosAgendamento(String uuid) {
 		ModelAndView mv = new ModelAndView("agendamento/tabela-servicos-agendamento");
 		mv.addObject("agendamentos", tabelaServicosAgendamento.getAgendamentos(uuid));
+		mv.addObject("valorTotal", tabelaServicosAgendamento.getValorTotal(uuid));
 		return mv;
 	}
 }

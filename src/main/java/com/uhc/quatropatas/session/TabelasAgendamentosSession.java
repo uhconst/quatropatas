@@ -32,6 +32,10 @@ public class TabelasAgendamentosSession {
 		return buscarTabelaPorUuid(uuid).getAgendamentos();
 	}
 	
+	public Object getValorTotal(String uuid) {
+		return buscarTabelaPorUuid(uuid).getValorTotal();
+	}
+	
 	private TabelaServicosAgendamento buscarTabelaPorUuid(String uuid) {
 		TabelaServicosAgendamento tabela = tabelas.stream()
 				.filter(t -> t.getUuid().equals(uuid))
@@ -39,6 +43,5 @@ public class TabelasAgendamentosSession {
 				.orElse(new TabelaServicosAgendamento(uuid));
 		return tabela;
 	}
-
 	
 }

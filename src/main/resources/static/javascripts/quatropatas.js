@@ -33,7 +33,6 @@ Quatropatas.MaskDate = (function(){
 	return MaskDate;
 }());
 
-
 Quatropatas.MaskMoney = (function(){
 	function MaskMoney(){
 		this.inputMoney = $('.js-money');
@@ -66,7 +65,24 @@ Quatropatas.MaskMinuto = (function(){
 	
 	return MaskMinuto;
 }());
+/*
+Quatropatas.formatarMoney = function(valor) {
+	return valor.maskNumber({
+		decimal: ',',
+		thousands: '.'
+	});
+}
+*/
 
+numeral.language('pt-br');
+
+Quatropatas.formatarMoeda = function(valor) {
+	return numeral(valor).format('0,0.00');
+}
+
+Quatropatas.recuperarValor = function(valorFormatado) {
+	return numeral().unformat(valorFormatado);
+}
 
 $(function(){
 	
