@@ -8,6 +8,7 @@ Quatropatas.TabelaAdicionar = (function(){
 		this.selectAnimal = $('#animal');
 		this.selectServico = $('#servico');
 		this.tabelaAgendamentosContainer = $('.js-tabela-servicos-agendamentos-container');
+		this.uuid = $('#uuid').val();
 	}
 	
 	TabelaAdicionar.prototype.iniciar = function(){
@@ -25,7 +26,8 @@ Quatropatas.TabelaAdicionar = (function(){
 			method: 'POST',
 			data: {
 				'codigoServico': this.selectServico.val(),
-				'codigoAnimal': this.selectAnimal.val()
+				'codigoAnimal': this.selectAnimal.val(),
+				'uuid': this.uuid
 			}
 		});
 
@@ -47,7 +49,7 @@ Quatropatas.TabelaAdicionar = (function(){
 		var codigoServico = $(evento.target).data('codigo-servico');
 		var codigoAnimal = $(evento.target).data('codigo-animal');
 		var resposta = $.ajax({
-			url: 'agendamentoservico/' + codigoServico + '/' + codigoAnimal,
+			url: 'agendamentoservico/' + this.uuid + '/' + codigoServico + '/' + codigoAnimal,
 			method: 'DELETE'
 		});
 		resposta.done(onServicoAdicionadoNoServidor.bind(this));

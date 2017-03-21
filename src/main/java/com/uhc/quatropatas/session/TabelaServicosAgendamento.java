@@ -12,12 +12,16 @@ import com.uhc.quatropatas.model.AgendamentoServico;
 import com.uhc.quatropatas.model.Animal;
 import com.uhc.quatropatas.model.Servico;
 
-@SessionScope
-@Component
-public class TabelaServicosAgendamento {
+class TabelaServicosAgendamento {
 
+	private String uuid;
+	
 	private List<AgendamentoServico> agendamentos = new ArrayList<>();
 	
+	public TabelaServicosAgendamento(String uuid) {
+		this.uuid = uuid;
+	}
+
 	/*
 	 * Mapeando o array e retornando a soma de todos os valores unitários. 
 	 * Reduce é pra isso(retorna um Optional). E se não tiver nada pra somar, retorna ZERO
@@ -62,4 +66,36 @@ public class TabelaServicosAgendamento {
 	public List<AgendamentoServico> getAgendamentos() {
 		return agendamentos;
 	}
+
+	
+	public String getUuid() {
+		return uuid;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TabelaServicosAgendamento other = (TabelaServicosAgendamento) obj;
+		if (uuid == null) {
+			if (other.uuid != null)
+				return false;
+		} else if (!uuid.equals(other.uuid))
+			return false;
+		return true;
+	}
+	
+	
 }

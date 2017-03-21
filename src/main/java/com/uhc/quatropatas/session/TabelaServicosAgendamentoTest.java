@@ -16,7 +16,7 @@ public class TabelaServicosAgendamentoTest {
 	
 	@Before
 	public void setUp(){
-		this.tabelaServicosAgendamento = new TabelaServicosAgendamento();
+		this.tabelaServicosAgendamento = new TabelaServicosAgendamento("1");
 	}
 	
 	/*

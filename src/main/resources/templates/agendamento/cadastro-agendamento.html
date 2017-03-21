@@ -23,8 +23,9 @@
 		</div>
 
 		<div class="container-fluid">
-			<form method="POST" class="form-vertical  js-form-loading" ><!-- th:object="${agendamento}" th:action="@{/agendamentos/novo}">  -->
-
+			<form method="POST" class="form-vertical  js-form-loading" th:action="@{/agendamentos/novo}"> ><!-- th:object="${agendamento}"   -->
+				
+				<input type="hidden" id="uuid" th:value="${uuid}"/>
 				<!-- MENSAGEM DE ERRO NA VALIDAÇÃO -->
 				<!--<div th:replace="fragments/mensagem-erro-validacao :: alert"></div>  -->
 
@@ -123,7 +124,7 @@
 
 					<div class="qp-tabela-servicos__vazio">
 						<i class="glyphicon  glyphicon-shopping-cart"></i> 
-						<span>Você ainda não adicionou nenhuma servico.</span>
+						<span>Você ainda não adicionou nenhum servico.</span>
 					</div>
 				</div>
 				<!-- BOTÕES DO FORMULÁRIO -->
