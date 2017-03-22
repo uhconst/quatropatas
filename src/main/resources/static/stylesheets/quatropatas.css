@@ -61,6 +61,11 @@
 }
 
 
+/* Box */
+.negativo .aw-box__value {
+	color: red;
+}
+
 /* ############### Tabela Item ############### */
 .qp-tabela-servico {
 	position: relative; /* Para que o painel de exclusão apareça dentro da linha */

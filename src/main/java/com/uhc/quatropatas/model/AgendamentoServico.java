@@ -2,32 +2,46 @@ package com.uhc.quatropatas.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "agendamento_servico")
 public class AgendamentoServico implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@ManyToOne
+	@JoinColumn(name = "codigo_servico")
 	private  Servico servico;
 	
+	@ManyToOne
+	@JoinColumn(name = "codigo_animal")
 	private Animal animal;
 	
-	//private Agendamento agendamento;
+	@ManyToOne
+	@JoinColumn(name = "codigo_agendamento")
+	private Agendamento agendamento;
 	
+	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
 	
-	private LocalTime horaInicio;
+	/*
+	@Column(name = "data_agendamento")
+	private LocalTime dataAgendamento;
+	*/
 	
-	private LocalTime horaTermino;
-
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -60,20 +74,12 @@ public class AgendamentoServico implements Serializable {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public LocalTime getHoraInicio() {
-		return horaInicio;
+	public Agendamento getAgendamento() {
+		return agendamento;
 	}
 
-	public void setHoraInicio(LocalTime horaInicio) {
-		this.horaInicio = horaInicio;
-	}
-
-	public LocalTime getHoraTermino() {
-		return horaTermino;
-	}
-
-	public void setHoraTermino(LocalTime horaTermino) {
-		this.horaTermino = horaTermino;
+	public void setAgendamento(Agendamento agendamento) {
+		this.agendamento = agendamento;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ Quatropatas.Agendamento = (function(){
 		this.tabelaAgendamentos = tabelaAgendamentos;
 		this.valorTotalBox = $('.js-valor-total-box');
 		this.valorDescontoInput = $('#valorDesconto');
+		this.valorTotalBoxContainer = $('.js-valor-total-box-container');
 		
 		this.valorTotalServicos = 0;
 		this.valorDesconto = 0;
@@ -30,6 +31,8 @@ Quatropatas.Agendamento = (function(){
 		//console.log("Dentro dos valores alterados");
 		var valorTotal = this.valorTotalServicos - this.valorDesconto;
 		this.valorTotalBox.html(Quatropatas.formatarMoeda(valorTotal));
+		
+		this.valorTotalBoxContainer.toggleClass('negativo', valorTotal < 0);
 	}
 	
 	return Agendamento;
