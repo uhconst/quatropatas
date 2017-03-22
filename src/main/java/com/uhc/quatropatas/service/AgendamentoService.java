@@ -26,13 +26,7 @@ public class AgendamentoService {
 		if(agendamento.isNova()){
 			agendamento.setDataCriacao(LocalDateTime.now());
 		}
-		
-		BigDecimal valorTotalServicos = agendamento.getAgendamentos().stream()
-				.map(AgendamentoServico::getValorUnitario)
-				.reduce(BigDecimal::add)
-				.get();
-		BigDecimal valorTotal = calcularValorTotal(valorTotalServicos, agendamento.getValorDesconto());
-		agendamento.setValorTotal(valorTotal);
+	
 		
 		if(agendamento.getDataAgendamento() != null){
 			agendamento.setDataHoraAgendamento(LocalDateTime.of(agendamento.getDataAgendamento(), agendamento.getHorarioAgendamento()));
@@ -41,12 +35,6 @@ public class AgendamentoService {
 		agendamentos.save(agendamento);
 	}
 
-	private BigDecimal calcularValorTotal(BigDecimal valorTotalServicos, BigDecimal valorDesconto) {
-		BigDecimal valorTotal = valorTotalServicos
-				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
-		return valorTotal;
-	}
-	
 	/*
 	@Transactional
 	public void deletar(Long codigo){

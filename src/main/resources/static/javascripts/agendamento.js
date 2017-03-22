@@ -6,8 +6,8 @@ Quatropatas.Agendamento = (function(){
 		this.valorDescontoInput = $('#valorDesconto');
 		this.valorTotalBoxContainer = $('.js-valor-total-box-container');
 		
-		this.valorTotalServicos = 0;
-		this.valorDesconto = 0;
+		this.valorTotalServicos = this.tabelaAgendamentos.valorTotal();
+		this.valorDesconto = this.valorDescontoInput.data('valor');
 	}
 	
 	Agendamento.prototype.iniciar = function(){
@@ -16,6 +16,8 @@ Quatropatas.Agendamento = (function(){
 
 		this.tabelaAgendamentos.on('tabela-agendamentos-atualizada', onValoresAlterados.bind(this));
 		this.valorDescontoInput.on('keyup', onValoresAlterados.bind(this));
+		
+		onValoresAlterados().call(this);
 	}
 	
 	function onTabelaAgendamentosAtualizada(evento, valorTotalServicos){
@@ -24,14 +26,15 @@ Quatropatas.Agendamento = (function(){
 
 	function onValorDescontoAlterado(evento){
 		this.valorDesconto = Quatropatas.recuperarValor($(event.target).val());
-		//console.log('valor Desconto: ' + ;
 	}
 
 	function onValoresAlterados(){
-		//console.log("Dentro dos valores alterados");
-		var valorTotal = this.valorTotalServicos - this.valorDesconto;
-		this.valorTotalBox.html(Quatropatas.formatarMoeda(valorTotal));
+		/*
+		 * Usando Numeral paa evitar problemas de conversão de Strings
+		 */
+		var valorTotal = numeral(this.valorTotalServicos) - numeral(this.valorDesconto);
 		
+		this.valorTotalBox.html(Quatropatas.formatarMoeda(valorTotal));
 		this.valorTotalBoxContainer.toggleClass('negativo', valorTotal < 0);
 	}
 	

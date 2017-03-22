@@ -7,8 +7,12 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uhc.quatropatas.controller.validator.AgendamentoValidator;
 import com.uhc.quatropatas.model.Agendamento;
 import com.uhc.quatropatas.model.Animal;
 import com.uhc.quatropatas.model.Servico;
@@ -42,29 +47,56 @@ public class AgendamentosController {
 	@Autowired
 	private AgendamentoService agendamentoService;
 	
+	@Autowired
+	private AgendamentoValidator agendamentoValidator;
+	
+	@InitBinder
+	public void inicializarValidador(WebDataBinder binder){
+		binder.setValidator(agendamentoValidator);
+	}
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(Agendamento agendamento){
 		ModelAndView mv = new ModelAndView("agendamento/cadastro-agendamento");
 		//mv.addObject(agendamento);
-		agendamento.setUuid(UUID.randomUUID().toString());
+		if(StringUtils.isEmpty(agendamento.getUuid())){
+			agendamento.setUuid(UUID.randomUUID().toString());
+		}
+		
+		/*
+		 * Mantendo os valores da lista de agendamento.
+		 * Caso falhe a validação, vai manter os servicos que estao sendo
+		 * agendados na tela
+		 */
+		mv.addObject("agendamentos", agendamento.getAgendamentos());
+		mv.addObject("valorDesconto", agendamento.getValorDesconto());
+		mv.addObject("valorTotalServicos", tabelaServicosAgendamento.getValorTotal(agendamento.getUuid()));
+		
 		mv.addObject("servicos", servicos.findAll());
 		
 		return mv;
 	}
 
 	@PostMapping("/novo")
-	public ModelAndView salvar(Agendamento agendamento, RedirectAttributes attributes){
-		//(@Valid Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
+	public ModelAndView salvar(Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
+		agendamento.adicionarServicos(tabelaServicosAgendamento.getAgendamentos(agendamento.getUuid()));
+		agendamento.calcularValorTotal();
+		
+		/*
+		 * Validando aqui, pq no corpo do metodo ele validaria antes de adicionar os
+		 * serviços ao agendamento. Agora eu consigo primeiro adicionar os serviços
+		 * e depois validar o agendamento todo.
+		 */
+		agendamentoValidator.validate(agendamento, result);
+		if(result.hasErrors()){
+			return novo(agendamento);
+		}
+		
 		/*
 		@AuthenticationPrincipal Usuario Sistema usuarioSistema
 		aula 23.15 aos 10:50
 		*/
-		/*
-		if(result.hasErrors()){
-			return novo(agendamento);
-		}
-		*/
-		agendamento.adicionarServicos(tabelaServicosAgendamento.getAgendamentos(agendamento.getUuid()));
+		
 		agendamentoService.salvar(agendamento);
 		attributes.addFlashAttribute("mensagem", "Agendamento salvo com sucesso!");
 		return new ModelAndView("redirect:/agendamentos/novo");

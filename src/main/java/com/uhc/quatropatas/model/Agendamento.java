@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,7 +32,7 @@ public class Agendamento implements Serializable {
 	private Long codigo;
 	
 	@OneToMany(mappedBy = "agendamento", cascade = CascadeType.ALL)
-	private List<AgendamentoServico> agendamentos;
+	private List<AgendamentoServico> agendamentos = new ArrayList<>();
 	
 	@Column(name = "data_criacao")
 	private LocalDateTime dataCriacao;
@@ -48,7 +50,7 @@ public class Agendamento implements Serializable {
 	private BigDecimal valorDesconto;
 	
 	@Column(name = "valor_total")
-	private BigDecimal valorTotal;
+	private BigDecimal valorTotal = BigDecimal.ZERO;
 	
 	private String observacao;
 	
@@ -162,6 +164,20 @@ public class Agendamento implements Serializable {
 	public void adicionarServicos(List<AgendamentoServico> agendamentos) {
 		this.agendamentos = agendamentos;
 		this.agendamentos.forEach(i -> i.setAgendamento(this));
+	}
+	
+	public void calcularValorTotal(){
+		BigDecimal valorTotalServicos = getAgendamentos().stream()
+				.map(AgendamentoServico::getValorUnitario)
+				.reduce(BigDecimal::add)
+				.orElse(BigDecimal.ZERO);
+		this.valorTotal = calcularValorTotal(valorTotalServicos, getValorDesconto());
+	}
+	
+	private BigDecimal calcularValorTotal(BigDecimal valorTotalServicos, BigDecimal valorDesconto) {
+		BigDecimal valorTotal = valorTotalServicos
+				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
+		return valorTotal;
 	}
 	
 	@Override

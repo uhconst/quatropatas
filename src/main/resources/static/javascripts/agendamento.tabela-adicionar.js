@@ -15,6 +15,15 @@ Quatropatas.TabelaAdicionar = (function(){
 	
 	TabelaAdicionar.prototype.iniciar = function(){
 		this.adicionarServicoBtn.on('click', onAdicionarServicoClicado.bind(this));
+		
+		bindTabelaServico.call(this);
+	}
+	
+	/*
+	 * Para poder acessar de fora
+	 */
+	TabelaAdicionar.prototype.valorTotal = function(){
+		return this.tabelaAgendamentosContainer.data('valor');
 	}
 	
 	function onAdicionarServicoClicado(event){
@@ -38,13 +47,13 @@ Quatropatas.TabelaAdicionar = (function(){
 	
 	function onServicoAtualizadoNoServidor(html){
 		this.tabelaAgendamentosContainer.html(html)
-		var tabelaServico = $('.js-tabela-servico')
-		tabelaServico.on('dblclick', onDoubleClick);
-		$('.js-exclusao-agendamento-btn').on('click', onExclusaoAgendamentoClick.bind(this));
+		
+		var tabelaServico = bindTabelaServico.call(this);
 		
 		this.emitter.trigger('tabela-agendamentos-atualizada', tabelaServico.data('valor-total'));
 	}
 	
+
 	
 	function onDoubleClick(evento){
 		$(this).toggleClass('solicitando-exclusao');
@@ -58,6 +67,14 @@ Quatropatas.TabelaAdicionar = (function(){
 			method: 'DELETE'
 		});
 		resposta.done(onServicoAtualizadoNoServidor.bind(this));
+	}
+	
+	function bindTabelaServico(){
+		var tabelaServico = $('.js-tabela-servico')
+		tabelaServico.on('dblclick', onDoubleClick);
+		$('.js-exclusao-agendamento-btn').on('click', onExclusaoAgendamentoClick.bind(this));
+		
+		return tabelaServico;
 	}
 	
 	return TabelaAdicionar;
