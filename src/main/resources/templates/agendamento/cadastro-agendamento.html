@@ -23,14 +23,14 @@
 		</div>
 
 		<div class="container-fluid">
-			<form method="POST" class="form-vertical  js-form-loading" th:action="@{/agendamentos/novo}"> ><!-- th:object="${agendamento}"   -->
+			<form method="POST" class="form-vertical  js-form-loading" th:action="@{/agendamentos/novo}" th:object="${agendamento}"><!-- th:object="${agendamento}"   -->
 				
-				<input type="hidden" id="uuid" th:value="${uuid}"/>
+				<input type="hidden" id="uuid" th:field="*{uuid}"/>
 				<!-- MENSAGEM DE ERRO NA VALIDAÇÃO -->
 				<!--<div th:replace="fragments/mensagem-erro-validacao :: alert"></div>  -->
 
 				<!-- MENSAGEM DE SUCESSO -->
-				<!--<div th:replace="fragments/mensagem-sucesso :: alert"></div>  -->
+				<div th:replace="fragments/mensagem-sucesso :: alert"></div>
 
 				<!-- <input type="hidden" th:field="*{codigo}"/> -->
 
@@ -70,30 +70,34 @@
 			
 				<div class="row">
 
-					<div class="col-sm-2  form-group">
-						<label for="input-produto-nome" class="control-label">Data</label>
-						<input id="input-produto-nome" type="text"
-							class="form-control  js-date" 
+					<div class="col-sm-1  form-group">
+						<label for="dataAgendamento" class="control-label">Data</label>
+						<input id="dataAgendamento" type="text"
+							class="form-control  js-date" th:field=*{dataAgendamento} 
 							data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
 							data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off" />
-							<!-- th:field=*{dataAgendamento}  -->
+					</div>
+					
+					<div class="form-group  col-sm-1">
+							<label class="control-label" for="horarioAgendamento">Horário</label>
+							<input type="text" class="form-control" id="horarioAgendamento" th:field="*{horarioAgendamento}"/>
+					</div>
+					
+					<div class="form-group  col-sm-2">
+						<label class="control-label" for="valorDesconto">Valor do desconto</label>
+						<div class="input-group">
+							<div class="input-group-addon">R$</div>
+							<input type="text" maxlength="14" class="form-control  js-money" id="valorDesconto" th:field="*{valorDesconto}"/>
+						</div>
 					</div>
 
-				<div class="form-group  col-sm-2">
-					<label class="control-label" for="valorDesconto">Valor do desconto</label>
-					<div class="input-group">
-						<div class="input-group-addon">R$</div>
-						<input type="text" maxlength="14" class="form-control  js-money" id="valorDesconto" />
-					</div>
-				</div>
-
-				<div class="form-group  col-sm-4  qp-required">
+					<div class="form-group  col-sm-4  qp-required">
 						<label class="control-label" for="nomePessoa">Cliente</label>
 						<div class="input-group">
 							<input id="nomePessoa" type="text" readonly="readonly"
 								class="form-control"
 								placeholder="Clique na lupa para pesquisar o cliente"/> 
-								<input id="codigoPessoa" type="hidden" /> <!-- th:field="*{pessoa}" -->
+								<input id="codigoPessoa" type="hidden"/> <!-- th:field="*{pessoa}" -->
 								<span class="input-group-btn">
 								<button class="btn  btn-default  js-tooltip" type="button"
 									title="Pesquisa avançada" data-toggle="modal"
@@ -111,9 +115,16 @@
 		                    <option value="">-- Selecione um animal --</option>
 		                </select>
 					</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group  col-sm-12">
+					<textarea class="form-control" id="observacao" rows="5"
+						placeholder="Alguma observação sobre esse agendamento?" th:field="*{observacao}"></textarea>
 				</div>
-				<div class="row">
-					
+			</div>
+
+			<div class="row">
 					<div class="form-group  col-sm-4">
 						<label for="servico" class="control-label">Serviço</label>
 						<select id="servico" class="form-control" ><!-- th:field="*{servicos}" -->

@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uhc.quatropatas.model.Agendamento;
 import com.uhc.quatropatas.model.Animal;
 import com.uhc.quatropatas.model.Servico;
 import com.uhc.quatropatas.repository.Animals;
 import com.uhc.quatropatas.repository.Servicos;
+import com.uhc.quatropatas.service.AgendamentoService;
 import com.uhc.quatropatas.session.TabelasAgendamentosSession;
 
 
@@ -37,30 +39,37 @@ public class AgendamentosController {
 	@Autowired
 	private TabelasAgendamentosSession tabelaServicosAgendamento;
 	
-	//@Autowired
-	//private AgendamentoService agendamentoService;
+	@Autowired
+	private AgendamentoService agendamentoService;
 	
 	@GetMapping("/novo")
-	public ModelAndView novo(){//(Agendamento agendamento){
+	public ModelAndView novo(Agendamento agendamento){
 		ModelAndView mv = new ModelAndView("agendamento/cadastro-agendamento");
 		//mv.addObject(agendamento);
-		mv.addObject("uuid", UUID.randomUUID().toString());
+		agendamento.setUuid(UUID.randomUUID().toString());
 		mv.addObject("servicos", servicos.findAll());
 		
 		return mv;
 	}
-	/*
+
 	@PostMapping("/novo")
-	public ModelAndView salvar(@Valid Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
+	public ModelAndView salvar(Agendamento agendamento, RedirectAttributes attributes){
+		//(@Valid Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
+		/*
+		@AuthenticationPrincipal Usuario Sistema usuarioSistema
+		aula 23.15 aos 10:50
+		*/
+		/*
 		if(result.hasErrors()){
 			return novo(agendamento);
 		}
-		
+		*/
+		agendamento.adicionarServicos(tabelaServicosAgendamento.getAgendamentos(agendamento.getUuid()));
 		agendamentoService.salvar(agendamento);
 		attributes.addFlashAttribute("mensagem", "Agendamento salvo com sucesso!");
 		return new ModelAndView("redirect:/agendamentos/novo");
 	}
-	*/
+
 	
 	@PostMapping("/agendamentoservico")
 	public @ResponseBody ModelAndView adicionarServico(Long codigoServico, Long codigoAnimal, String uuid){

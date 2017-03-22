@@ -1,7 +1,7 @@
 CREATE TABLE agendamento (
 	codigo SERIAL PRIMARY KEY,
 	data_criacao TIMESTAMP NOT NULL,
-	data_agendamento TIMESTAMP NOT NULL,
+	data_hora_agendamento TIMESTAMP NOT NULL,
 	valor_desconto DECIMAL(10,2),
 	valor_total DECIMAL(10,2) NOT NULL,
 	status VARCHAR(30) NOT NULL,
