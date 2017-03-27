@@ -54,7 +54,6 @@ Quatropatas.TabelaAdicionar = (function(){
 	}
 	
 
-	
 	function onDoubleClick(evento){
 		$(this).toggleClass('solicitando-exclusao');
 	}
@@ -70,7 +69,7 @@ Quatropatas.TabelaAdicionar = (function(){
 	}
 	
 	function bindTabelaServico(){
-		var tabelaServico = $('.js-tabela-servico')
+		var tabelaServico = $('.js-tabela-servico');
 		tabelaServico.on('dblclick', onDoubleClick);
 		$('.js-exclusao-agendamento-btn').on('click', onExclusaoAgendamentoClick.bind(this));
 		

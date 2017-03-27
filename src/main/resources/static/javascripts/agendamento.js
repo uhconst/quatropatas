@@ -17,10 +17,11 @@ Quatropatas.Agendamento = (function(){
 		this.tabelaAgendamentos.on('tabela-agendamentos-atualizada', onValoresAlterados.bind(this));
 		this.valorDescontoInput.on('keyup', onValoresAlterados.bind(this));
 		
-		onValoresAlterados().call(this);
+		onValoresAlterados.call(this);
 	}
 	
 	function onTabelaAgendamentosAtualizada(evento, valorTotalServicos){
+		console.log("onTabelaAgendamentosAtualizada: valorTotalServicos: " + valorTotalServicos); //test
 		this.valorTotalServicos = valorTotalServicos == null ? 0 : valorTotalServicos;
 	}
 
@@ -30,11 +31,12 @@ Quatropatas.Agendamento = (function(){
 
 	function onValoresAlterados(){
 		/*
-		 * Usando Numeral paa evitar problemas de conversão de Strings
+		 * Usando Numeral para evitar problemas de conversão de Strings
 		 */
 		var valorTotal = numeral(this.valorTotalServicos) - numeral(this.valorDesconto);
 		
 		this.valorTotalBox.html(Quatropatas.formatarMoeda(valorTotal));
+		
 		this.valorTotalBoxContainer.toggleClass('negativo', valorTotal < 0);
 	}
 	
