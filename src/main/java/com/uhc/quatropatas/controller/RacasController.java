@@ -54,8 +54,12 @@ public class RacasController {
 	@GetMapping
 	public ModelAndView pesquisar(RacaFilter racaFilter){
 		ModelAndView mv = new ModelAndView("raca/pesquisa-raca");
-		mv.addObject("racas", racas.findByNomeContainingIgnoreCase(
-				Optional.ofNullable(racaFilter.getNome()).orElse("%")));
+		mv.addObject("especies", TipoEspecie.values());
+		
+		mv.addObject("racas", racas.filtrar(racaFilter));
+		/*mv.addObject("racas", racas.findByNomeContainingIgnoreCase(
+				Optional.ofNullable(racaFilter.getNome()).orElse("%")));*/
+		
 		return mv;
 	}
 	
