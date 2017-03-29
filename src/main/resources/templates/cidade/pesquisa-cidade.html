@@ -45,7 +45,7 @@
 				
 				<label for="estado">Estado</label> <select id="estado"
 					class="form-control" th:field="*{estado}">
-					<option value="">-- Selecione o estado --</option>
+					<option value="">Todos os Estados</option>
 					<option th:each="estado : ${estados}" th:value="${estado.codigo}"
 						th:text="${estado.nome}">Estado</option>
 				</select>

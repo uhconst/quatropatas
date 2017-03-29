@@ -1,10 +1,11 @@
 package com.uhc.quatropatas.controller;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,13 +53,12 @@ public class RacasController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(RacaFilter racaFilter){
+	public ModelAndView pesquisar(RacaFilter racaFilter, @PageableDefault(size = 2) Pageable pageable){
 		ModelAndView mv = new ModelAndView("raca/pesquisa-raca");
 		mv.addObject("especies", TipoEspecie.values());
 		
-		mv.addObject("racas", racas.filtrar(racaFilter));
-		/*mv.addObject("racas", racas.findByNomeContainingIgnoreCase(
-				Optional.ofNullable(racaFilter.getNome()).orElse("%")));*/
+		Page<Raca> pagina = racas.filtrar(racaFilter, pageable);
+		mv.addObject("pagina", pagina);
 		
 		return mv;
 	}

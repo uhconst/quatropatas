@@ -1,14 +1,16 @@
 package com.uhc.quatropatas.repository.helper.raca;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import com.uhc.quatropatas.model.Raca;
@@ -22,9 +24,32 @@ public class RacasImpl implements RacasQueries{
 	@SuppressWarnings("unchecked")
 	@Override
 	//@Transactional(readOnly = true)
-	public List<Raca> filtrar(RacaFilter filtro) {
+	public Page<Raca> filtrar(RacaFilter filtro, Pageable pageable) {
 		
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Raca.class);
+		
+		int paginaAtual = pageable.getPageNumber();
+		int totalRegistrosPorPagina = pageable.getPageSize();
+		/*
+		 * Calculando o primeiro registro da pagina
+		 */
+		int primeiroRegistro = paginaAtual * totalRegistrosPorPagina;
+
+		criteria.setFirstResult(primeiroRegistro);
+		criteria.setMaxResults(totalRegistrosPorPagina);
+		
+		adicionarFiltro(filtro, criteria);
+		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+	}
+	
+	private Long total(RacaFilter filtro) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Raca.class);
+		adicionarFiltro(filtro, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
+	}
+	
+	private void adicionarFiltro(RacaFilter filtro, Criteria criteria) {
 		if(filtro != null){
 			if(!StringUtils.isEmpty(filtro.getNome())){
 				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
@@ -34,7 +59,7 @@ public class RacasImpl implements RacasQueries{
 				criteria.add(Restrictions.eq("especie", filtro.getEspecie()));
 			}
 		}
-
-		return criteria.list();
 	}
+
+
 }

@@ -75,7 +75,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="raca : ${racas}">
+				<tr th:each="raca : ${pagina.content}">
 					<td class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
 						<input type="checkbox">
 					</td>
@@ -100,12 +100,32 @@
 						</div>
 					</td>
 				</tr>
-				<tr th:if="${racas.empty}">
+				<tr th:if="${pagina.content.empty}">
 					<td colspan="5" class="text-center">Nenhuma raça cadastrada!</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	
+	<!-- PAGINAÇÃO -->
+	<div class="col-sm-12  text-center" th:if="${not pagina.content.empty}">
+		<nav>
+			<ul class="pagination" th:with="paginaAtual=${pagina.number}">
+				<li th:class="${pagina.first} ? disabled">
+					<a th:href="|?page=${paginaAtual - 1}|" th:remove="${pagina.first} ? tag"><span>&laquo;</span></a>
+				</li>
+				<th:block th:each="p : ${#numbers.sequence(1, pagina.totalPages)}" th:with="numeroPagina=${p - 1}">
+					<li th:class="${paginaAtual == numeroPagina} ? active">
+						<a th:href="|?page=${numeroPagina}|">[[${p}]]</a>
+					</li>
+				</th:block>
+				<li th:class="${pagina.last} ? disabled">
+					<a th:href="|?page=${paginaAtual + 1}|" th:remove="${pagina.last} ? tag"><span>&raquo;</span></a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+		
 </div>
 
 <div class="modal fade" id="confirmaExclusaoModal" tabindex="-1" role="dialog">
