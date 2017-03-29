@@ -1,13 +1,10 @@
 package com.uhc.quatropatas.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.uhc.quatropatas.model.Servico;
+import com.uhc.quatropatas.repository.helper.servico.ServicosQueries;
 
-public interface Servicos extends JpaRepository<Servico, Long>{
-
-	public List<Servico> findByDescricaoContainingIgnoreCase(String descricao);
+public interface Servicos extends JpaRepository<Servico, Long>, ServicosQueries{
 	
 }

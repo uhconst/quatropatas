@@ -12,9 +12,22 @@
 
 <div class="page-header">
 	<div class="container-fluid">
-		<h1>
-			Cadastro de serviço
-		</h1>
+		<div class="row">
+			<div class="col-sm-10">
+				<h1>
+					Cadastro de serviço
+				</h1>
+			</div>
+				
+			<div class="col-sm-2">
+				<div class="aw-page-header-controls">
+					<a class="btn  btn-default" th:href="@{/servicos}"> <i
+						class="glyphicon  glyphicon-search"></i> <span
+						class="hidden-xs  hidden-sm">Pesquisa</span>
+					</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -46,12 +59,12 @@
 			</div>
 			
 			<div class="col-sm-2  form-group  qp-required" th:classappend="${#fields.hasErrors('valor')} ? has-error">
-					<label for="valor" class="control-label">Valor</label>
-					<div class="input-group">
-						<div class="input-group-addon">R$</div>
-						<input id="valor" type="text" class="form-control  js-money" th:field="*{valor}"/>
-					</div>
+				<label for="valor" class="control-label">Valor</label>
+				<div class="input-group">
+					<div class="input-group-addon">R$</div>
+					<input id="valor" type="text" class="form-control  js-money" th:field="*{valor}"/>
 				</div>
+			</div>
 		</div>
 
 		<!-- BOTÕES DO FORMULÁRIO -->

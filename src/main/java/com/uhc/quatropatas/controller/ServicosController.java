@@ -1,7 +1,5 @@
 package com.uhc.quatropatas.controller;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uhc.quatropatas.model.Servico;
-//import com.uhc.quatropatas.repository.Servicos;
-//import com.uhc.quatropatas.repository.filter.ServicoFilter;
-//import com.uhc.quatropatas.service.ServicoService;
 import com.uhc.quatropatas.repository.Servicos;
+import com.uhc.quatropatas.repository.filter.ServicoFilter;
 import com.uhc.quatropatas.service.ServicoService;
 
 @Controller
@@ -51,15 +47,14 @@ public class ServicosController {
 		return new ModelAndView("redirect:/servicos/novo");
 	}
 	
-	/*
 	@GetMapping
 	public ModelAndView pesquisar(ServicoFilter servicoFilter){
 		ModelAndView mv = new ModelAndView("servico/pesquisa-servico");
-		mv.addObject("servicos", servicos.findByNomeContainingIgnoreCase(
-				Optional.ofNullable(servicoFilter.getNome()).orElse("%")));
+		
+		mv.addObject("servicos", servicos.filtrar(servicoFilter));
 		return mv;
 	}
-	*/
+	
 	@GetMapping("/{codigo}")
 	public ModelAndView editar(@PathVariable Long codigo){
 	
