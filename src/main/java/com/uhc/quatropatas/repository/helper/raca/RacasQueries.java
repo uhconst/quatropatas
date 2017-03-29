@@ -8,6 +8,5 @@ import com.uhc.quatropatas.repository.filter.RacaFilter;
 public interface RacasQueries {
 
 	public List<Raca> filtrar(RacaFilter filtro);
-	
-	
+
 }

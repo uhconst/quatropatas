@@ -61,8 +61,9 @@ public class CidadesController {
 	@GetMapping
 	public ModelAndView pesquisar(CidadeFilter cidadeFilter){
 		ModelAndView mv = new ModelAndView("cidade/pesquisa-cidade");
-		mv.addObject("cidades", cidades.findByNomeContainingIgnoreCase(
-				Optional.ofNullable(cidadeFilter.getNome()).orElse("%")));
+		mv.addObject("estados", estados.findAll());
+		
+		mv.addObject("cidades", cidades.filtrar(cidadeFilter));
 		return mv;
 	}
 	

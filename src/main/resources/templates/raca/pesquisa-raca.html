@@ -25,14 +25,14 @@
 					</h1>
 				</div>
 
-			<div class="col-sm-2">
-				<div class="aw-page-header-controls">
-					<a class="btn  btn-default" th:href="@{/racas/novo}"> <i
-						class="glyphicon  glyphicon-plus-sign"></i> <span
-						class="hidden-xs  hidden-sm">Nova raça</span>
-					</a>
+				<div class="col-sm-2">
+					<div class="aw-page-header-controls">
+						<a class="btn  btn-default" th:href="@{/racas/novo}"> <i
+							class="glyphicon  glyphicon-plus-sign"></i> <span
+							class="hidden-xs  hidden-sm">Nova raça</span>
+						</a>
+					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 	
@@ -41,27 +41,9 @@
 </div>
 
 <div class="container-fluid">
-<!--
-	<div class="alert  alert-success  alert-dismissible" th:if="${!#strings.isEmpty(mensagem)}">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<span th:text="${mensagem}"></span>
-	</div>
-  -->	
 	<form method="GET" class="form-vertical  js-form-loading" th:object="${racaFilter}">
-		<!--  
-		<div class="form-group">
-			<div class="input-group">
-				<input id="nome" type="text" th:field="*{nome}" class="form-control" placeholder="Pesquise pelo nome da raça..."/>
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</span>
-			</div>
-		-->
 		
 		<div class="row">
-			
 			<div class="form-group  col-sm-6" >
 				<label class="control-label" for="nome">Nome</label>
 				<input type="text" class="form-control" id="nome" th:field="*{nome}"/>
