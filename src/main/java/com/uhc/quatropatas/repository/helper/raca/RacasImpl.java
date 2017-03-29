@@ -33,19 +33,8 @@ public class RacasImpl implements RacasQueries{
 			if(filtro.getEspecie() != null){
 				criteria.add(Restrictions.eq("especie", filtro.getEspecie()));
 			}
-			/*
-			if(isEspecieInformada(filtro)){
-				criteria.add(Restrictions.eq("especie", filtro.getEspecie()));
-			}
-			*/
 		}
 
 		return criteria.list();
 	}
-
-	/*
-	private boolean isEspecieInformada(RacaFilter filtro) {
-		return filtro.getEspecie() != null && filtro.getEspecie().getCodigo() != null;
-	}
-	*/
 }
