@@ -14,165 +14,127 @@
 <body>
 
 <section layout:fragment="conteudo">
-
-
-<div class="page-header">
+	
+	<!-- HEADER E BOTÃO CADASTRO  -->
+	<th:block th:replace="fragments/header-pesquisa :: headerPesquisa ('animals/novo', 'animal')"></th:block>
+	
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-10">
-				<h1>
-					Pesquisa de animal
-				</h1>
-			</div>
-			
-			<div class="col-sm-2">
-				<div class="aw-page-header-controls">
-					<a class="btn  btn-default" th:href="@{/animals/novo}"> <i
-						class="glyphicon  glyphicon-plus-sign"></i> <span
-						class="hidden-xs  hidden-sm">Novo animal</span>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="container-fluid">
-	<form method="GET" class="form-vertical  js-form-loading" th:object="${animalFilter}">
-		 <div class="row">
-			<div class="col-sm-6  form-group">
-				<label for="nome">Nome do Animal</label>
-				<input id="nome" type="text" class="form-control" th:field=*{nome}/>
-			</div>
-
+		<form method="GET" class="form-vertical  js-form-loading" th:object="${animalFilter}">
+			 <div class="row">
 				<div class="col-sm-6  form-group">
-					<label for="raca">Raça</label>
-					<div class="qp-field-action">
-						<select id="raca" class="form-control" th:field="*{raca}">
-							<option value="">-- Selecione a raça --</option>
-							<option th:each="raca : ${racas}" th:value="${raca.codigo}"
-								th:text="${raca.nome}">Raça</option>
-						</select>
-					</div>
+					<label for="nome">Nome do Animal</label>
+					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 				</div>
-			</div>
-
-			<div class="row">
-				<div class="form-group  col-sm-4">
-					<label for="nomePessoa">Cliente</label>
-					<div class="input-group">
-						<input id="nomePessoa" type="text" readonly="readonly" class="form-control"
-							placeholder="Clique na lupa para pesquisar o cliente" /> 
-						<input id="codigoPessoa" type="hidden" th:field="*{pessoa}"/>
-							<span class="input-group-btn">
-							<button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada" 
-								data-toggle="modal" data-target="#pesquisaRapidaPessoa" >
-								<i class="glyphicon  glyphicon-search"></i>
-							</button>
-						</span>
-					</div>
-				</div>
-				<div class="col-lg-3  col-sm-6  form-group">
-					<label>Sexo</label>
-					<div>
-						<!-- 
-						<label th:each="sexo : ${sexos}" class="radio-inline">
-							<input type="radio" th:value="${sexo}" th:field="*{sexo}"/>
-							<span th:text="#{|tipoSexoAnimal.${sexo}|}"></span>
-						</label> 
-						 -->
-						<th:block th:each="sexo : ${sexos}">
-	  						<div class="radio  radio-inline">
-		    					<input th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}"/>
-		    					<label th:for="|id_${sexo}|" th:text="#{|tipoSexoAnimal.${sexo}|}">Sexos</label>
-	    					</div>
-  						</th:block>
-	  					<div class="radio  radio-inline">
-		    				<input id="todosSexos" type="radio" th:checked="*{sexo} == null" name="sexo" th:field="*{sexo}" th:value="null"/>
-		    				<label for="todosSexos">Todos</label>
-						</div>
-					</div>
-				</div>
-			</div>
-		<button type="submit" class="btn  btn-primary">Pesquisar</button>
-	</form>
 	
-	<div class="table-responsive  qp-tabela-pesquisa">
-		<table id="tabela-animals" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
-			<thead class="aw-table-header-solid">
-				<tr>
-					<th class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">
-						<input type="checkbox">
-					</th>
-					<th class="table-pesq-col-codigo">Código</th>
-					<th>Nome</th>
-					<th>Raça</th>
-					<th>Dono</th>
-					<th class="table-pesq-animal-col-sexo">Sexo</th>
-					<th class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">Ações</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="animal : ${animals}">
-					<td class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">
-						<input type="checkbox">
-					</td>
-					<td th:text="${animal.codigo}" class="text-center"></td>
-					<td th:text="${animal.nome}">
-						<!--
-						<a th:href="@{/animals/{codigo}(codigo=${animal.codigo})}" th:text="${animal.nome}"></a>
-						  -->
-					</td>
-					<td th:text="${animal.raca.nome}"></td>
-					<td th:text="|${animal.pessoa.nome} ${animal.pessoa.sobrenome}|">Dono</td>
-					<td th:text="#{|tipoSexoAnimal.${animal.sexo}|}"></td>
-					<td class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">
-						<div class="btn-group">
-								<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/animals/{codigo}(codigo=${animal.codigo})}">
-									<i class="glyphicon glyphicon-pencil" style="cursor:pointer"></i>
-								</a>
-								<a class="btn  btn-link  btn-xs" title="Excluir">
-									<i class="glyphicon glyphicon-trash" style="cursor:pointer"
-										data-toggle="modal" data-target="#confirmaExclusaoModal"  
-										data:nome="${animal.nome}" 
-										data:url-deletar="@{/animals/{codigo}(codigo=${animal.codigo})}"></i>
-								</a>
+					<div class="col-sm-6  form-group">
+						<label for="raca">Raça</label>
+						<div class="qp-field-action">
+							<select id="raca" class="form-control" th:field="*{raca}">
+								<option value="">-- Selecione a raça --</option>
+								<option th:each="raca : ${racas}" th:value="${raca.codigo}"
+									th:text="${raca.nome}">Raça</option>
+							</select>
 						</div>
-					</td>
-				</tr>
-				<tr th:if="${animals.empty}">
-					<td colspan="7" class="text-center">Nenhum animal cadastrado!</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-
-<div class="modal fade" id="confirmaExclusaoModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<form th:action="@{/animals}" method="POST">
-				<input type="hidden" name="_method" value="DELETE"/>
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Excluir animal</h4>
+					</div>
 				</div>
-				<div class="modal-body">
-					<span>Tem certeza?</span>
+	
+				<div class="row">
+					<div class="form-group  col-sm-4">
+						<label for="nomePessoa">Cliente</label>
+						<div class="input-group">
+							<input id="nomePessoa" type="text" readonly="readonly" class="form-control"
+								placeholder="Clique na lupa para pesquisar o cliente" /> 
+							<input id="codigoPessoa" type="hidden" th:field="*{pessoa}"/>
+								<span class="input-group-btn">
+								<button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada" 
+									data-toggle="modal" data-target="#pesquisaRapidaPessoa" >
+									<i class="glyphicon  glyphicon-search"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+					<div class="col-lg-3  col-sm-6  form-group">
+						<label>Sexo</label>
+						<div>
+							<!-- 
+							<label th:each="sexo : ${sexos}" class="radio-inline">
+								<input type="radio" th:value="${sexo}" th:field="*{sexo}"/>
+								<span th:text="#{|tipoSexoAnimal.${sexo}|}"></span>
+							</label> 
+							 -->
+							<th:block th:each="sexo : ${sexos}">
+		  						<div class="radio  radio-inline">
+			    					<input th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}"/>
+			    					<label th:for="|id_${sexo}|" th:text="#{|tipoSexoAnimal.${sexo}|}">Sexos</label>
+		    					</div>
+	  						</th:block>
+		  					<div class="radio  radio-inline">
+			    				<input id="todosSexos" type="radio" th:checked="*{sexo} == null" name="sexo" th:field="*{sexo}" th:value="null"/>
+			    				<label for="todosSexos">Todos</label>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Excluir</button>
-				</div>
-			</form>
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+		</form>
+		
+		<div class="table-responsive  qp-tabela-pesquisa">
+			<table id="tabela-animals" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+				<thead class="aw-table-header-solid">
+					<tr>
+						<th class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">
+							<input type="checkbox">
+						</th>
+						<th class="table-pesq-col-codigo">Código</th>
+						<th>Nome</th>
+						<th>Raça</th>
+						<th>Dono</th>
+						<th class="table-pesq-animal-col-sexo">Sexo</th>
+						<th class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="animal : ${animals}">
+						<td class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">
+							<input type="checkbox">
+						</td>
+						<td th:text="${animal.codigo}" class="text-center"></td>
+						<td th:text="${animal.nome}">
+							<!--
+							<a th:href="@{/animals/{codigo}(codigo=${animal.codigo})}" th:text="${animal.nome}"></a>
+							  -->
+						</td>
+						<td th:text="${animal.raca.nome}"></td>
+						<td th:text="|${animal.pessoa.nome} ${animal.pessoa.sobrenome}|">Dono</td>
+						<td th:text="#{|tipoSexoAnimal.${animal.sexo}|}"></td>
+						<td class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">
+							<div class="btn-group">
+									<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/animals/{codigo}(codigo=${animal.codigo})}">
+										<i class="glyphicon glyphicon-pencil" style="cursor:pointer"></i>
+									</a>
+									<a class="btn  btn-link  btn-xs" title="Excluir">
+										<i class="glyphicon glyphicon-trash" style="cursor:pointer"
+											data-toggle="modal" data-target="#confirmaExclusaoModal"  
+											data:nome="${animal.nome}" 
+											data:url-deletar="@{/animals/{codigo}(codigo=${animal.codigo})}"></i>
+									</a>
+							</div>
+						</td>
+					</tr>
+					<tr th:if="${animals.empty}">
+						<td colspan="7" class="text-center">Nenhum animal cadastrado!</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
-</div>
-
-<th:block th:replace="pessoa/pesquisa-rapida-pessoa :: pesquisaRapidaPessoa"></th:block>
 	
+	<!-- MODAL DE EXCLUSAO -->
+	<th:block th:replace="fragments/modal-exclusao :: modalExclusao ('animals', 'animal')"></th:block>
+	
+	<!-- MODAL PESQUISA RÁPIDA DE PESSOA -->
+	<th:block th:replace="pessoa/pesquisa-rapida-pessoa :: pesquisaRapidaPessoa"></th:block>
+		
 </section>
 
 <th:block layout:fragment="javascript-extra">

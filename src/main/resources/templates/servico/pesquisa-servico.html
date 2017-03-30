@@ -15,147 +15,109 @@
 
 <section layout:fragment="conteudo">
 
-
-<div class="page-header">
+	<!-- HEADER E BOTÃO CADASTRO  -->
+	<th:block th:replace="fragments/header-pesquisa :: headerPesquisa ('servicos/novo', 'serviços')"></th:block>
+	
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-10">
-				<h1>
-					Pesquisa de serviço
-				</h1>
-			</div>
-
-			<div class="col-sm-2">
-				<div class="aw-page-header-controls">
-					<a class="btn  btn-default" th:href="@{/servicos/novo}"> <i
-						class="glyphicon  glyphicon-plus-sign"></i> <span
-						class="hidden-xs  hidden-sm">Novo serviço</span>
-					</a>
+		<form method="GET" class="form-vertical  js-form-loading" th:object="${servicoFilter}">
+			<div class="row">
+				<div class="col-sm-12  form-group">
+					<label for="nome">Descrição</label>
+					<input id="nome" type="text" class="form-control" th:field=*{descricao}/>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
-
-<div class="container-fluid">
-	<form method="GET" class="form-vertical  js-form-loading" th:object="${servicoFilter}">
-		<div class="row">
-			<div class="col-sm-12  form-group">
-				<label for="nome">Descrição</label>
-				<input id="nome" type="text" class="form-control" th:field=*{descricao}/>
-			</div>
-				<!--
+			
+			
+			<div class="row">
 				<div class="col-sm-6  form-group">
-					<label for="valorDe">Valor unitário</label>
+					<label for="duracaoDe">Duração</label>
 					<div class="form-inline">
-						<input type="text" class="form-control  aw-form-control-inline-sm  js-decimal" id="valorDe" th:field="*{valorDe}"/>
+						<input id="duracaoDe" type="text" class="form-control  aw-form-control-inline-sm  js-minuto" th:field=*{duracaoDe}/>
 						<label for="valorAte" class="aw-form-label-between">até</label>
-						<input type="text" class="form-control  aw-form-control-inline-sm  js-decimal" id="valorAte" th:field="*{valorAte}"/>
+						<input id="duracaoAte" type="text" class="form-control  aw-form-control-inline-sm  js-minuto" th:field=*{duracaoAte}/>
+	
 					</div>
 				</div>
-				  -->
-		</div>
-		
-		
-		<div class="row">
-			<div class="col-sm-6  form-group">
-				<label for="duracaoDe">Duração</label>
-				<div class="form-inline">
-					<input id="duracaoDe" type="text" class="form-control  aw-form-control-inline-sm  js-minuto" th:field=*{duracaoDe}/>
-					<label for="valorAte" class="aw-form-label-between">até</label>
-					<input id="duracaoAte" type="text" class="form-control  aw-form-control-inline-sm  js-minuto" th:field=*{duracaoAte}/>
-
+				<div class="col-sm-6  form-group">
+					<label for="valorDe">Valor</label>
+					<div class="form-inline">
+						<input id="valorDe" type="text" class="form-control  aw-form-control-inline-sm  js-money" th:field=*{valorDe} />
+						<label for="valorAte" class="aw-form-label-between">até</label>
+						<input id="valorAte" type="text" class="form-control  aw-form-control-inline-sm  js-money" th:field=*{valorAte} />
+					</div>
 				</div>
 			</div>
-			<div class="col-sm-6  form-group">
-				<label for="valorDe">Valor</label>
-				<div class="form-inline">
-					<input id="valorDe" type="text" class="form-control  aw-form-control-inline-sm  js-money" th:field=*{valorDe} />
-					<label for="valorAte" class="aw-form-label-between">até</label>
-					<input id="valorAte" type="text" class="form-control  aw-form-control-inline-sm  js-money" th:field=*{valorAte} />
-				</div>
-			</div>
-					<!-- 
-			<div class="col-sm-2  form-group">
-				<label for="valor">Valor</label>
-				<div class="input-group">
-					<div class="input-group-addon">R$</div>
-					<input id="valor" type="text" class="form-control  js-money" th:field="*{valor}"/>
-				</div>
-			</div>
-			 -->
-		</div>
-		<button type="submit" class="btn  btn-primary">Pesquisar</button>
-	</form>
-	<div class="table-responsive  qp-tabela-pesquisa">
-		<table id="tabela-servicos" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
-			<thead class="aw-table-header-solid">
-				<tr>
-					<th class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
-						<input type="checkbox">
-					</th>
-					<th class="table-pesq-col-codigo">Código</th>
-					<th>Descrição</th>
-					<th class="table-pesq-servico-col-duracao">Duração</th>
-					<th class="table-pesq-servico-col-valor">Valor</th>
-					<th class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">Ações</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="servico : ${servicos}">
-					<td class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
-						<input type="checkbox">
-					</td>
-					<td th:text="${servico.codigo}" class="text-center"></td>
-					<td th:text="${servico.descricao}"></td>
-					<td th:text="|${servico.duracao} minutos|"></td>
-					<td th:text="|R$ ${servico.valor}|"></td>
-					<td class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
-						<div class="btn-group">
-								<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/servicos/{codigo}(codigo=${servico.codigo})}">
-									<i class="glyphicon glyphicon-pencil" style="cursor:pointer"></i>
-								</a>
-								<a class="btn  btn-link  btn-xs" title="Excluir">
-									<i class="glyphicon glyphicon-trash" style="cursor:pointer"
-										data-toggle="modal" data-target="#confirmaExclusaoModal"  
-										data:nome="${servico.descricao}" 
-										data:url-deletar="@{/servicos/{codigo}(codigo=${servico.codigo})}"></i>
-								</a>
-						</div>
-					</td>
-				</tr> 
-				<tr th:if="${servicos.empty}">
-					<td colspan="6" class="text-center">Nenhum serviço cadastrado!</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-
-
-<div class="modal fade" id="confirmaExclusaoModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<form th:action="@{/servicos}" method="POST">
-				<input type="hidden" name="_method" value="DELETE"/>
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Excluir serviço</h4>
-				</div>
-				<div class="modal-body">
-					<span>Tem certeza?</span>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Excluir</button>
-				</div>
-			</form>
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+		</form>
+		<div class="table-responsive  qp-tabela-pesquisa">
+			<table id="tabela-servicos" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+				<thead class="aw-table-header-solid">
+					<tr>
+						<th class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
+							<input type="checkbox">
+						</th>
+						<th class="table-pesq-col-codigo">Código</th>
+						<th>Descrição</th>
+						<th class="table-pesq-servico-col-duracao">Duração</th>
+						<th class="table-pesq-servico-col-valor">Valor</th>
+						<th class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="servico : ${servicos}">
+						<td class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
+							<input type="checkbox">
+						</td>
+						<td th:text="${servico.codigo}" class="text-center"></td>
+						<td th:text="${servico.descricao}"></td>
+						<td th:text="|${servico.duracao} minutos|"></td>
+						<td th:text="|R$ ${servico.valor}|"></td>
+						<td class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
+							<div class="btn-group">
+									<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/servicos/{codigo}(codigo=${servico.codigo})}">
+										<i class="glyphicon glyphicon-pencil" style="cursor:pointer"></i>
+									</a>
+									<a class="btn  btn-link  btn-xs" title="Excluir">
+										<i class="glyphicon glyphicon-trash" style="cursor:pointer"
+											data-toggle="modal" data-target="#confirmaExclusaoModal"  
+											data:nome="${servico.descricao}" 
+											data:url-deletar="@{/servicos/{codigo}(codigo=${servico.codigo})}"></i>
+									</a>
+							</div>
+						</td>
+					</tr> 
+					<tr th:if="${servicos.empty}">
+						<td colspan="6" class="text-center">Nenhum serviço cadastrado!</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
-</div>
-
+	<div class="modal fade" id="confirmaExclusaoModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form th:action="@{/servicos}" method="POST">
+					<input type="hidden" name="_method" value="DELETE"/>
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Excluir serviço</h4>
+					</div>
+					<div class="modal-body">
+						<span>Tem certeza?</span>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary">Excluir</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- MODAL DE EXCLUSAO -->
+	<th:block th:replace="fragments/modal-exclusao :: modalExclusao ('servicos', 'serviço')"></th:block>
 </section>
 
 <th:block layout:fragment="javascript-extra">
