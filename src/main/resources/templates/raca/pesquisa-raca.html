@@ -69,8 +69,22 @@
 						<input type="checkbox">
 					</th>
 					<th class="table-pesq-col-codigo">Código</th>
-					<th class="table-pesq-raca-col-nome">Nome</th>
-					<th class="table-pesq-raca-col-espécie">Espécie</th>
+					<th class="table-pesq-raca-col-nome">
+						<a th:href="${pagina.urlOrdenada('nome')}" th:remove="${pagina.vazia} ? tag">
+							<span>Nome</span>
+							<span class="dropup" th:remove="${pagina.descendente('nome')} ? tag" th:if="${pagina.ordenada('nome')}">
+								<span class="caret"></span>
+							</span>
+						</a>
+					</th>
+					<th class="table-pesq-raca-col-espécie">
+					<a th:href="${pagina.urlOrdenada('especie')}" th:remove="${pagina.vazia} ? tag">
+							<span>Espécie</span>
+							<span class="dropup" th:remove="${pagina.descendente('especie')} ? tag" th:if="${pagina.ordenada('especie')}">
+								<span class="caret"></span>
+							</span>
+						</a>
+					</th>
 					<th class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">Ações</th>
 				</tr>
 			</thead>
