@@ -70,20 +70,10 @@
 					</th>
 					<th class="table-pesq-col-codigo">Código</th>
 					<th class="table-pesq-raca-col-nome">
-						<a th:href="${pagina.urlOrdenada('nome')}" th:remove="${pagina.vazia} ? tag">
-							<span>Nome</span>
-							<span class="dropup" th:remove="${pagina.descendente('nome')} ? tag" th:if="${pagina.ordenada('nome')}">
-								<span class="caret"></span>
-							</span>
-						</a>
+					 	<th:block th:replace="fragments/ordenacao :: order (${pagina}, 'nome', 'Nome')"></th:block>
 					</th>
 					<th class="table-pesq-raca-col-espécie">
-					<a th:href="${pagina.urlOrdenada('especie')}" th:remove="${pagina.vazia} ? tag">
-							<span>Espécie</span>
-							<span class="dropup" th:remove="${pagina.descendente('especie')} ? tag" th:if="${pagina.ordenada('especie')}">
-								<span class="caret"></span>
-							</span>
-						</a>
+						<th:block th:replace="fragments/ordenacao :: order (${pagina}, 'especie', 'Espécie')"></th:block>
 					</th>
 					<th class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">Ações</th>
 				</tr>
@@ -122,23 +112,7 @@
 	</div>
 	
 	<!-- PAGINAÇÃO -->
-	<div class="col-sm-12  text-center" th:if="${not pagina.vazia}">
-		<nav>
-			<ul class="pagination" th:with="paginaAtual=${pagina.atual}">
-				<li th:class="${pagina.primeira} ? disabled">
-					<a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
-				</li>
-				<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p - 1}">
-					<li th:class="${paginaAtual == numeroPagina} ? active">
-						<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
-					</li>
-				</th:block>
-				<li th:class="${pagina.ultima} ? disabled">
-					<a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
-				</li>
-			</ul>
-		</nav>
-	</div>
+	<th:block th:replace="fragments/paginacao :: paginacao"></th:block>
 		
 </div>
 
