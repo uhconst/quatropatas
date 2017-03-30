@@ -1,9 +1,9 @@
 package com.uhc.quatropatas.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uhc.quatropatas.controller.page.PageWrapper;
 import com.uhc.quatropatas.model.Raca;
 import com.uhc.quatropatas.model.TipoEspecie;
 import com.uhc.quatropatas.repository.Racas;
@@ -53,12 +54,14 @@ public class RacasController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(RacaFilter racaFilter, @PageableDefault(size = 2) Pageable pageable){
+	public ModelAndView pesquisar(RacaFilter racaFilter, 
+			@PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest){
 		ModelAndView mv = new ModelAndView("raca/pesquisa-raca");
 		mv.addObject("especies", TipoEspecie.values());
 		
-		Page<Raca> pagina = racas.filtrar(racaFilter, pageable);
-		mv.addObject("pagina", pagina);
+		PageWrapper<Raca> paginaWrapper = new PageWrapper<>(racas.filtrar(racaFilter, pageable), 
+				httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
 		
 		return mv;
 	}

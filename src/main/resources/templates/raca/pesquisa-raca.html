@@ -75,7 +75,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="raca : ${pagina.content}">
+				<tr th:each="raca : ${pagina.conteudo}">
 					<td class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
 						<input type="checkbox">
 					</td>
@@ -100,7 +100,7 @@
 						</div>
 					</td>
 				</tr>
-				<tr th:if="${pagina.content.empty}">
+				<tr th:if="${pagina.vazia}">
 					<td colspan="5" class="text-center">Nenhuma raça cadastrada!</td>
 				</tr>
 			</tbody>
@@ -108,19 +108,19 @@
 	</div>
 	
 	<!-- PAGINAÇÃO -->
-	<div class="col-sm-12  text-center" th:if="${not pagina.content.empty}">
+	<div class="col-sm-12  text-center" th:if="${not pagina.vazia}">
 		<nav>
-			<ul class="pagination" th:with="paginaAtual=${pagina.number}">
-				<li th:class="${pagina.first} ? disabled">
-					<a th:href="|?page=${paginaAtual - 1}|" th:remove="${pagina.first} ? tag"><span>&laquo;</span></a>
+			<ul class="pagination" th:with="paginaAtual=${pagina.atual}">
+				<li th:class="${pagina.primeira} ? disabled">
+					<a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
 				</li>
-				<th:block th:each="p : ${#numbers.sequence(1, pagina.totalPages)}" th:with="numeroPagina=${p - 1}">
+				<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p - 1}">
 					<li th:class="${paginaAtual == numeroPagina} ? active">
-						<a th:href="|?page=${numeroPagina}|">[[${p}]]</a>
+						<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
 					</li>
 				</th:block>
-				<li th:class="${pagina.last} ? disabled">
-					<a th:href="|?page=${paginaAtual + 1}|" th:remove="${pagina.last} ? tag"><span>&raquo;</span></a>
+				<li th:class="${pagina.ultima} ? disabled">
+					<a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
 				</li>
 			</ul>
 		</nav>
