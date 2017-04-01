@@ -24,6 +24,13 @@ public class CidadesImpl implements CidadesQueries{
 	public List<Cidade> filtrar(CidadeFilter filtro) {
 		
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cidade.class);
+		
+		adicionarFiltro(filtro, criteria);
+		
+		return criteria.list();
+	}
+
+	private void adicionarFiltro(CidadeFilter filtro, Criteria criteria) {
 		if(filtro != null){
 			if(!StringUtils.isEmpty(filtro.getNome())){
 				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
@@ -33,8 +40,6 @@ public class CidadesImpl implements CidadesQueries{
 				criteria.add(Restrictions.eq("estado", filtro.getEstado()));
 			}
 		}
-		
-		return criteria.list();
 	}
 
 	private boolean isEstadoInformado(CidadeFilter filtro) {

@@ -24,6 +24,13 @@ public class ServicosImpl implements ServicosQueries{
 	public List<Servico> filtrar(ServicoFilter filtro) {
 		
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Servico.class);
+		
+		adicionarFiltro(filtro, criteria);
+
+		return criteria.list();
+	}
+
+	private void adicionarFiltro(ServicoFilter filtro, Criteria criteria) {
 		if(filtro != null){
 			if(!StringUtils.isEmpty(filtro.getDescricao())){
 				criteria.add(Restrictions.ilike("descricao", filtro.getDescricao(), MatchMode.ANYWHERE));
@@ -45,8 +52,6 @@ public class ServicosImpl implements ServicosQueries{
 				criteria.add(Restrictions.le("valor", filtro.getValorAte()));
 			}
 		}
-
-		return criteria.list();
 	}
 
 }

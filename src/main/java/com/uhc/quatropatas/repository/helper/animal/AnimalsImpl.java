@@ -25,6 +25,12 @@ public class AnimalsImpl implements AnimalsQueries {
 		
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Animal.class);
 		
+		adicionarFiltro(filtro, criteria);
+		
+		return criteria.list();
+	}
+
+	private void adicionarFiltro(AnimalFilter filtro, Criteria criteria) {
 		if(filtro != null){
 			if(!StringUtils.isEmpty(filtro.getNome())){
 				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
@@ -39,9 +45,7 @@ public class AnimalsImpl implements AnimalsQueries {
 			if(isRacaInformada(filtro)){
 				criteria.add(Restrictions.eq("raca", filtro.getRaca()));
 			}
-	
 		}
-		return criteria.list();
 	}
 	
 	private boolean isRacaInformada(AnimalFilter filtro) {
