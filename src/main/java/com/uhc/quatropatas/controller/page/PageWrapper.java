@@ -5,9 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class PageWrapper<T> {
@@ -17,7 +15,15 @@ public class PageWrapper<T> {
 
 	public PageWrapper(Page<T> page, HttpServletRequest httpServletRequest){
 		this.page = page;
-		this.uriBuilder = ServletUriComponentsBuilder.fromRequest(httpServletRequest);
+		/*
+		 * Tendo que construir na mão, porque o Spring tem um bug que 
+		 * quando o filtro tinha um espaço ele dava erro. Porque não substituia
+		 * o + por %.
+		 */
+		String httpUrl = httpServletRequest.getRequestURL().append(
+				httpServletRequest.getQueryString() != null ? "?" + httpServletRequest.getQueryString() : "")
+				.toString().replaceAll("\\+", "%20");
+		this.uriBuilder = UriComponentsBuilder.fromHttpUrl(httpUrl);
 	}
 	
 	/*
