@@ -1,7 +1,6 @@
 package com.uhc.quatropatas.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 

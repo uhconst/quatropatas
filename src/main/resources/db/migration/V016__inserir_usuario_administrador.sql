@@ -1,0 +1,1 @@
+INSERT INTO usuario(nome, email, senha, ativo) VALUES('Admin', 'admin@quatropatas.com', '$2a$10$66nQ8cjAe6jdMH.B9pJM/OjPvehqAqJU7x6g9Bj4Zwvz4Ii2jSXNW', true);

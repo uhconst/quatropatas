@@ -1,27 +1,37 @@
 package com.uhc.quatropatas.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.uhc.quatropatas.security.AppUserDetailsService;
+
 @EnableWebSecurity
 @Configuration
+@ComponentScan(basePackageClasses = AppUserDetailsService.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.inMemoryAuthentication()
-			.withUser("joao").password("joao").roles("PESQUISAR_RACA").and()
-			.withUser("maria").password("maria").roles("CADASTRAR_RACA", "PESQUISAR_RACA").and()
-			.withUser("admin").password("").roles("CADASTRAR_RACA", "PESQUISAR_RACA", 
-					"CADASTRAR_ANIMAL", "PESQUISAR_ANIMAL");
+//		auth.inMemoryAuthentication()
+//			.withUser("joao").password("joao").roles("PESQUISAR_RACA").and()
+//			.withUser("maria").password("maria").roles("CADASTRAR_RACA", "PESQUISAR_RACA").and()
+//			.withUser("admin").password("").roles("CADASTRAR_RACA", "PESQUISAR_RACA", 
+//					"CADASTRAR_ANIMAL", "PESQUISAR_ANIMAL");
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 	
 	/*
@@ -41,8 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/racas").hasRole("PESQUISAR_RACA")
-				.antMatchers("/racas/**").hasRole("CADASTRAR_RACA")
+				//.antMatchers("/racas").hasRole("PESQUISAR_RACA")
+				//.antMatchers("/racas/**").hasRole("CADASTRAR_RACA")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
@@ -54,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public PasswordEncoder PasswordEncoder(){
+	public PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
 	

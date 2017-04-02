@@ -41,7 +41,6 @@ public class AnimalsImpl implements AnimalsQueries {
 				criteria.add(Restrictions.eq("sexo", filtro.getSexo()));
 			}
 			
-			
 			if(isRacaInformada(filtro)){
 				criteria.add(Restrictions.eq("raca", filtro.getRaca()));
 			}
