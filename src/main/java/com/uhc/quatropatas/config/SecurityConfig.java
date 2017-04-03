@@ -26,11 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-//		auth.inMemoryAuthentication()
-//			.withUser("joao").password("joao").roles("PESQUISAR_RACA").and()
-//			.withUser("maria").password("maria").roles("CADASTRAR_RACA", "PESQUISAR_RACA").and()
-//			.withUser("admin").password("").roles("CADASTRAR_RACA", "PESQUISAR_RACA", 
-//					"CADASTRAR_ANIMAL", "PESQUISAR_ANIMAL");
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 	
@@ -47,12 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		//http.csrf().disable();
 		http
-			//.csrf().disable()
 			.authorizeRequests()
-				//.antMatchers("/racas").hasRole("PESQUISAR_RACA")
-				//.antMatchers("/racas/**").hasRole("CADASTRAR_RACA")
 				.antMatchers("/usuarios/**").hasRole("CADASTRAR_USUARIO")
 				.antMatchers("/servicos/novo").hasRole("CADASTRAR_SERVICO")
 				.antMatchers("/cidades/novo").hasRole("CADASTRAR_CIDADE")
@@ -63,13 +54,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 			.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.and()
+			.sessionManagement()
+				.maximumSessions(1)
+				.expiredUrl("/login");
 	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
-	
 	
 }
