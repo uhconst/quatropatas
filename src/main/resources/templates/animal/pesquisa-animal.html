@@ -82,7 +82,7 @@
 			<table id="tabela-animals" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
 				<thead class="aw-table-header-solid">
 					<tr>
-						<th class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">
+						<th class="qp-table-checkbox">
 							<input type="checkbox">
 						</th>
 						<th class="table-pesq-col-codigo">Código</th>
@@ -90,12 +90,12 @@
 						<th>Raça</th>
 						<th>Dono</th>
 						<th class="table-pesq-animal-col-sexo">Sexo</th>
-						<th class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">Ações</th>
+						<th class="table-pesq-col-acoes">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="animal : ${animals}">
-						<td class="qp-table-checkbox" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">
+						<td class="qp-table-checkbox">
 							<input type="checkbox">
 						</td>
 						<td th:text="${animal.codigo}" class="text-center"></td>
@@ -107,7 +107,7 @@
 						<td th:text="${animal.raca.nome}"></td>
 						<td th:text="|${animal.pessoa.nome} ${animal.pessoa.sobrenome}|">Dono</td>
 						<td th:text="#{|tipoSexoAnimal.${animal.sexo}|}"></td>
-						<td class="table-pesq-col-acoes" sec:authorize="hasRole('ROLE_CADASTRAR_ANIMAL')">
+						<td class="table-pesq-col-acoes">
 							<div class="btn-group">
 									<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/animals/{codigo}(codigo=${animal.codigo})}">
 										<i class="glyphicon glyphicon-pencil" style="cursor:pointer"></i>

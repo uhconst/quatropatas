@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 	<th:block th:fragment="headerPesquisa (controlador, texto)">
 		<div class="page-header">
@@ -12,6 +13,7 @@
 							</h1>
 						</div>
 		
+						<!-- sec:authorize-url="|/${controlador}|" -->
 						<div class="col-xs-2">
 							<div class="aw-page-header-controls">
 								<a class="btn  btn-default" th:href="@{/{path}(path=${controlador})}">
