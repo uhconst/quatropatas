@@ -65,14 +65,24 @@ Quatropatas.MaskMinuto = (function(){
 	
 	return MaskMinuto;
 }());
+
 /*
-Quatropatas.formatarMoney = function(valor) {
-	return valor.maskNumber({
-		decimal: ',',
-		thousands: '.'
-	});
-}
-*/
+ * Toda requisição Ajax vai ser adicionado o Header e Token do CSRF
+ */
+Quatropatas.Security = (function(){
+	function Security(){
+		this.token = $('input[name=_csrf]').val();
+		this.header =$('input[name=_csrf_header]').val();
+	};
+	
+	Security.prototype.enable = function(){
+		$(document).ajaxSend(function(event, jqxhr, settings){
+			jqxhr.setRequestHeader(this.header, this.token);
+		}.bind(this));
+	}
+	
+	return Security;
+}());
 
 numeral.language('pt-br');
 
@@ -97,13 +107,7 @@ $(function(){
 	
 	var maskMinuto = new Quatropatas.MaskMinuto();
 	maskMinuto.enable();
+	
+	var security = new Quatropatas.Security();
+	security.enable();
 });
-
-
-
-
-
-
-
-
-
