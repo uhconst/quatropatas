@@ -7,21 +7,19 @@
 		<div class="page-header">
 			<div class="container-fluid">
 				<div class="row">
-						<div class="col-xs-10">
-							<h1>
-								<span th:text="|Pesquisa de ${texto}|"></span>
-							</h1>
+					<div class="col-xs-10">
+						<h1>
+							<span th:text="|Pesquisa de ${texto}|"></span>
+						</h1>
+					</div>
+					<div class="col-xs-2">
+						<div class="aw-page-header-controls">
+							<a class="btn  btn-default" th:href="@{/{path}(path=${controlador})}">
+								<i class="glyphicon  glyphicon-plus-sign"></i> 
+								<span class="hidden-xs  hidden-sm"><span th:text="|Nova ${texto}|"></span></span>
+							</a>
 						</div>
-		
-						<!-- sec:authorize-url="|/${controlador}|" -->
-						<div class="col-xs-2">
-							<div class="aw-page-header-controls">
-								<a class="btn  btn-default" th:href="@{/{path}(path=${controlador})}">
-									<i class="glyphicon  glyphicon-plus-sign"></i> 
-									<span class="hidden-xs  hidden-sm"><span th:text="|Nova ${texto}|"></span></span>
-								</a>
-							</div>
-						</div>
+					</div>
 				</div>
 			</div>
 		</div>
