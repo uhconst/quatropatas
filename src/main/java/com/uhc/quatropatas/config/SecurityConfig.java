@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//.antMatchers("/racas/**").hasRole("CADASTRAR_RACA")
 				.antMatchers("/usuarios/**").hasRole("CADASTRAR_USUARIO")
 				.antMatchers("/servicos/novo").hasRole("CADASTRAR_SERVICO")
+				.antMatchers("/cidades/novo").hasRole("CADASTRAR_CIDADE")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()

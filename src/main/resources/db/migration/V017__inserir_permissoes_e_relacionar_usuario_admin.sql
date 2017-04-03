@@ -1,6 +1,6 @@
-INSERT INTO permissao(nome) VALUES('CADASTRAR_USUARIO');
-INSERT INTO permissao(nome) VALUES('CADASTRAR_CIDADE');
-INSERT INTO permissao(nome) VALUES('CADASTRAR_SERVICO');
+INSERT INTO permissao(nome) VALUES('ROLE_CADASTRAR_USUARIO');
+INSERT INTO permissao(nome) VALUES('ROLE_CADASTRAR_CIDADE');
+INSERT INTO permissao(nome) VALUES('ROLE_CADASTRAR_SERVICO');
 
 INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES(1, 1);
 INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES(1, 2);
