@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+	<th:block th:fragment="headerCadastro (controlador, texto)">
+	
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-10">
+						<h1>
+							<span th:text="|Cadastro de ${texto}|"></span>
+						</h1>
+					</div>
+				
+					<div class="col-sm-2">
+						<div class="aw-page-header-controls">
+							<a class="btn  btn-default" th:href="@{/{path}(path=${controlador})}"> <i
+								class="glyphicon  glyphicon-search"></i> <span
+								class="hidden-xs  hidden-sm">Pesquisa</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</th:block>
+
+</html>
