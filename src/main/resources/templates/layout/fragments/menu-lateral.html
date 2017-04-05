@@ -24,19 +24,22 @@
 						<a href="dashboard.html"><i class="fa  fa-fw  fa-home"></i><span>Dashboard</span></a>
 					</li>
 					
-					<li class="aw-menu__item  is-active  is-expanded">
+					<li class="aw-menu__item">
 						<a href="#">
 							<i class="fa  fa-fw  fa-venus-mars"></i><span>Raça</span>
 							<i class="aw-menu__navigation-icon  fa"></i>
 						</a>
 					
 						<ul class="aw-menu__list  aw-menu__list--sublist">
-							<li class="aw-menu__item  aw-menu__item--link" sec:authorize="hasRole('ROLE_CADASTRAR_RACA')">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/racas/novo' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/racas/novo}">Cadastro de raça</a>
 							</li>
-							<li class="aw-menu__item  aw-menu__item--link" sec:authorize="hasRole('ROLE_PESQUISAR_RACA')">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/racas' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/racas}">Pesquisa de raça</a>
 							</li>
+							<!-- sec:authorize="hasRole('ROLE_PESQUISAR_RACA')"  -->
 						</ul>
 					</li>
 		
@@ -47,10 +50,12 @@
 						</a>
 						
 						<ul class="aw-menu__list  aw-menu__list--sublist">
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/animals/novo' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/animals/novo}">Cadastro de animal</a>
 							</li>
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/animals' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/animals}">Pesquisa de animal</a>
 							</li>
 						</ul>
@@ -63,10 +68,12 @@
 						</a>
 						
 						<ul class="aw-menu__list  aw-menu__list--sublist">
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/servicos/novo' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/servicos/novo}">Cadastro de serviço</a>
 							</li>
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/servicos' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/servicos}">Pesquisa de serviço</a>
 							</li>
 						</ul>
@@ -79,10 +86,12 @@
 						</a>
 						
 						<ul class="aw-menu__list  aw-menu__list--sublist">
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/pessoas/novo' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/pessoas/novo}">Cadastro de pessoa</a>
 							</li>
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/pessoas' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/pessoas}">Pesquisa de pessoa</a>
 							</li>
 						</ul>
@@ -95,7 +104,8 @@
 						</a>
 						
 						<ul class="aw-menu__list  aw-menu__list--sublist">
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/agendamentos/novo' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/agendamentos/novo}">Cadastro de agendamento</a>
 							</li>
 							<li class="aw-menu__item  aw-menu__item--link">
@@ -111,7 +121,8 @@
 						</a>
 						
 						<ul class="aw-menu__list  aw-menu__list--sublist">
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/usuarios/novo' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/usuarios/novo}">Cadastro de usuário</a>
 							</li>
 							<li class="aw-menu__item  aw-menu__item--link">
@@ -127,10 +138,12 @@
 						</a>
 						
 						<ul class="aw-menu__list  aw-menu__list--sublist">
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/cidades/novo' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/cidades/novo}">Cadastro de cidade</a>
 							</li>
-							<li class="aw-menu__item  aw-menu__item--link">
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/cidades' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/cidades}">Pesquisa de cidade</a>
 							</li>
 						</ul>

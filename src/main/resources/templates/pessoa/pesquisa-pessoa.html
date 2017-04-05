@@ -62,6 +62,7 @@
 						<th class="table-pesq-pessoa-col-codigo">Logradouro</th>
 						<th class="table-pesq-pessoa-col-codigo">Telefone</th>
 						<th class="table-pesq-pessoa-col-codigo">Celular</th>
+						<th class="table-pesq-pessoa-col-codigo">Cidade/Estado</th>
 						<th class="table-pesq-pessoa-col-acoes">Ações</th>
 					</tr>
 				</thead>
@@ -83,6 +84,7 @@
 						<td th:text="${pessoa.endereco.logradouro}"></td>
 						<td>TELEFONE</td>
 						<td>CELULAR</td>
+						<td th:text="|${pessoa.endereco.cidade.nome}/${pessoa.endereco.cidade.estado.sigla}|"></td>
 						<td class="table-pesq-pessoa-col-acoes">
 						
 						<div class="btn-group">
