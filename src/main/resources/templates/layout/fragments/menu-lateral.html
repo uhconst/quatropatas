@@ -125,8 +125,9 @@
 								th:classappend="${#httpServletRequest.requestURI=='/usuarios/novo' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/usuarios/novo}">Cadastro de usuário</a>
 							</li>
-							<li class="aw-menu__item  aw-menu__item--link">
-								<a href="#">Pesquisa de usuário</a>
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/usuarios' ? 'is-active  is-expanded' : ''}">
+								<a th:href="@{/usuarios}">Pesquisa de usuário</a>
 							</li>
 						</ul>
 					</li>

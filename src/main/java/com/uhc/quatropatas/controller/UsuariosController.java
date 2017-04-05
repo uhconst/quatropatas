@@ -1,5 +1,7 @@
 package com.uhc.quatropatas.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.uhc.quatropatas.model.Usuario;
 import com.uhc.quatropatas.repository.Grupos;
 import com.uhc.quatropatas.repository.Usuarios;
-
+import com.uhc.quatropatas.repository.filter.UsuarioFilter;
 import com.uhc.quatropatas.service.UsuarioService;
 import com.uhc.quatropatas.service.exception.EmailUsuarioJaCadastradoException;
 import com.uhc.quatropatas.service.exception.SenhaObrigatoriaUsuarioException;
@@ -66,15 +68,17 @@ public class UsuariosController {
 		attributes.addFlashAttribute("mensagem", "Usuário salva com sucesso!");
 		return new ModelAndView("redirect:/usuarios/novo");
 	}
-	/*
+	
 	@GetMapping
 	public ModelAndView pesquisar(UsuarioFilter usuarioFilter){
 		ModelAndView mv = new ModelAndView("usuario/pesquisa-usuario");
-		mv.addObject("usuarios", usuarios.findByNomeContainingIgnoreCase(
-				Optional.ofNullable(usuarioFilter.getNome()).orElse("%")));
+		mv.addObject("grupos", grupos.findAll());
+		mv.addObject("usuarios", usuarios.findAll());
+		//mv.addObject("usuarios", usuarios.findByNomeContainingIgnoreCase(
+			//	Optional.ofNullable(usuarioFilter.getNome()).orElse("%")));
 		return mv;
 	}
-	*/
+	
 	@GetMapping("/{codigo}")
 	public ModelAndView editar(@PathVariable Long codigo){
 		/*
