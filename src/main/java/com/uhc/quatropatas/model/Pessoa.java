@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -75,6 +76,11 @@ public class Pessoa implements Serializable {
     	this.cpf = getCpfSemFormatacao();
     }
     
+    @PostLoad
+    private void postLoad(){
+    	this.cpf = formatarCpf(this.cpf);
+    }
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -135,6 +141,11 @@ public class Pessoa implements Serializable {
 	@JsonIgnore
 	public String getCpfSemFormatacao(){
 		return this.cpf.replaceAll("\\.|-", "");
+	}
+	
+	@JsonIgnore
+	private String formatarCpf(String cpfSemFormatacao) {
+		return cpfSemFormatacao.replaceAll("(\\d{3})(\\d{3})(\\d{3})", "$1.$2.$3-");
 	}
 	
 	public List<Email> getEmails() {
