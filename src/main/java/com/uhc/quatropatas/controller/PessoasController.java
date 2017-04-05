@@ -97,8 +97,7 @@ public class PessoasController {
 	@GetMapping
 	public ModelAndView pesquisar(PessoaFilter pessoaFilter){
 		ModelAndView mv = new ModelAndView("pessoa/pesquisa-pessoa");
-		mv.addObject("pessoas", pessoas.findByNomeContainingIgnoreCase(
-				Optional.ofNullable(pessoaFilter.getNome()).orElse("%")));
+		mv.addObject("pessoas", pessoas.filtrar(pessoaFilter));
 		return mv;
 	}
 	

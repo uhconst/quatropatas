@@ -62,13 +62,10 @@ public class AnimalsController {
 	@GetMapping
 	public ModelAndView pesquisar(AnimalFilter animalFilter){
 		ModelAndView mv = new ModelAndView("animal/pesquisa-animal");
-		System.out.println("Sexo no controler: " + animalFilter.getSexo());//Apagar..
 		mv.addObject("sexos", TipoSexoAnimal.values());
 		mv.addObject("racas", racas.findAll());
 		
 		mv.addObject("animals", animals.filtrar(animalFilter));
-		/*mv.addObject("animals", animals.findByNomeContainingIgnoreCase(
-				Optional.ofNullable(animalFilter.getNome()).orElse("%")));*/
 		return mv;
 	}
 	
