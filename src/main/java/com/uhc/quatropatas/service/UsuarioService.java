@@ -54,5 +54,10 @@ public class UsuarioService {
 	public void deletar(Long codigo){
 		usuarios.delete(codigo);
 	}
+
+	@Transactional
+	public void alterarStatus(Long[] codigos, StatusUsuario statusUsuario) {
+		statusUsuario.executar(codigos, usuarios);
+	}
 }
 

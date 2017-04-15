@@ -10,7 +10,7 @@ import com.uhc.quatropatas.repository.helper.usuario.UsuariosQueries;
 
 public interface Usuarios extends JpaRepository<Usuario, Long>, UsuariosQueries{
 	
-	public List<Usuario> findByNomeContainingIgnoreCase(String nome);
-	
 	public Optional<Usuario> findByEmail(String email);
+
+	public List<Usuario> findByCodigoIn(Long[] codigos);
 }

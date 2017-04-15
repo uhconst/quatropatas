@@ -1,17 +1,19 @@
 package com.uhc.quatropatas.controller;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,6 +21,7 @@ import com.uhc.quatropatas.model.Usuario;
 import com.uhc.quatropatas.repository.Grupos;
 import com.uhc.quatropatas.repository.Usuarios;
 import com.uhc.quatropatas.repository.filter.UsuarioFilter;
+import com.uhc.quatropatas.service.StatusUsuario;
 import com.uhc.quatropatas.service.UsuarioService;
 import com.uhc.quatropatas.service.exception.EmailUsuarioJaCadastradoException;
 import com.uhc.quatropatas.service.exception.SenhaObrigatoriaUsuarioException;
@@ -73,10 +76,18 @@ public class UsuariosController {
 	public ModelAndView pesquisar(UsuarioFilter usuarioFilter){
 		ModelAndView mv = new ModelAndView("usuario/pesquisa-usuario");
 		mv.addObject("grupos", grupos.findAll());
-		mv.addObject("usuarios", usuarios.findAll());
-		//mv.addObject("usuarios", usuarios.findByNomeContainingIgnoreCase(
-			//	Optional.ofNullable(usuarioFilter.getNome()).orElse("%")));
+		mv.addObject("usuarios", usuarios.filtrar(usuarioFilter));
 		return mv;
+	}
+	
+	/*
+	 * Como ta fazendo uma requisição JavaScript, retornando apenas um Http
+	 * Por isso o @RespondeStatus
+	 */
+	@PutMapping("/status")
+	@ResponseStatus(HttpStatus.OK)
+	public void atualizarStatus(@RequestParam("codigos[]") Long[] codigos, @RequestParam("status") StatusUsuario statusUsuario){
+		usuarioService.alterarStatus(codigos, statusUsuario);
 	}
 	
 	@GetMapping("/{codigo}")
