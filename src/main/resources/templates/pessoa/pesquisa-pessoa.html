@@ -53,9 +53,8 @@
 						<th class="table-pesq-pessoa-col-codigo">CPF</th>
 						<th class="table-pesq-pessoa-col-sexo">Sexo</th>
 						<th class="table-pesq-pessoa-col-codigo">CEP</th>
-						<th class="table-pesq-pessoa-col-codigo">Rua</th>
-						<th class="table-pesq-pessoa-col-codigo">Número</th>
-						<th class="table-pesq-pessoa-col-codigo">Logradouro</th>
+						<th class="table-pesq-pessoa-col-codigo">Logradouro, n</th>
+						<th class="table-pesq-pessoa-col-codigo">Bairro</th>
 						<th class="table-pesq-pessoa-col-codigo">Telefone</th>
 						<th class="table-pesq-pessoa-col-codigo">Celular</th>
 						<th class="table-pesq-pessoa-col-codigo">Cidade/Estado</th>
@@ -69,11 +68,10 @@
 						<td>EMAIL</td>
 						<td th:text="${pessoa.nascimento}">NASCIMENTO</td>
 						<td th:text="${pessoa.cpf}"></td>
-						<td th:text="#{|tipoSexo.${pessoa.sexo}|}"></td>
+						<td th:text="#{|tipoSexo.${pessoa.sexo}|} == 'Masculino' ? M : F"></td>
 						<td th:text="${pessoa.endereco.cep}"></td>
+						<td th:text="|${pessoa.endereco.logradouro}, ${pessoa.endereco.numero}|"></td>
 						<td th:text="${pessoa.endereco.bairro}"></td>
-						<td th:text="${pessoa.endereco.numero}"></td>
-						<td th:text="${pessoa.endereco.logradouro}"></td>
 						<td>TELEFONE</td>
 						<td>CELULAR</td>
 						<td th:text="|${pessoa.endereco.cidade.nome}/${pessoa.endereco.cidade.estado.sigla}|"></td>
