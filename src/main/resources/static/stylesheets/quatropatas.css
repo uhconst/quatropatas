@@ -59,15 +59,44 @@
 	text-align: center;
 }
 
+.qp-tabela-pesquisa table tr th {
+	border-bottom-width: 1px;
+}
+
+.qp-tabela-pesquisa table tr td {
+    border-top: none;
+    border-bottom: 1px solid #e7eaec;
+    padding: 10px;
+    vertical-align: middle;
+}
+
 .table-pesq-col-codigo, .table-pesq-col-acoes{
 	width: 80px;
 	text-align: center;
 }
 
 /* Colunas - Pesquisa de usuários */
-.table-usuarios-col-status {
+.table-pesq-usuarios-col-status {
 	width: 30px;
 	text-align: center;
+}
+
+/* Colunas - Pesquisa de raças */
+.table-pesq-raca-col-especie {
+	width: 220px;
+}
+
+/* Colunas - Pesquisa de animal */
+.table-pesq-animal-col-raca {
+	width: 200px;
+}
+
+.table-pesq-animal-col-dono {
+	width: 300px;
+}
+
+.table-pesq-animal-col-sexo {
+	width: 120px;
 }
 
 /*
