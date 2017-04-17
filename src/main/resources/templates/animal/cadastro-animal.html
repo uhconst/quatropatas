@@ -70,10 +70,12 @@
 					<div class="col-lg-3  col-sm-6  form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
 						<label class="control-label">Sexo</label>
 						<div>
-							<label th:each="sexo : ${sexos}" class="radio-inline">
-								<input type="radio" th:value="${sexo}" th:field="*{sexo}"/>
-								<span th:text="#{|tipoSexoAnimal.${sexo}|}"></span>
-							</label> 
+							<th:block th:each="sexo : ${sexos}">
+		  						<div class="radio  radio-inline">
+			    					<input th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}"/>
+			    					<label th:for="|id_${sexo}|" th:text="#{|tipoSexoAnimal.${sexo}|}">Sexos</label>
+		    					</div>
+	  						</th:block>
 						</div>
 					</div>
 				</div>
