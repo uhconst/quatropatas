@@ -56,7 +56,7 @@
 						<th class="table-pesq-pessoa-col-codigo">Telefone</th>
 						<th class="table-pesq-pessoa-col-codigo">Celular</th>
 						<th class="table-pesq-pessoa-col-codigo">Cidade/Estado</th>
-						<th class="table-pesq-pessoa-col-acoes">Ações</th>
+						<th class="table-pesq-col-acoes">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -71,19 +71,19 @@
 						<td>TELEFONE</td>
 						<td>CELULAR</td>
 						<td th:text="|${pessoa.endereco.cidade.nome}/${pessoa.endereco.cidade.estado.sigla}|"></td>
-						<td class="table-pesq-pessoa-col-acoes">
+						<td class="table-pesq-col-acoes">
 						
-						<div class="btn-group">
-									<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/pessoas/{codigo}(codigo=${pessoa.codigo})}">
-										<i class="glyphicon glyphicon-pencil" style="cursor:pointer"></i>
-									</a>
-									<a class="btn  btn-link  btn-xs" title="Excluir">
-										<i class="glyphicon glyphicon-trash" style="cursor:pointer"
-											data-toggle="modal" data-target="#confirmaExclusaoModal"  
-											data:nome="${pessoa.nome}" 
-											data:url-deletar="@{/pessoas/{codigo}(codigo=${pessoa.codigo})}"></i>
-									</a>
-						</div>
+							<div class="btn-group">
+										<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/pessoas/{codigo}(codigo=${pessoa.codigo})}">
+											<i class="glyphicon glyphicon-pencil" style="cursor:pointer"></i>
+										</a>
+										<a class="btn  btn-link  btn-xs" title="Excluir">
+											<i class="glyphicon glyphicon-remove" style="cursor:pointer"
+												data-toggle="modal" data-target="#confirmaExclusaoModal"  
+												data:nome="${pessoa.nome}" 
+												data:url-deletar="@{/pessoas/{codigo}(codigo=${pessoa.codigo})}"></i>
+										</a>
+							</div>
 						</td>
 					</tr>
 					<tr th:if="${pessoas.empty}">

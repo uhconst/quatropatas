@@ -100,12 +100,24 @@
 							</th:block>
 						</td>
 	                 	<td class="text-center">
-							<a class="btn  btn-link  btn-xs" title="Editar" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}"> 
+	                 		<div class="btn-group">
+								<a class="btn  btn-link  btn-xs" title="Editar" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}" 
+									th:href="@{/usuarios/{codigo}(codigo=${usuario.codigo})}">
+									<i class="glyphicon glyphicon-pencil" style="cursor:pointer"></i>
+								</a>
+								<a class="btn  btn-link  btn-xs" title="Excluir" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
+									<i class="glyphicon glyphicon-remove" style="cursor:pointer"
+										data-toggle="modal" data-target="#confirmaExclusaoModal"  
+										data:nome="${usuario.nome}" 
+										data:url-deletar="@{/usuarios/{codigo}(codigo=${usuario.codigo})}"></i>
+								</a>
+							</div>
+							<!-- <a class="btn  btn-link  btn-xs" title="Editar" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}"> 
 								<i class="glyphicon glyphicon-pencil"></i>
 							</a>
 							<a class="btn  btn-link  btn-xs" title="Excluir" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
 								<i class="glyphicon glyphicon-remove"></i>
-							</a>
+							</a> -->
 						</td>
 	                </tr>
 	                

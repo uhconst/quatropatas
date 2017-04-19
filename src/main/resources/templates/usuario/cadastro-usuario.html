@@ -15,9 +15,8 @@
 
 		<div class="page-header">
 			<div class="container-fluid">
-				<h1>
-					Cadastro de usuário
-				</h1>
+				<h1 th:if="${usuario.novo}">Cadastro de usuário</h1>
+				<h1 th:unless="${usuario.novo}">Edição de usuário - [[${usuario.nome}]]</h1>
 			</div>
 		</div>
 		

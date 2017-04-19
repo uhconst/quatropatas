@@ -27,9 +27,10 @@ public class UsuarioService {
 	@Transactional
 	public void salvar(Usuario usuario) {
 		
-		Optional<Usuario> emailUsuarioExistente = usuarios.findByEmail(usuario.getEmail());
-		
-		if(emailUsuarioExistente.isPresent()){
+//		Optional<Usuario> emailUsuarioExistente = usuarios.findByEmail(usuario.getEmail());
+		Optional<Usuario> emailUsuarioExistente = usuarios.findByEmailOrCodigo(usuario.getEmail(), usuario.getCodigo());
+
+		if(emailUsuarioExistente.isPresent() && !emailUsuarioExistente.get().equals(usuario)){
 			throw new EmailUsuarioJaCadastradoException("Email já cadastrado");
 		}
 		
@@ -42,10 +43,13 @@ public class UsuarioService {
 		 * Como ele Valida duas vezes, no model e antes de salva, setando
 		 * a confirmação igual a senha antes de Salvar.
 		 */
-		if(usuario.isNovo()){
+		if(usuario.isNovo() || !StringUtils.isEmpty(usuario.getSenha())){
 			usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
-			usuario.setConfirmacaoSenha(usuario.getSenha());
 		}
+		else if(StringUtils.isEmpty(usuario.getSenha())){
+			usuario.setSenha(emailUsuarioExistente.get().getSenha());
+		}
+		usuario.setConfirmacaoSenha(usuario.getSenha());
 		
 		usuarios.save(usuario);
 	}
