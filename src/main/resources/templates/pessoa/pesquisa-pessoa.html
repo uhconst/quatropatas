@@ -53,8 +53,7 @@
 						<th class="table-pesq-pessoa-col-codigo">CPF</th>
 						<th class="table-pesq-pessoa-col-sexo">Sexo</th>
 						<th class="table-pesq-pessoa-col-codigo">Endereço</th>
-						<th class="table-pesq-pessoa-col-codigo">Telefone</th>
-						<th class="table-pesq-pessoa-col-codigo">Celular</th>
+						<th class="table-pesq-pessoa-col-codigo">Telefones</th>
 						<th class="table-pesq-pessoa-col-codigo">Cidade/Estado</th>
 						<th class="table-pesq-col-acoes">Ações</th>
 					</tr>
@@ -63,13 +62,20 @@
 					<tr th:each="pessoa : ${pessoas}">
 						<td th:text="${pessoa.nome}"></td>
 						<td th:text="${pessoa.sobrenome}"></td>
-						<td>EMAIL</td>
+						
+						<td>
+							<span th:each="email : ${pessoa.emails}" th:text="|${email.endereco}${emailStat.last ? '' : ', '}|"></span>
+						</td>
+						
 						<td th:text="${pessoa.nascimento}">NASCIMENTO</td>
 						<td th:text="${pessoa.cpf}"></td>
 						<td th:text="#{|tipoSexo.${pessoa.sexo}|} == 'Masculino' ? M : F"></td>
 						<td th:text="|${pessoa.endereco.logradouro}, ${pessoa.endereco.numero} - ${pessoa.endereco.bairro} ${pessoa.endereco.cep}|"></td>
-						<td>TELEFONE</td>
-						<td>CELULAR</td>
+						
+						<td>
+							<span th:each="telefone : ${pessoa.telefones}" th:text="|${telefone.numero}${telefoneStat.last ? '' : ', '}|"></span>
+						</td>
+						
 						<td th:text="|${pessoa.endereco.cidade.nome}/${pessoa.endereco.cidade.estado.sigla}|"></td>
 						<td class="table-pesq-col-acoes">
 						

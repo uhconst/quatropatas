@@ -4,9 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -28,7 +34,25 @@ public class Email implements Serializable {
 
 	@Column(name="codigo_pessoa", insertable = false, updatable = false)
 	private Long codigoPessoa;
-
+	
+//	@ManyToOne
+//	@JoinColumn(name = "codigo_pessoa")
+//	private Pessoa codigoPessoa;
+	
+	//TESTE, PODE APAGAR
+    @PrePersist @PreUpdate
+    private void prePersistPreUpdate(){
+    	System.out.println(">>>>EMAIL - Codigo email pre update: " +  codigo);
+    	System.out.println(">>>>EMAIL - Codigo pessoa pre update: " +  codigoPessoa);
+    }
+    
+    //TESTE, PODE APAGAR
+    @PostLoad
+    private void postLoad(){
+    	System.out.println(">>>>EMAIL - Codigo email pos load: " +  codigo);
+    	System.out.println(">>>>EMAIL - Codigo pessoa pos load: " +  codigoPessoa);
+    }
+    
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -53,6 +77,15 @@ public class Email implements Serializable {
 		this.codigoPessoa = codigoPessoa;
 	}
 	
+
+//	public Pessoa getCodigoPessoa() {
+//		return codigoPessoa;
+//	}
+//
+//	public void setCodigoPessoa(Pessoa codigoPessoa) {
+//		this.codigoPessoa = codigoPessoa;
+//	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

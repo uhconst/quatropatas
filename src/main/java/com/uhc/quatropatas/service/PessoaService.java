@@ -20,8 +20,8 @@ public class PessoaService {
 	public void salvar(Pessoa pessoa) {
 		
 		Optional<Pessoa> pessoaExistente = pessoas.findByCpf(pessoa.getCpfSemFormatacao());
-		
-		if(pessoaExistente.isPresent()){
+
+		if(pessoaExistente.isPresent() && !pessoaExistente.get().equals(pessoa)){
 			throw new CpfPessoaJaCadastradoException("CPF já cadastrado");
 		}
 		
