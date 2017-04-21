@@ -46,7 +46,10 @@ public class AgendamentosController {
 	@Autowired
 	private AgendamentoValidator agendamentoValidator;
 	
-	@InitBinder
+	/*
+	 * Inicializando o binder apenas para o atributo agendamento
+	 */
+	@InitBinder("agendamento")
 	public void inicializarValidador(WebDataBinder binder){
 		binder.setValidator(agendamentoValidator);
 	}
@@ -73,17 +76,9 @@ public class AgendamentosController {
 		return mv;
 	}
 
-	@PostMapping("/novo")
+	@PostMapping(value = "/novo", params = "salvar")
 	public ModelAndView salvar(Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
-		agendamento.adicionarServicos(tabelaServicosAgendamento.getAgendamentos(agendamento.getUuid()));
-		agendamento.calcularValorTotal();
-		
-		/*
-		 * Validando aqui, pq no corpo do metodo ele validaria antes de adicionar os
-		 * serviços ao agendamento. Agora eu consigo primeiro adicionar os serviços
-		 * e depois validar o agendamento todo.
-		 */
-		agendamentoValidator.validate(agendamento, result);
+		validarAgendamento(agendamento, result);
 		if(result.hasErrors()){
 			return novo(agendamento);
 		}
@@ -98,6 +93,39 @@ public class AgendamentosController {
 		return new ModelAndView("redirect:/agendamentos/novo");
 	}
 
+	@PostMapping(value = "/novo", params = "agendar")
+	public ModelAndView agendar(Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
+		validarAgendamento(agendamento, result);
+		if(result.hasErrors()){
+			return novo(agendamento);
+		}
+		
+		/*
+		@AuthenticationPrincipal Usuario Sistema usuarioSistema
+		aula 23.15 aos 10:50
+		*/
+		
+		agendamentoService.agendar(agendamento);
+		attributes.addFlashAttribute("mensagem", "Agendado com sucesso!");
+		return new ModelAndView("redirect:/agendamentos/novo");
+	}
+	
+	@PostMapping(value = "/novo", params = "enviarEmail")
+	public ModelAndView enviarEmail(Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
+		validarAgendamento(agendamento, result);
+		if(result.hasErrors()){
+			return novo(agendamento);
+		}
+		
+		/*
+		@AuthenticationPrincipal Usuario Sistema usuarioSistema
+		aula 23.15 aos 10:50
+		*/
+		
+		agendamentoService.salvar(agendamento);
+		attributes.addFlashAttribute("mensagem", "Agendamento com sucesso e email enviado!");
+		return new ModelAndView("redirect:/agendamentos/novo");
+	}
 	
 	@PostMapping("/agendamentoservico")
 	public @ResponseBody ModelAndView adicionarServico(Long codigoServico, Long codigoAnimal, String uuid){
@@ -121,5 +149,17 @@ public class AgendamentosController {
 		mv.addObject("agendamentos", tabelaServicosAgendamento.getAgendamentos(uuid));
 		mv.addObject("valorTotal", tabelaServicosAgendamento.getValorTotal(uuid));
 		return mv;
+	}
+	
+	private void validarAgendamento(Agendamento agendamento, BindingResult result) {
+		agendamento.adicionarServicos(tabelaServicosAgendamento.getAgendamentos(agendamento.getUuid()));
+		agendamento.calcularValorTotal();
+		
+		/*
+		 * Validando aqui, pq no corpo do metodo ele validaria antes de adicionar os
+		 * serviços ao agendamento. Agora eu consigo primeiro adicionar os serviços
+		 * e depois validar o agendamento todo.
+		 */
+		agendamentoValidator.validate(agendamento, result);
 	}
 }

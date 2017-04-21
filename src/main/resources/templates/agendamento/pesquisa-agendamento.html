@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:data="http://www.thymeleaf.org/extras/data-attribute" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" 
+	layout:decorate="~{layout/layout-default}">
+
+<head>
+	
+</head>
+
+<body>
+
+<section layout:fragment="conteudo">
+
+	<!-- HEADER E BOTÃO CADASTRO  -->
+	<th:block th:replace="fragments/header-pesquisa :: headerPesquisa ('agendamentos/novo', 'agendamento')"></th:block>
+	
+	<div class="container-fluid">
+		<form method="GET" th:object="${agendamentoFilter}" th:action="@{/agendamentos}">
+	
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="codigo">Código</label>
+					<input type="text" class="form-control" id="codigo" autofocus="autofocus" th:field="*{codigo}"/>
+				</div>
+				
+				<div class="form-group  col-sm-6">
+					<label for="status" class="control-label">Status</label>
+					<select id="status" class="form-control" th:field="*{status}">
+	                    <option value="">Todos os status</option>
+	                    <option th:each="status : ${todosStatus}" th:value="${status}" th:text="${status.descricao}"></option>
+	                </select>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label for="dataCriacaoInicial">Data de criação</label>
+					<div class="form-inline">
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-date" id="dataCriacaoInicial" 
+							th:field="*{desde}" autocomplete="off"/>
+						<label for="dataCriacaoFinal" class="aw-form-label-between">até</label>
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-date" id="dataCriacaoInicial" 
+							th:field="*{ate}" autocomplete="off"/>
+					</div>
+				</div>
+				
+				<div class="form-group  col-sm-6">
+					<label for="valorMinimo">Valor total</label>
+					<div class="form-inline">
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-money" id="valorMinimo" th:field="*{valorMinimo}"/>
+						<label for="valorMaximo" class="aw-form-label-between">até</label>
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-money" id="valorMaximo" th:field="*{valorMaximo}"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="nomeCliente">Nome cliente</label>
+					<input type="text" class="form-control" id="nomePessoa" th:field="*{nomePessoa}"/>
+				</div>
+			
+				<div class="form-group  col-sm-6">
+					<label for="cpf" class="control-label">CPF</label>
+					<input type="text" class="form-control" id="cpf" th:field="*{cpfPessoa}"/>
+				</div>
+				
+			</div>
+			
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+			
+		</form>
+		
+			<div class="table-responsive  qp-tabela-pesquisa">
+				<table class="table  table-hover">
+		            <thead>
+		            	<tr>
+		                	<th>Código</th>
+		                	<th>Cliente</th>
+		                	<th>Data de criação</th>
+		                	<th>Valor total</th>
+		                	<!-- <th>Atendente</th> -->
+		                	<th>Status</th>
+		                 	<th class="table-col-acoes">Ações</th>
+						</tr>
+					</thead>
+					
+		            <tbody>
+						<tr th:each="agendamento : ${agendamentos}">
+							<td th:text="${agendamento.codigo}"></td>
+							<td th:text="${agendamento.pessoa.nome}"></td>
+							<td th:text="${{agendamento.dataCriacao}}"></td>
+							<td th:text="|R$ ${{agendamento.valorTotal}}|"></td>
+							<!-- <td th:text="${agendamento.usuario.nome}"></td> -->
+							<td th:text="${agendamento.status.descricao}"></td>
+		                 	<td class="text-center">
+			   					<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" href="#">
+			   						<i class="glyphicon glyphicon-pencil"></i>
+			   					</a>
+		                 	</td>
+		                </tr>
+		                
+		                <tr th:if="${pagina.vazia}">
+		                	<td colspan="6">Nenhuma agendamento encontrada</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		
+		</div>
+	
+</section>
+
+<th:block layout:fragment="javascript-extra">
+	<!-- <script th:src="@{/javascripts/excluir-modal.js}"></script> -->
+</th:block>
+
+</body>
+</html>

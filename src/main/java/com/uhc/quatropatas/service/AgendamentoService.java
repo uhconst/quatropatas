@@ -1,15 +1,13 @@
 package com.uhc.quatropatas.service;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uhc.quatropatas.model.Agendamento;
-import com.uhc.quatropatas.model.AgendamentoServico;
+import com.uhc.quatropatas.model.StatusAgendamento;
 import com.uhc.quatropatas.repository.Agendamentos;
 
 @Service
@@ -33,6 +31,12 @@ public class AgendamentoService {
 		}
 		
 		agendamentos.save(agendamento);
+	}
+
+	@Transactional
+	public void agendar(Agendamento agendamento) {
+		agendamento.setStatus(StatusAgendamento.AGENDADO);
+		salvar(agendamento);
 	}
 
 	/*
