@@ -87,11 +87,11 @@ public class AgendamentosImpl implements AgendamentosQueries {
 			}
 			
 			if (!StringUtils.isEmpty(filtro.getNomePessoa())) {
-				criteria.add(Restrictions.ilike("c.nome", filtro.getNomePessoa(), MatchMode.ANYWHERE));
+				criteria.add(Restrictions.ilike("p.nome", filtro.getNomePessoa(), MatchMode.ANYWHERE));
 			}
 			
 			if (!StringUtils.isEmpty(filtro.getCpfPessoa())) {
-				criteria.add(Restrictions.ilike("c.cpf", filtro.getCpfPessoa(), MatchMode.ANYWHERE));
+				criteria.add(Restrictions.ilike("p.cpf", filtro.getCpfPessoa(), MatchMode.ANYWHERE));
 			}
 		}
 	}
