@@ -17,6 +17,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -65,6 +67,10 @@ public class Agendamento implements Serializable {
 	
 	@Transient
 	private LocalTime horarioAgendamento;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigo_pessoa")
+	private Pessoa pessoa;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -152,6 +158,14 @@ public class Agendamento implements Serializable {
 
 	public void setHorarioAgendamento(LocalTime horarioAgendamento) {
 		this.horarioAgendamento = horarioAgendamento;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public boolean isNova(){

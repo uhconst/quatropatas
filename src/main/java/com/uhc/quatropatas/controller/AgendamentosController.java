@@ -2,7 +2,11 @@ package com.uhc.quatropatas.controller;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -17,12 +21,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.uhc.quatropatas.controller.page.PageWrapper;
 import com.uhc.quatropatas.controller.validator.AgendamentoValidator;
 import com.uhc.quatropatas.model.Agendamento;
 import com.uhc.quatropatas.model.Animal;
 import com.uhc.quatropatas.model.Servico;
+import com.uhc.quatropatas.model.StatusAgendamento;
+import com.uhc.quatropatas.repository.Agendamentos;
 import com.uhc.quatropatas.repository.Animals;
 import com.uhc.quatropatas.repository.Servicos;
+import com.uhc.quatropatas.repository.filter.AgendamentoFilter;
 import com.uhc.quatropatas.service.AgendamentoService;
 import com.uhc.quatropatas.session.TabelasAgendamentosSession;
 
@@ -45,6 +53,9 @@ public class AgendamentosController {
 	
 	@Autowired
 	private AgendamentoValidator agendamentoValidator;
+	
+	@Autowired
+	private Agendamentos agendamentos;
 	
 	/*
 	 * Inicializando o binder apenas para o atributo agendamento
@@ -144,6 +155,19 @@ public class AgendamentosController {
 		return mvTabelaServicosAgendamento(uuid);
 	}
 
+	@GetMapping
+	public ModelAndView pesquisar(AgendamentoFilter agendamentoFilter, 
+				@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("/agendamento/pesquisa-agendamento");
+		mv.addObject("todosStatus", StatusAgendamento.values());
+		
+		PageWrapper<Agendamento> paginaWrapper = new PageWrapper<>(agendamentos.filtrar(agendamentoFilter, pageable)
+				, httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		
+		return mv;
+	}
+	
 	private ModelAndView mvTabelaServicosAgendamento(String uuid) {
 		ModelAndView mv = new ModelAndView("agendamento/tabela-servicos-agendamento");
 		mv.addObject("agendamentos", tabelaServicosAgendamento.getAgendamentos(uuid));
