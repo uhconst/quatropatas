@@ -108,8 +108,9 @@
 								th:classappend="${#httpServletRequest.requestURI=='/agendamentos/novo' ? 'is-active  is-expanded' : ''}">
 								<a th:href="@{/agendamentos/novo}">Cadastro de agendamento</a>
 							</li>
-							<li class="aw-menu__item  aw-menu__item--link">
-								<a href="#">Pesquisa de agendamento</a>
+							<li class="aw-menu__item  aw-menu__item--link" 
+								th:classappend="${#httpServletRequest.requestURI=='/agendamentos' ? 'is-active  is-expanded' : ''}">
+								<a th:href="@{/agendamentos}">Pesquisa de agendamento</a>
 							</li>
 						</ul>
 					</li>

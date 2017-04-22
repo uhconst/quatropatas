@@ -105,7 +105,7 @@
 		            <tbody>
 						<tr th:each="agendamento : ${pagina.conteudo}">
 							<td th:text="${agendamento.codigo}"></td>
-							<td th:text="${agendamento.pessoa.nome}"></td>
+							<td th:text="|${agendamento.pessoa.nome} ${agendamento.pessoa.sobrenome}|"></td>
 							<td th:text="${{agendamento.dataHoraAgendamento}}"></td>
 							<td th:text="${{agendamento.dataCriacao}}"></td>
 							<td th:text="|R$ ${{agendamento.valorTotal}}|"></td>
