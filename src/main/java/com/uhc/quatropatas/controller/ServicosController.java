@@ -17,6 +17,7 @@ import com.uhc.quatropatas.model.Servico;
 import com.uhc.quatropatas.repository.Servicos;
 import com.uhc.quatropatas.repository.filter.ServicoFilter;
 import com.uhc.quatropatas.service.ServicoService;
+import com.uhc.quatropatas.service.exception.ImpossivelExcluirEntidadeException;
 
 @Controller
 @RequestMapping("/servicos") //Definindo o "/servicos" antes de todo mapping
@@ -73,7 +74,13 @@ public class ServicosController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		servicoService.deletar(codigo);
+		try{
+			servicoService.deletar(codigo);
+		} 
+		catch (ImpossivelExcluirEntidadeException e){
+			attributes.addFlashAttribute("mensagemFalhaExclusao", e.getMessage());
+			return "redirect:/servicos";
+		}
 		attributes.addFlashAttribute("mensagem", "Serviço deletado com sucesso!");
 		return "redirect:/servicos";
 	}

@@ -14,13 +14,9 @@
 	th:href="@{/stylesheets/vendors/bootstrap-datepicker.standalone.min.css}" />
 </head>
 <section layout:fragment="conteudo">
-
-
-		<div class="page-header">
-			<div class="container-fluid">
-				<h1>Cadastro de agendamento</h1>
-			</div>
-		</div>
+		
+		<!-- HEADER E BOTÃO CADASTRO  -->
+		<th:block th:replace="fragments/header-cadastro :: headerCadastro ('agendamentos', 'agendamento')"></th:block>
 
 		<div class="container-fluid">
 			<form method="POST" class="form-vertical  js-form-loading  js-formulario-principal" th:action="@{/agendamentos/novo}" th:object="${agendamento}">

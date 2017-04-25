@@ -63,10 +63,10 @@
 						<td class="table-pesq-raca-col-especie" th:text="#{|tipoEspecie.${raca.especie}|}"></td>
 						<td class="table-pesq-col-acoes"> <!-- sec:authorize="hasRole('ROLE_CADASTRAR_RACA')"> -->
 							<div class="btn-group">
-								<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/racas/{codigo}(codigo=${raca.codigo})}">
+								<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" th:href="@{/racas/{codigo}(codigo=${raca.codigo})}">
 									<i class="glyphicon glyphicon-pencil" style="cursor:pointer"></i>
 								</a>
-								<a class="btn  btn-link  btn-xs" title="Excluir">
+								<a class="btn  btn-link  btn-xs  js-tooltip" title="Excluir">
 									<i class="glyphicon glyphicon-remove" style="cursor:pointer"
 										data-toggle="modal" data-target="#confirmaExclusaoModal"  
 										data:nome="${raca.nome}" 
