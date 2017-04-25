@@ -67,15 +67,10 @@ public class Cidade implements Serializable {
 		this.estado = estado;
 	}
 
-	/*
-	public List<Pessoa> getPessoas() {
-		return pessoas;
+	public boolean isNovo(){
+		return codigo == null;
 	}
-
-	public void setPessoas(List<Pessoa> pessoas) {
-		this.pessoas = pessoas;
-	}
-*/
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

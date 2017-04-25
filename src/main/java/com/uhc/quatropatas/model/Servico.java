@@ -73,6 +73,10 @@ public class Servico implements Serializable {
 		this.valor = valor;
 	}
 
+	public boolean isNovo(){
+		return codigo == null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -16,7 +16,7 @@
 <section layout:fragment="conteudo">
 		
 		<!-- HEADER E BOTÃO CADASTRO  -->
-		<th:block th:replace="fragments/header-cadastro :: headerCadastro ('agendamentos', 'agendamento')"></th:block>
+		<th:block th:replace="fragments/header-cadastro :: headerCadastro ('agendamentos',  ${agendamento.nova}, 'agendamento', ${agendamento.dataHoraAgendamento})"></th:block>
 
 		<div class="container-fluid">
 			<form method="POST" class="form-vertical  js-form-loading  js-formulario-principal" th:action="@{/agendamentos/novo}" th:object="${agendamento}">

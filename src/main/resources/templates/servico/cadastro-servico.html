@@ -10,7 +10,7 @@
 <section layout:fragment="conteudo">
 
 	<!-- HEADER E BOTÃO CADASTRO  -->
-	<th:block th:replace="fragments/header-cadastro :: headerCadastro ('servicos', 'serviço')"></th:block>
+	<th:block th:replace="fragments/header-cadastro :: headerCadastro ('servicos', ${servico.novo}, 'serviço', ${servico.descricao})"></th:block>
 	
 	<div class="container-fluid">
 	

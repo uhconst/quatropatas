@@ -88,6 +88,10 @@ public class Animal implements Serializable {
 		this.pessoa = pessoa;
 	}
 
+	public boolean isNovo(){
+		return codigo == null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

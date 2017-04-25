@@ -69,6 +69,10 @@ public class Raca implements Serializable {
 		this.animals = animals;
 	}
 
+	public boolean isNovo(){
+		return codigo == null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

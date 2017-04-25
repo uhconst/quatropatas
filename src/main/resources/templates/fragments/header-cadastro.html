@@ -3,15 +3,16 @@
 	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-	<th:block th:fragment="headerCadastro (controlador, texto)">
+	<th:block th:fragment="headerCadastro (controlador, isNovo, texto, nomeEdicao)">
 	
 		<div class="page-header">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-xs-10">
-						<h1>
-							<span th:text="|Cadastro de ${texto}|"></span>
-						</h1>
+						
+						<h1 th:if="${isNovo}">Cadastro de [[${texto}]]</h1>
+						<h1 th:unless="${isNovo}">Edição de [[${texto}]] - [[${nomeEdicao}]]</h1>
+						
 					</div>
 				
 					<div class="col-xs-2">

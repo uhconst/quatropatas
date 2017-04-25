@@ -11,7 +11,7 @@
 
 
 	<!-- HEADER E BOTÃO CADASTRO  -->
-	<th:block th:replace="fragments/header-cadastro :: headerCadastro ('cidades', 'cidade')"></th:block>
+	<th:block th:replace="fragments/header-cadastro :: headerCadastro ('cidades', ${cidade.novo}, 'cidade', ${cidade.nome})"></th:block>
 	
 	<div class="container-fluid">
 	
