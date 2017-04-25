@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uhc.quatropatas.service.exception.CpfPessoaJaCadastradoException;
+import com.uhc.quatropatas.service.exception.ImpossivelExcluirEntidadeException;
 import com.uhc.quatropatas.model.Pessoa;
 import com.uhc.quatropatas.model.TipoSexo;
 import com.uhc.quatropatas.repository.Estados;
@@ -117,8 +118,13 @@ public class PessoasController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		pessoaService.deletar(codigo);
-		
+		try{
+			pessoaService.deletar(codigo);
+		}
+		catch (ImpossivelExcluirEntidadeException e){
+			attributes.addFlashAttribute("mensagemFalhaExclusao", e.getMessage());
+			return "redirect:/pessoas";
+		}
 		attributes.addFlashAttribute("mensagem", "Pessoa deletada com sucesso!");
 		return "redirect:/pessoas";
 	}

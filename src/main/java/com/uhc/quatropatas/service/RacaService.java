@@ -1,11 +1,13 @@
 package com.uhc.quatropatas.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.uhc.quatropatas.model.Raca;
 import com.uhc.quatropatas.repository.Racas;
+import com.uhc.quatropatas.service.exception.ImpossivelExcluirEntidadeException;
 
 @Service
 public class RacaService {
@@ -20,6 +22,12 @@ public class RacaService {
 	
 	@Transactional
 	public void deletar(Long codigo){
-		racas.delete(codigo);
+		try{
+			racas.delete(codigo);
+			racas.flush();
+		}
+		catch (DataIntegrityViolationException e){
+			throw new ImpossivelExcluirEntidadeException("Impossível apagar a raça! Já foi usada em algum cadastro de animal.");
+		}
 	}
 }

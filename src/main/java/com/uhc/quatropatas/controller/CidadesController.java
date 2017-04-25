@@ -23,6 +23,7 @@ import com.uhc.quatropatas.repository.Cidades;
 import com.uhc.quatropatas.repository.Estados;
 import com.uhc.quatropatas.repository.filter.CidadeFilter;
 import com.uhc.quatropatas.service.CidadeService;
+import com.uhc.quatropatas.service.exception.ImpossivelExcluirEntidadeException;
 
 @Controller
 @RequestMapping("/cidades") //Definindo o "/cidades" antes de todo mapping
@@ -82,7 +83,13 @@ public class CidadesController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		cidadeService.deletar(codigo);
+		try{
+			cidadeService.deletar(codigo);
+		}
+		catch (ImpossivelExcluirEntidadeException e){
+			attributes.addFlashAttribute("mensagemFalhaExclusao", e.getMessage());
+			return "redirect:/cidades";
+		}
 		attributes.addFlashAttribute("mensagem", "Cidade deletado com sucesso!");
 		return "redirect:/cidades";
 	}

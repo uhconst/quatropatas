@@ -20,6 +20,10 @@
 	
 	<div class="container-fluid">
 		<form method="GET" class="form-vertical  js-form-loading" th:object="${animalFilter}">
+		
+			<!-- MENSAGEM DE SUCESSO OU FALHA DA EXCLUSÃO-->
+			<div th:replace="fragments/mensagem-exclusao :: mensagemExclusao"></div>
+			
 			 <div class="row">
 				<div class="col-sm-6  form-group">
 					<label for="nome">Nome do Animal</label>

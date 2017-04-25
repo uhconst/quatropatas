@@ -22,6 +22,7 @@ import com.uhc.quatropatas.model.TipoEspecie;
 import com.uhc.quatropatas.repository.Racas;
 import com.uhc.quatropatas.repository.filter.RacaFilter;
 import com.uhc.quatropatas.service.RacaService;
+import com.uhc.quatropatas.service.exception.ImpossivelExcluirEntidadeException;
 
 @Controller
 @RequestMapping("/racas") //Definindo o "/racas" antes de todo mapping
@@ -82,7 +83,13 @@ public class RacasController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		racaService.deletar(codigo);
+		try{
+			racaService.deletar(codigo);
+		}
+		catch(ImpossivelExcluirEntidadeException e){
+			attributes.addFlashAttribute("mensagemFalhaExclusao", e.getMessage());
+			return "redirect:/racas";
+		}
 		attributes.addFlashAttribute("mensagem", "Raça deletada com sucesso!");
 		return "redirect:/racas";
 	}

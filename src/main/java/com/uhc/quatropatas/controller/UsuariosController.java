@@ -24,6 +24,7 @@ import com.uhc.quatropatas.repository.filter.UsuarioFilter;
 import com.uhc.quatropatas.service.StatusUsuario;
 import com.uhc.quatropatas.service.UsuarioService;
 import com.uhc.quatropatas.service.exception.EmailUsuarioJaCadastradoException;
+import com.uhc.quatropatas.service.exception.ImpossivelExcluirEntidadeException;
 import com.uhc.quatropatas.service.exception.SenhaObrigatoriaUsuarioException;
 
 @Controller
@@ -106,7 +107,13 @@ public class UsuariosController {
 	
 	@DeleteMapping("/{codigo}")
 	public String deletar(@PathVariable Long codigo, RedirectAttributes attributes){
-		usuarioService.deletar(codigo);
+		try{
+			usuarioService.deletar(codigo);
+		}
+		catch (ImpossivelExcluirEntidadeException e){
+			attributes.addFlashAttribute("mensagemFalhaExclusao", e.getMessage());
+			return "redirect:/usuarios";
+		}
 		attributes.addFlashAttribute("mensagem", "Usuário deletado com sucesso!");
 		return "redirect:/usuarios";
 	}

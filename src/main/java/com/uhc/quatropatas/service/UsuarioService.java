@@ -3,6 +3,7 @@ package com.uhc.quatropatas.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.util.StringUtils;
 import com.uhc.quatropatas.model.Usuario;
 import com.uhc.quatropatas.repository.Usuarios;
 import com.uhc.quatropatas.service.exception.EmailUsuarioJaCadastradoException;
+import com.uhc.quatropatas.service.exception.ImpossivelExcluirEntidadeException;
 import com.uhc.quatropatas.service.exception.SenhaObrigatoriaUsuarioException;
 
 @Service
@@ -56,7 +58,13 @@ public class UsuarioService {
 	
 	@Transactional
 	public void deletar(Long codigo){
-		usuarios.delete(codigo);
+		try{
+			usuarios.delete(codigo);
+			usuarios.flush();
+		}
+		catch (DataIntegrityViolationException e){
+			throw new ImpossivelExcluirEntidadeException("Impossível apagar o usuário! Já realizou algum agendamento.");
+		}
 	}
 
 	@Transactional

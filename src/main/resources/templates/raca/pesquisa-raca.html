@@ -21,6 +21,9 @@
 	<div class="container-fluid">
 		<form method="GET" class="form-vertical  js-form-loading" th:object="${racaFilter}">
 			
+			<!-- MENSAGEM DE SUCESSO OU FALHA DA EXCLUSÃO-->
+			<div th:replace="fragments/mensagem-exclusao :: mensagemExclusao"></div>
+			
 			<div class="row">
 				<div class="form-group  col-sm-6" >
 					<label class="control-label" for="nome">Nome</label>
