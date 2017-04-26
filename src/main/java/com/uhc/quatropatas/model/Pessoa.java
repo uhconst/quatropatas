@@ -61,20 +61,15 @@ public class Pessoa implements Serializable {
     @JsonIgnore
     private Endereco endereco;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
     @JsonIgnore
     private List<Telefone> telefones;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
     @JsonIgnore
     private List<Email> emails;
-    
-//    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL)
-//    @JoinColumn(name = "codigo_pessoa")
-//    @JsonIgnore
-//    private List<Email> emails;
     
     @PrePersist @PreUpdate
     private void prePersistPreUpdate(){
@@ -208,10 +203,5 @@ public class Pessoa implements Serializable {
 			return false;
 		return true;
 	}
-/*
-	public void adicionaEmail() {
-		this.emails.add(email);
-		emails[0].setPessoa(this); // mantém a consistência
-	} 
-*/
+
 }

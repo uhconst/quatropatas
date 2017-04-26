@@ -7,4 +7,5 @@ import com.uhc.quatropatas.repository.helper.agendamento.AgendamentosQueries;
 
 public interface Agendamentos extends JpaRepository<Agendamento, Long>, AgendamentosQueries {
 
+
 }

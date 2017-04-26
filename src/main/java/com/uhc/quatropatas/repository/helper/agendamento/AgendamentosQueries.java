@@ -10,4 +10,5 @@ public interface AgendamentosQueries {
 
 	public Page<Agendamento> filtrar(AgendamentoFilter filtro, Pageable pageable);
 	
+	//public Agendamento buscarComServicos(Long codigo);
 }

@@ -93,6 +93,7 @@
 		            	<tr>
 		                	<th>Código</th>
 		                	<th>Cliente</th>
+		                	<th>Animal</th>
 		                	<th>Data de agendamento</th>
 		                	<th>Data de criação</th>
 		                	<th>Valor total</th>
@@ -106,13 +107,17 @@
 						<tr th:each="agendamento : ${pagina.conteudo}">
 							<td th:text="${agendamento.codigo}"></td>
 							<td th:text="|${agendamento.pessoa.nome} ${agendamento.pessoa.sobrenome}|"></td>
+							<td>
+								<span th:each="agendamentoServico : ${agendamento.agendamentos}" 
+									th:text="|${agendamentoServico.animal.nome}${agendamentoServicoStat.last ? '' : ', '}|"></span>
+							</td>
 							<td th:text="${{agendamento.dataHoraAgendamento}}"></td>
 							<td th:text="${{agendamento.dataCriacao}}"></td>
 							<td th:text="|R$ ${{agendamento.valorTotal}}|"></td>
 							<td th:text="${agendamento.usuario.nome}"></td>
 							<td th:text="${agendamento.status.descricao}"></td>
 		                 	<td class="table-pesq-col-acoes">
-			   					<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" href="#">
+			   					<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" th:href="@{/agendamentos/{codigo}(codigo=${agendamento.codigo})}">
 			   						<i class="glyphicon glyphicon-pencil"></i>
 			   					</a>
 		                 	</td>

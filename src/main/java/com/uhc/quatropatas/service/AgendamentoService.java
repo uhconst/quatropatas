@@ -24,6 +24,15 @@ public class AgendamentoService {
 		if(agendamento.isNova()){
 			agendamento.setDataCriacao(LocalDateTime.now());
 		}
+		else{
+			/*
+			 * Setando a data de criação manualmente caso seja uma edição.
+			 * Pegando a criação que tá salva no banco e setando no objeto
+			 * que está sendo editado e será salvo.
+			 */
+			Agendamento agendamentoExistente = agendamentos.findOne(agendamento.getCodigo());
+			agendamento.setDataCriacao(agendamentoExistente.getDataCriacao());
+		}
 	
 		
 		if(agendamento.getDataAgendamento() != null){

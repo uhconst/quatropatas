@@ -16,12 +16,14 @@
 <section layout:fragment="conteudo">
 		
 		<!-- HEADER E BOTÃO CADASTRO  -->
-		<th:block th:replace="fragments/header-cadastro :: headerCadastro ('agendamentos',  ${agendamento.nova}, 'agendamento', ${agendamento.dataHoraAgendamento})"></th:block>
-
+		<th:block th:replace="fragments/header-cadastro :: headerCadastro ('agendamentos',  ${agendamento.nova}, 'agendamento', |n° ${agendamento.codigo}|)"></th:block>
+		 
 		<div class="container-fluid">
 			<form method="POST" class="form-vertical  js-form-loading  js-formulario-principal" th:action="@{/agendamentos/novo}" th:object="${agendamento}">
 				
 				<input type="hidden" id="uuid" th:field="*{uuid}"/>
+				<input type="hidden" id="codigo" th:field="*{codigo}"/>
+				
 				<!-- MENSAGEM DE ERRO NA VALIDAÇÃO -->
 				<div th:replace="fragments/mensagem-erro-validacao :: alert"></div>
 

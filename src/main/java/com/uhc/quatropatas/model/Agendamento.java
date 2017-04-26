@@ -33,7 +33,7 @@ public class Agendamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@OneToMany(mappedBy = "agendamento", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "agendamento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AgendamentoServico> agendamentos = new ArrayList<>();
 	
 	@Column(name = "data_criacao")

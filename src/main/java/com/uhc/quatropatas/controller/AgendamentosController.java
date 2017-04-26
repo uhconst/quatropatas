@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.uhc.quatropatas.controller.page.PageWrapper;
 import com.uhc.quatropatas.controller.validator.AgendamentoValidator;
 import com.uhc.quatropatas.model.Agendamento;
+import com.uhc.quatropatas.model.AgendamentoServico;
 import com.uhc.quatropatas.model.Animal;
 import com.uhc.quatropatas.model.Servico;
 import com.uhc.quatropatas.model.StatusAgendamento;
@@ -70,10 +71,9 @@ public class AgendamentosController {
 	@GetMapping("/novo")
 	public ModelAndView novo(Agendamento agendamento){
 		ModelAndView mv = new ModelAndView("agendamento/cadastro-agendamento");
-		//mv.addObject(agendamento);
-		if(StringUtils.isEmpty(agendamento.getUuid())){
-			agendamento.setUuid(UUID.randomUUID().toString());
-		}
+		mv.addObject(agendamento);
+		
+		setUuid(agendamento);
 		
 		/*
 		 * Mantendo os valores da lista de agendamento.
@@ -131,6 +131,26 @@ public class AgendamentosController {
 		return new ModelAndView("redirect:/agendamentos/novo");
 	}
 	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo){
+		
+		//Agendamento agendamento = agendamentos.buscarComServicos(codigo);
+		
+		Agendamento agendamento = agendamentos.findOne(codigo);
+		
+		
+		/*
+		 * Setando o UUID antes, porque senão ele não teria UUID para passar.
+		 */
+		setUuid(agendamento);
+		
+		for(AgendamentoServico servico : agendamento.getAgendamentos()){
+			tabelaServicosAgendamento.adicionarServico(agendamento.getUuid(), servico.getServico(), servico.getAnimal());
+		}
+		
+		return novo(agendamento);
+	}
+
 	@PostMapping("/agendamentoservico")
 	public @ResponseBody ModelAndView adicionarServico(Long codigoServico, Long codigoAnimal, String uuid){
 		Animal animal = animals.findOne(codigoAnimal);
@@ -179,5 +199,11 @@ public class AgendamentosController {
 		 * e depois validar o agendamento todo.
 		 */
 		agendamentoValidator.validate(agendamento, result);
+	}
+	
+	private void setUuid(Agendamento agendamento) {
+		if(StringUtils.isEmpty(agendamento.getUuid())){
+			agendamento.setUuid(UUID.randomUUID().toString());
+		}
 	}
 }
