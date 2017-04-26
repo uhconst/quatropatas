@@ -48,7 +48,7 @@
 							<div class="aw-box__icon">
 								<i class="fa  fa-tag  fa-3x"></i>
 							</div>
-							<div class="aw-box__value">Orçamento</div>
+							<div class="aw-box__value" th:text="${agendamento.status.descricao}">Orçamento</div>
 							<div class="aw-box__title">Status</div>
 						</div>
 					</div>
@@ -59,7 +59,9 @@
 								<i class="fa  fa-calendar  fa-3x"></i>
 							</div>
 							<div class="aw-box__value">
-								<span class="js-tooltip">Hoje</span>
+								<span class="js-tooltip" th:if="${agendamento.diasCriacao == 0}">Hoje</span>
+								<span class="js-tooltip" th:if="${agendamento.diasCriacao == 1}">Ontem</span>
+								<span class="js-tooltip" th:if="${agendamento.diasCriacao > 1}">Há [[${agendamento.diasCriacao}]] dias</span>
 							</div>
 							<div class="aw-box__title">Criação</div>
 						</div>
@@ -132,9 +134,19 @@
 		                    <option th:each="servico : ${servicos}" th:value="${servico.codigo}" th:text="${servico.descricao}">Serviço</option> 
 		                </select>
 					</div>
+<!-- 					
 					<div class="form-group  col-sm-4">
 						<button class="btn  btn-primary  js-adicionar-servico-animal-btn">Adicionar</button>
 					</div>
+					 -->
+					 
+					<div class="aw-page-header-controls  col-xs-2">
+						<a class="btn  btn-primary  js-adicionar-servico-animal-btn" href="#"> <i
+							class="glyphicon  glyphicon-plus"></i> <span
+							class="hidden-xs  hidden-sm">Adicionar</span>
+						</a>
+					</div>
+					
 				</div>
 
 				

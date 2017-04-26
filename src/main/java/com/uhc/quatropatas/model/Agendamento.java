@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -184,6 +185,14 @@ public class Agendamento implements Serializable {
 	public void adicionarServicos(List<AgendamentoServico> agendamentos) {
 		this.agendamentos = agendamentos;
 		this.agendamentos.forEach(i -> i.setAgendamento(this));
+	}
+	
+	public Long getDiasCriacao(){
+		LocalDate inicio = dataCriacao != null ? dataCriacao.toLocalDate() : LocalDate.now();
+		/*
+		 * Contando quantos dias tem entre as datas
+		*/
+		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
 	}
 	
 	public void calcularValorTotal(){
