@@ -42,11 +42,9 @@ public class Agendamento implements Serializable {
 	@Column(name = "data_hora_agendamento")
 	private LocalDateTime dataHoraAgendamento;
 	
-	/*
 	@ManyToOne
 	@JoinColumn(name = "codigo_usuario")
 	private Usuario usuario;
-	*/
 	
 	@Column(name = "valor_desconto")
 	private BigDecimal valorDesconto;
@@ -67,7 +65,7 @@ public class Agendamento implements Serializable {
 	
 	@Transient
 	private LocalTime horarioAgendamento;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "codigo_pessoa")
 	private Pessoa pessoa;
@@ -102,6 +100,14 @@ public class Agendamento implements Serializable {
 
 	public void setDataHoraAgendamento(LocalDateTime dataHoraAgendamento) {
 		this.dataHoraAgendamento = dataHoraAgendamento;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public BigDecimal getValorDesconto() {

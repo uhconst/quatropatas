@@ -96,7 +96,7 @@
 		                	<th>Data de agendamento</th>
 		                	<th>Data de criação</th>
 		                	<th>Valor total</th>
-		                	<!-- <th>Atendente</th> -->
+		                	<th>Atendente</th>
 		                	<th>Status</th>
 		                 	<th class="table-pesq-col-acoes">Ações</th>
 						</tr>
@@ -109,7 +109,7 @@
 							<td th:text="${{agendamento.dataHoraAgendamento}}"></td>
 							<td th:text="${{agendamento.dataCriacao}}"></td>
 							<td th:text="|R$ ${{agendamento.valorTotal}}|"></td>
-							<!-- <td th:text="${agendamento.usuario.nome}"></td> -->
+							<td th:text="${agendamento.usuario.nome}"></td>
 							<td th:text="${agendamento.status.descricao}"></td>
 		                 	<td class="table-pesq-col-acoes">
 			   					<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar" href="#">

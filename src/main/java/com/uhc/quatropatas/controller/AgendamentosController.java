@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ import com.uhc.quatropatas.repository.Agendamentos;
 import com.uhc.quatropatas.repository.Animals;
 import com.uhc.quatropatas.repository.Servicos;
 import com.uhc.quatropatas.repository.filter.AgendamentoFilter;
+import com.uhc.quatropatas.security.UsuarioSistema;
 import com.uhc.quatropatas.service.AgendamentoService;
 import com.uhc.quatropatas.session.TabelasAgendamentosSession;
 
@@ -88,16 +90,13 @@ public class AgendamentosController {
 	}
 
 	@PostMapping(value = "/novo", params = "salvar")
-	public ModelAndView salvar(Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
-		validarAgendamento(agendamento, result);
+	public ModelAndView salvar(Agendamento agendamento, BindingResult result, RedirectAttributes attributes, 
+			@AuthenticationPrincipal UsuarioSistema usuarioSistema){
+		
+		validarAgendamento(agendamento, result, usuarioSistema);
 		if(result.hasErrors()){
 			return novo(agendamento);
 		}
-		
-		/*
-		@AuthenticationPrincipal Usuario Sistema usuarioSistema
-		aula 23.15 aos 10:50
-		*/
 		
 		agendamentoService.salvar(agendamento);
 		attributes.addFlashAttribute("mensagem", "Agendamento salvo com sucesso!");
@@ -105,16 +104,13 @@ public class AgendamentosController {
 	}
 
 	@PostMapping(value = "/novo", params = "agendar")
-	public ModelAndView agendar(Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
-		validarAgendamento(agendamento, result);
+	public ModelAndView agendar(Agendamento agendamento, BindingResult result, RedirectAttributes attributes, 
+			@AuthenticationPrincipal UsuarioSistema usuarioSistema){
+		
+		validarAgendamento(agendamento, result, usuarioSistema);
 		if(result.hasErrors()){
 			return novo(agendamento);
 		}
-		
-		/*
-		@AuthenticationPrincipal Usuario Sistema usuarioSistema
-		aula 23.15 aos 10:50
-		*/
 		
 		agendamentoService.agendar(agendamento);
 		attributes.addFlashAttribute("mensagem", "Agendado com sucesso!");
@@ -122,16 +118,13 @@ public class AgendamentosController {
 	}
 	
 	@PostMapping(value = "/novo", params = "enviarEmail")
-	public ModelAndView enviarEmail(Agendamento agendamento, BindingResult result, RedirectAttributes attributes){
-		validarAgendamento(agendamento, result);
+	public ModelAndView enviarEmail(Agendamento agendamento, BindingResult result, RedirectAttributes attributes, 
+			@AuthenticationPrincipal UsuarioSistema usuarioSistema){
+		
+		validarAgendamento(agendamento, result, usuarioSistema);
 		if(result.hasErrors()){
 			return novo(agendamento);
 		}
-		
-		/*
-		@AuthenticationPrincipal Usuario Sistema usuarioSistema
-		aula 23.15 aos 10:50
-		*/
 		
 		agendamentoService.salvar(agendamento);
 		attributes.addFlashAttribute("mensagem", "Agendamento com sucesso e email enviado!");
@@ -175,10 +168,11 @@ public class AgendamentosController {
 		return mv;
 	}
 	
-	private void validarAgendamento(Agendamento agendamento, BindingResult result) {
+	private void validarAgendamento(Agendamento agendamento, BindingResult result, UsuarioSistema usuarioSistema) {
 		agendamento.adicionarServicos(tabelaServicosAgendamento.getAgendamentos(agendamento.getUuid()));
 		agendamento.calcularValorTotal();
 		
+		agendamento.setUsuario(usuarioSistema.getUsuario());
 		/*
 		 * Validando aqui, pq no corpo do metodo ele validaria antes de adicionar os
 		 * serviços ao agendamento. Agora eu consigo primeiro adicionar os serviços
