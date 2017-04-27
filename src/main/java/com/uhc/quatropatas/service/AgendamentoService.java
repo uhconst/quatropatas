@@ -48,6 +48,17 @@ public class AgendamentoService {
 		salvar(agendamento);
 	}
 
+	@Transactional
+	public void cancelar(Agendamento agendamento) {
+//		agendamento.setStatus(StatusAgendamento.CANCELADO);
+//		salvar(agendamento);
+		Agendamento agendamentoExistente = agendamentos.findOne(agendamento.getCodigo());
+
+		agendamentoExistente.setStatus(StatusAgendamento.CANCELADO);
+
+		agendamentos.save(agendamentoExistente);
+	}
+
 	/*
 	@Transactional
 	public void deletar(Long codigo){

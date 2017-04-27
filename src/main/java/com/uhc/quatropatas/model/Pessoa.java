@@ -70,7 +70,7 @@ public class Pessoa implements Serializable {
     @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
     @JsonIgnore
     private List<Email> emails;
-    
+	
     @PrePersist @PreUpdate
     private void prePersistPreUpdate(){
     	this.cpf = getCpfSemFormatacao();

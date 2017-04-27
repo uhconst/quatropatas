@@ -61,6 +61,8 @@ public class AgendamentosController {
 	private Agendamentos agendamentos;
 	
 	/*
+	 * Adicionando pra esse controlador o validador.
+	 * Valida quando encontrar @Valid
 	 * Inicializando o binder apenas para o atributo agendamento
 	 */
 	@InitBinder("agendamento")
@@ -129,6 +131,18 @@ public class AgendamentosController {
 		agendamentoService.salvar(agendamento);
 		attributes.addFlashAttribute("mensagem", "Agendamento com sucesso e email enviado!");
 		return new ModelAndView("redirect:/agendamentos/novo");
+	}
+	
+	@PostMapping(value = "/novo", params = "cancelar")
+	public ModelAndView cancelar(Agendamento agendamento, BindingResult result, RedirectAttributes attributes, 
+			@AuthenticationPrincipal UsuarioSistema usuarioSistema){
+		agendamentoService.cancelar(agendamento);
+		attributes.addFlashAttribute("mensagem", "Agendamento cancelado com sucesso!");
+		
+		/*
+		 * Retornando para a edição do proprio agendamento que estava sendo editado
+		 */
+		return new ModelAndView("redirect:/agendamentos/" + agendamento.getCodigo());
 	}
 	
 	@GetMapping("/{codigo}")

@@ -30,8 +30,6 @@
 				<!-- MENSAGEM DE SUCESSO -->
 				<div th:replace="fragments/mensagem-sucesso :: alert"></div>
 
-				<!-- <input type="hidden" th:field="*{codigo}"/> -->
-
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="aw-box  js-valor-total-box-container">
@@ -95,9 +93,13 @@
 					<div class="form-group  col-sm-4  qp-required">
 						<label class="control-label" for="nomePessoa">Cliente</label>
 						<div class="input-group">
+						
 							<input id="nomePessoa" type="text" readonly="readonly"
-								class="form-control"
-								placeholder="Clique na lupa para pesquisar o cliente"/> 
+								class="form-control" 
+								th:placeholder="${agendamento.nova}? 'Clique na lupa para pesquisar o cliente' : |*{pessoa.nome} *{pessoa.sobrenome}|"/> 
+								
+								<!-- th:field="*{pessoa.nome}" -->
+								
 								<input id="codigoPessoa" type="hidden" th:field="*{pessoa}"/> <!-- th:field="*{pessoa}" -->
 								<span class="input-group-btn">
 								<button class="btn  btn-default  js-tooltip" type="button"
@@ -111,6 +113,7 @@
 					
 					<div class="form-group  col-sm-4">
 						<label for="animal" class="control-label">Animal</label>
+						<!-- <span th:text="*{pessoa.animal}"></span> -->
 						<input type="hidden" id="inputHiddenAnimalSelecionado" /><!-- th:value="*{animal} != null ? *{animal.codigo}" -->
 						<select id="animal" class="form-control" data:url="@{/animals}" disabled><!--  th:field="*{animal}"  -->
 		                    <option value="">-- Selecione um animal --</option>
@@ -171,7 +174,7 @@
 						  </ul>
 						</div>
 					
-						<button class="btn  btn-danger">Cancelar</button>
+						<button class="btn  btn-danger  js-submit-btn" data:acao="cancelar" th:unless="${agendamento.nova}">Cancelar</button>
 					</div>
 				</div>
 

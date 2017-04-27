@@ -21,6 +21,9 @@ public class AgendamentoValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		//ValidationUtils.rejectIfEmpty(errors, "animal.codigo", "", "Selecione um animal para o agendamento");
 		
+		/*
+		 * Fazendo o cast do objeto recebido para agendamento
+		 */
 		Agendamento agendamento = (Agendamento) target;
 		
 		validarSeInformouDataHorarioAgendamento(errors, agendamento);

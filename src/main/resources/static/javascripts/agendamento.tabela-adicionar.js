@@ -3,7 +3,6 @@ var Quatropatas = Quatropatas || {};
 Quatropatas.TabelaAdicionar = (function(){
 	
 	function TabelaAdicionar(){
-		//this.pesquisaRapidaPessoaModal = $('#pesquisaRapidaPessoa');
 		this.adicionarServicoBtn = $('.js-adicionar-servico-animal-btn');
 		this.selectAnimal = $('#animal');
 		this.selectServico = $('#servico');
@@ -17,6 +16,13 @@ Quatropatas.TabelaAdicionar = (function(){
 		this.adicionarServicoBtn.on('click', onAdicionarServicoClicado.bind(this));
 		
 		bindTabelaServico.call(this);
+		
+		/*
+		 * Verificando se é edição para carregar os animais da pessoa
+		 */
+		if($('#codigo').val()){
+			inicializarAnimals($('#codigoPessoa').val());
+		}
 	}
 	
 	/*
@@ -75,6 +81,39 @@ Quatropatas.TabelaAdicionar = (function(){
 		
 		return tabelaServico;
 	}
+	
+	
+	/*
+	 * PRECISA REFATORAR, TA O MESMO CODIGO NO pessoa.pesquisa-rapida.js
+	 * Aqui removi o reset só, por estar tendo problemas e por ser desnecessario
+	 * neste caso.
+	 */
+	function inicializarAnimals(codigoPessoa) {
+		this.inputAnimal = $('#animal');
+		if (codigoPessoa) {
+			var resposta = $.ajax({
+				url: this.inputAnimal.data('url'),
+				method: 'GET',
+				contentType: 'application/json',
+				data: { 'pessoa': codigoPessoa }
+			});
+			resposta.done(onBuscarAnimalsFinalizado.bind(this));
+		}
+	}
+	
+	function onBuscarAnimalsFinalizado(animals) {
+		var options = [];
+		options.push('<option value="">-- Selecione a animal --</option>');
+		animals.forEach(function(animal) {
+			options.push('<option value="' + animal.codigo + '">' + animal.nome + '</option>');
+		});
+		
+		this.inputAnimal.html(options.join(''));
+		this.inputAnimal.removeAttr('disabled');
+	}
+	/*
+	 * FIM DO ANIMAL. REFATORAR até aqui
+	 */
 	
 	return TabelaAdicionar;
 }());
