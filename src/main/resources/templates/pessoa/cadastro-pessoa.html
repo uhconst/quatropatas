@@ -39,11 +39,25 @@
 					<label for="input-produto-nome" class="control-label">Sobrenome</label>
 					<input id="input-produto-nome" type="text" class="form-control" th:field=*{sobrenome}/>
 				</div>
-					
+				
+	
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">	
+					<label class="col-sm-2 control-label">Sexo</label>
+					<div class="col-sm-4">
+						<th:block th:each="sexo : ${sexos}">
+	 						<div class="radio  radio-inline">
+		    					<input th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}"/>
+		    					<label th:for="|id_${sexo}|" th:text="#{|tipoSexo.${sexo}|}">Sexos</label>
+		   					</div>
+						</th:block>
+					</div>
+				</div>	
 			</div>
 		
 			<div class="row">	
-				<div class="col-sm-4  form-group">
+
+				<div class="col-sm-2  form-group">
 					<label for="input-produto-nome" class="control-label">Nascimento</label>
 					<input id="input-produto-nome" type="text" class="form-control  js-date" th:field=*{nascimento}
 						data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
@@ -55,28 +69,38 @@
 					<input id="input-produto-nome" type="text" class="form-control  js-cpf-number" th:field=*{cpf}/>
 				</div>
 			
-				<div class="form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
+				<div class="form-group  col-sm-3">
+					<label for="estado" class="control-label">Estado</label>
+					<select id="estado" class="form-control  js-select2" th:field="*{endereco.estado}">
+	                    <option value="">-- Selecione o estado --</option>
+	                    <option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">Estado</option>
+	                </select>
+				</div>
+				
+				<div class="form-group  col-sm-3">
+					<label for="cidade" class="control-label">Cidade</label>
+					<div class="qp-field-action">
+						<input type="hidden" id="inputHiddenCidadeSelecionada" 
+							th:value="*{endereco.cidade} != null ? *{endereco.cidade.codigo}"/>
+						<select id="cidade" class="form-control  js-select2" 
+							data:url="@{/cidades}" th:field="*{endereco.cidade}">
+						</select>
 						
-					<label class="col-sm-2 control-label">Sexo</label>
-					<div class="col-sm-4">
-						<th:block th:each="sexo : ${sexos}">
-	 						<div class="radio  radio-inline">
-		    					<input th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}"/>
-		    					<label th:for="|id_${sexo}|" th:text="#{|tipoSexo.${sexo}|}">Sexos</label>
-		   					</div>
-						</th:block>
+						<div class="qp-field-action__icon  js-img-loading" style="display: none">
+							<img th:src="@{/images/mini-loading.gif}"/>
+						</div>
 					</div>
 				</div>
 			</div>
 			
 			<div class="row">	
 				
-				<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('endereco.bairro')} ? has-error">
+				<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('endereco.bairro')} ? has-error">
 					<label for="input-produto-nome" class="control-label">Bairro</label>
 					<input id="input-produto-nome" type="text" class="form-control" th:field=*{endereco.bairro}/>
 				</div>
 				
-				<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('endereco.logradouro')} ? has-error">
+				<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('endereco.logradouro')} ? has-error">
 					<label for="input-produto-nome" class="control-label">Logradouro</label>
 					<input id="input-produto-nome" type="text" class="form-control" th:field=*{endereco.logradouro}/>
 				</div>
@@ -86,12 +110,12 @@
 					<input id="input-produto-nome" type="text" class="form-control" th:field=*{endereco.numero}/>
 				</div>
 				
-				<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('endereco.cep')} ? has-error">
+				<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('endereco.cep')} ? has-error">
 					<label for="input-produto-nome" class="control-label">CEP</label>
 					<input id="input-produto-nome" type="text" class="form-control  js-cep-number" th:field=*{endereco.cep}/>
 				</div>
 				
-				<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('endereco.complemento')} ? has-error">
+				<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('endereco.complemento')} ? has-error">
 					<label for="input-produto-nome" class="control-label">Complemento</label>
 					<input id="input-produto-nome" type="text" class="form-control" th:field=*{endereco.complemento}/>
 				</div>
@@ -99,17 +123,17 @@
 			
 			<div class="row">	
 			
- 				<div class="col-sm-4  form-group">
+ 				<div class="col-sm-3  form-group">
 					<label for="input-produto-nome" class="control-label">Telefone</label>
 					<input id="input-produto-nome" type="text" class="form-control  js-phone-number" th:field=*{telefones[0].numero}/>
 				</div>
 				
-				<div class="col-sm-4  form-group">
+				<div class="col-sm-3  form-group">
 					<label for="input-produto-nome" class="control-label">Celular</label>
 					<input id="input-produto-nome" type="text" class="form-control  js-phone-number" th:field=*{telefones[1].numero}/>
 				</div>
 
-				<div class="col-sm-4  form-group">
+				<div class="col-sm-6  form-group">
 					<label for="input-produto-nome" class="control-label">Email</label>
 					<input id="input-produto-nome" type="text" class="form-control" th:field=*{emails[0].endereco}/>
 				</div>
@@ -118,26 +142,7 @@
 			
 			<div class="row">
 				
-				<div class="form-group  col-sm-6">
-					<label for="estado" class="control-label">Estado</label>
-					<select id="estado" class="form-control" th:field="*{endereco.estado}">
-	                    <option value="">-- Selecione o estado --</option>
-	                    <option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">Estado</option>
-	                </select>
-				</div>
-				
-				<div class="form-group  col-sm-6">
-					<label for="cidade" class="control-label">Cidade</label>
-					<div class="qp-field-action">
-						<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{endereco.cidade} != null ? *{endereco.cidade.codigo}"/>
-						<select id="cidade" class="form-control" data:url="@{/cidades}" th:field="*{endereco.cidade}">
-						</select>
-						
-						<div class="qp-field-action__icon  js-img-loading" style="display: none">
-							<img th:src="@{/images/mini-loading.gif}"/>
-						</div>
-					</div>
-				</div>
+
 				
 			</div>
 			

@@ -226,6 +226,14 @@ public class Agendamento implements Serializable {
 		return valorTotal;
 	}
 	
+	public boolean isSalvarPermitido(){
+		return !status.equals(StatusAgendamento.CANCELADO);
+	}
+	
+	public boolean isSalvarNegado(){
+		return status.equals(StatusAgendamento.CANCELADO);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

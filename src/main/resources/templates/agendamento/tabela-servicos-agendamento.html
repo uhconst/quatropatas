@@ -5,22 +5,22 @@
 	xmlns:data="http://www.thymeleaf.org/extras/data">
 	
 
-	<div class="qp-tabela-servico  js-tabela-servico" th:each="agendamento: ${agendamentos}" data:valor-total="${valorTotal}">
+	<div class="qp-tabela-servico  js-tabela-servico" th:each="agendamentoServico: ${agendamentos}" data:valor-total="${valorTotal}">
 		<div class="qp-tabela-servico__coluna  qp-tabela-servico__coluna--detalhes">
-			<span class="qp-tabela-servico-descricao" th:text="${agendamento.servico.descricao}">Banho</span>
-			<span class="label  label-default" th:text="${agendamento.animal.nome}">Buffy</span>
-			<!--<span class="qp-tabela-animal-nome">Dona Maria</span>  -->
+			<span class="qp-tabela-servico-descricao" th:text="${agendamentoServico.servico.descricao}">Banho</span>
+			<span class="label  label-default" th:text="${agendamentoServico.animal.nome}">Buffy</span>
+			<span class="qp-tabela-animal-nome" th:text="|${agendamento.pessoa.nome} ${agendamento.pessoa.sobrenome}|">Dona Maria</span> 
 		</div>
 		
 		<div class="qp-tabela-servico__coluna  qp-tabela-servico__coluna--valores">
-			<div class="qp-tabela-servico-valor-grande">R$[[${agendamento.valorUnitario}]]</div>
+			<div class="qp-tabela-servico-valor-grande">R$[[${agendamentoServico.valorUnitario}]]</div>
 		</div>
 
-		<div class="qp-tabela-servico__painel-exclusao">
+		<div class="qp-tabela-servico__painel-exclusao" th:if="${agendamento != null ? agendamento.salvarPermitido : false}">
 			<span class="qp-tabela-servico__titulo-exclusao">Escluir este serviço do agendamento?</span>
 			<button type="button" class="btn  btn-danger  js-exclusao-agendamento-btn"
-				data:codigo-servico="${agendamento.servico.codigo}" 
-				data:codigo-animal="${agendamento.animal.codigo}">Sim, excluir</button>
+				data:codigo-servico="${agendamentoServico.servico.codigo}" 
+				data:codigo-animal="${agendamentoServico.animal.codigo}">Sim, excluir</button>
 		</div>
 	</div>
 

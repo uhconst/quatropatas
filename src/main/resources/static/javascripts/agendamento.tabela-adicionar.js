@@ -19,8 +19,10 @@ Quatropatas.TabelaAdicionar = (function(){
 		
 		/*
 		 * Verificando se é edição para carregar os animais da pessoa
+		 * Verificando se a venda ta cancelada para manter desabilitado
+		 * o SelectBox do animal
 		 */
-		if($('#codigo').val()){
+		if($('#codigo').val() && $('#statusAgendamento').text()!=='Cancelado'){
 			inicializarAnimals($('#codigoPessoa').val());
 		}
 	}

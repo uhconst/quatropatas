@@ -46,7 +46,7 @@
 							<div class="aw-box__icon">
 								<i class="fa  fa-tag  fa-3x"></i>
 							</div>
-							<div class="aw-box__value" th:text="${agendamento.status.descricao}">Orçamento</div>
+							<div class="aw-box__value" id="statusAgendamento" th:text="${agendamento.status.descricao}">Orçamento</div>
 							<div class="aw-box__title">Status</div>
 						</div>
 					</div>
@@ -73,12 +73,14 @@
 						<input id="dataAgendamento" type="text"
 							class="form-control  js-date" th:field=*{dataAgendamento} 
 							data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
-							data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off" />
+							data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off" 
+							 th:disabled="${agendamento.salvarNegado}"/>
 					</div>
 					
 					<div class="form-group  col-sm-1" th:classappend="${#fields.hasErrors('horarioAgendamento')} ? has-error">
 							<label class="control-label" for="horarioAgendamento">Horário</label>
-							<input type="text" class="form-control" id="horarioAgendamento" th:field="*{horarioAgendamento}"/>
+							<input type="text" class="form-control" id="horarioAgendamento" 
+								th:field="*{horarioAgendamento}" th:disabled="${agendamento.salvarNegado}"/>
 					</div>
 					
 					<div class="form-group  col-sm-2">
@@ -86,7 +88,8 @@
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
 							<input type="text" maxlength="14" class="form-control  js-money" id="valorDesconto" 
-								th:field="*{valorDesconto}" data:valor="${valorDesconto}"/>
+								th:field="*{valorDesconto}" data:valor="${valorDesconto}" 
+								th:disabled="${agendamento.salvarNegado}"/>
 						</div>
 					</div>
 
@@ -104,35 +107,41 @@
 								<span class="input-group-btn">
 								<button class="btn  btn-default  js-tooltip" type="button"
 									title="Pesquisa avançada" data-toggle="modal"
-									data-target="#pesquisaRapidaPessoa">
+									data-target="#pesquisaRapidaPessoa" th:disabled="${agendamento.salvarNegado}">
 									<i class="glyphicon  glyphicon-search"></i>
 								</button>
 							</span>
 						</div>
 					</div>
 					
-					<div class="form-group  col-sm-4">
+ 					<div class="form-group  col-sm-4">
 						<label for="animal" class="control-label">Animal</label>
 						<!-- <span th:text="*{pessoa.animal}"></span> -->
 						<input type="hidden" id="inputHiddenAnimalSelecionado" /><!-- th:value="*{animal} != null ? *{animal.codigo}" -->
-						<select id="animal" class="form-control" data:url="@{/animals}" disabled><!--  th:field="*{animal}"  -->
+						<select id="animal" class="form-control  js-select2" data:url="@{/animals}" disabled th:disabled="${agendamento.salvarNegado}"> <!-- th:field="*{animal}"  -->
 		                    <option value="">-- Selecione um animal --</option>
 		                </select>
 					</div>
+
+<!-- 					 <span th:each="agendamentos : ${agendamento.agendamentos}">
+						<span th:each="animal,animalStatus : ${agendamentos.animal}" th:text="${animalStatus.count}"></span>
+					</span> -->
 			</div>
 			
 			<div class="row">
 				<div class="form-group  col-sm-12">
 					<textarea class="form-control" id="observacao" rows="5"
 						placeholder="Alguma observação sobre esse agendamento?"
-						th:field="*{observacao}"></textarea>
+						th:field="*{observacao}"
+						th:disabled="${agendamento.salvarNegado}">
+					</textarea>
 				</div>
 			</div>
 						
 			<div class="row">
 					<div class="form-group  col-sm-4">
 						<label for="servico" class="control-label">Serviço</label>
-						<select id="servico" class="form-control" ><!-- th:field="*{servicos}" -->
+						<select id="servico" class="form-control" th:disabled="${agendamento.salvarNegado}"><!-- th:field="*{servicos}" -->
 		                    <option value="">-- Selecione um serviço --</option>
 		                    <option th:each="servico : ${servicos}" th:value="${servico.codigo}" th:text="${servico.descricao}">Serviço</option> 
 		                </select>
@@ -143,10 +152,10 @@
 					</div>
 					 -->
 					 
-					<div class="aw-page-header-controls  col-xs-2">
-						<a class="btn  btn-primary  js-adicionar-servico-animal-btn" href="#"> <i
-							class="glyphicon  glyphicon-plus"></i> <span
-							class="hidden-xs  hidden-sm">Adicionar</span>
+					<div class="aw-page-header-controls  col-xs-2" th:if="${agendamento.salvarPermitido}">
+						<a class="btn  btn-primary  js-adicionar-servico-animal-btn" href="#">
+							<i class="glyphicon  glyphicon-plus"></i> 
+							<span class="hidden-xs  hidden-sm">Adicionar</span>
 						</a>
 					</div>
 					
@@ -160,7 +169,7 @@
 				</div>
 					
 				<!-- BOTÕES DO FORMULÁRIO -->
-				<div class="row" style="clear: both">
+				<div class="row" style="clear: both" th:if="${agendamento.salvarPermitido}">
 					<div class="col-lg-12">
 						<div class="btn-group">
 						  <button type="submit" class="btn  btn-primary  js-submit-btn" data:acao="salvar">Salvar</button>

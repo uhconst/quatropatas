@@ -18,6 +18,17 @@ public class AgendamentoService {
 	
 	@Transactional
 	public void salvar(Agendamento agendamento) {
+		
+		/*
+		 * Caso a venda esteja cancelada e o usuário tente salvar.
+		 * Na view o botão desaparece quanto está cancelada,
+		 * mas aqui no Service protege mais caso a view seja
+		 * enganada
+		 */
+		if (agendamento.isSalvarNegado()) {
+			throw new RuntimeException("Usuário tentando salvar um agendamento proibido");
+		}
+		
 		/*
 		 * Checando se o agendamento é novo para setar a hora de criação
 		 */
@@ -50,8 +61,9 @@ public class AgendamentoService {
 
 	@Transactional
 	public void cancelar(Agendamento agendamento) {
-//		agendamento.setStatus(StatusAgendamento.CANCELADO);
-//		salvar(agendamento);
+		/*
+		 * Buscando o agendamento que está sendo cancelado
+		 */
 		Agendamento agendamentoExistente = agendamentos.findOne(agendamento.getCodigo());
 
 		agendamentoExistente.setStatus(StatusAgendamento.CANCELADO);
@@ -59,10 +71,4 @@ public class AgendamentoService {
 		agendamentos.save(agendamentoExistente);
 	}
 
-	/*
-	@Transactional
-	public void deletar(Long codigo){
-		agendamentos.delete(codigo);
-	}
-	*/
 }

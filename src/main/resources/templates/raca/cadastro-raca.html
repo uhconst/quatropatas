@@ -33,20 +33,11 @@
 			
 				<div class="col-sm-6  form-group  qp-required" th:classappend="${#fields.hasErrors('especie')} ? has-error">
 					<label for="especie" class="control-label">Especie</label>
-					<div class="qp-field-action">
-						<select id="especie" class="form-control" th:field="*{especie}">
+						<select id="especie" class="form-control  js-select2" th:field="*{especie}">
 							<option value="">Selecione a especie</option>
 							<option th:each="especie : ${especies}" th:value="${especie}" th:text="#{|tipoEspecie.${especie}|}"></option>
 						</select>
 						
-						<!-- CADASTRO RAPIDO DE ESPECIE -->
-						<div class="qp-field-action__icon">
-							<a href="#" data-toggle="modal" data-target="#cadastroRapidoEspecieModal">
-								
-								<i class="glyphicon  glyphicon-plus-sign  qp-glyphicon-large"></i>
-							</a>
-						</div>
-					</div>
 				</div>
 			</div>
 			
@@ -56,7 +47,6 @@
 	
 		</form>
 	</div>
-	<div th:replace="especie/cadastro-rapido-especie :: modal"></div>
 </section>
 </body>
 </html>

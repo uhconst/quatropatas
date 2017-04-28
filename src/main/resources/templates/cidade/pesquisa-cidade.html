@@ -27,10 +27,11 @@
 			<div class="row">
 				<div class="form-group  col-sm-4">
 					
-					<label for="estado">Estado</label> <select id="estado"
-						class="form-control" th:field="*{estado}">
+					<label for="estado">Estado</label> 
+					<select id="estado" class="form-control  js-select2" th:field="*{estado}">
 						<option value="">Todos os Estados</option>
-						<option th:each="estado : ${estados}" th:value="${estado.codigo}"
+						<option th:each="estado : ${estados}" 
+							th:value="${estado.codigo}"
 							th:text="${estado.nome}">Estado</option>
 					</select>
 				</div>
