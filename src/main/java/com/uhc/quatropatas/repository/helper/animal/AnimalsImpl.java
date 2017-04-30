@@ -36,6 +36,14 @@ public class AnimalsImpl implements AnimalsQueries {
 				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
 			}
 			
+			if (filtro.getPesoDe() != null) {
+				criteria.add(Restrictions.ge("peso", filtro.getPesoDe()));
+			}
+
+			if (filtro.getPesoAte() != null) {
+				criteria.add(Restrictions.le("peso", filtro.getPesoAte()));
+			}
+			
 			if (filtro.getSexo() != null) {
 				System.out.println(">>>>>>>Dentro do Impl, sexo: " + filtro.getSexo());
 				criteria.add(Restrictions.eq("sexo", filtro.getSexo()));

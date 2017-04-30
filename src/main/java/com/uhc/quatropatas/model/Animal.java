@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -37,6 +39,10 @@ public class Animal implements Serializable {
 	@Size(max=45)
 	private String nome;
 	
+	@Max(value = 40, message = "O peso deve ser de no máximo 40 kg")
+	@Min(value = 1, message = "O peso deve ser de no mínimo 1 kg")
+	private Integer peso;
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoSexoAnimal sexo;
@@ -60,6 +66,14 @@ public class Animal implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Integer getPeso() {
+		return peso;
+	}
+
+	public void setPeso(Integer peso) {
+		this.peso = peso;
 	}
 
 	public TipoSexoAnimal getSexo() {

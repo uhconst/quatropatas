@@ -30,20 +30,38 @@
 			<input type="hidden" th:field="*{codigo}"/>
 			 
 			 <div class="row">
-				<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+				<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
 					<label for="nome" class="control-label">Nome do Animal</label>
 					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 				</div>
 
-					<div class="col-sm-6  form-group">
-					
+					<div class="col-sm-3  form-group">
   						<label for="raca">Raça</label>
 						<select id="raca" class="form-control  js-select2" th:field="*{raca}">
 							<option value="">-- Selecione a raça --</option>
 							<option th:each="raca : ${racas}" th:value="${raca.codigo}"
 								th:text="${raca.nome}">Raça</option>
 						</select>
-
+					</div>
+					
+					<div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('peso')} ? has-error">
+						<label for="peso" class="control-label">Peso</label>
+						<div class="input-group">
+							<input id="peso" type="text" class="form-control  js-numero-inteiro" th:field=*{peso}/>
+							<div class="input-group-addon">Kg</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3  col-sm-6  form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
+						<label class="control-label">Sexo</label>
+						<div>
+							<th:block th:each="sexo : ${sexos}">
+		  						<div class="radio  radio-inline">
+			    					<input th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}"/>
+			    					<label th:for="|id_${sexo}|" th:text="#{|tipoSexoAnimal.${sexo}|}">Sexos</label>
+		    					</div>
+	  						</th:block>
+						</div>
 					</div>
 				</div>
 
@@ -63,17 +81,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="col-lg-3  col-sm-6  form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
-						<label class="control-label">Sexo</label>
-						<div>
-							<th:block th:each="sexo : ${sexos}">
-		  						<div class="radio  radio-inline">
-			    					<input th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}"/>
-			    					<label th:for="|id_${sexo}|" th:text="#{|tipoSexoAnimal.${sexo}|}">Sexos</label>
-		    					</div>
-	  						</th:block>
-						</div>
-					</div>
+
 				</div>		
 	  		
 		<!-- BOTÕES DO FORMULÁRIO -->

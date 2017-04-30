@@ -141,7 +141,7 @@
 			<div class="row">
 					<div class="form-group  col-sm-4">
 						<label for="servico" class="control-label">Serviço</label>
-						<select id="servico" class="form-control" th:disabled="${agendamento.salvarNegado}"><!-- th:field="*{servicos}" -->
+						<select id="servico" class="form-control  js-select2" th:disabled="${agendamento.salvarNegado}"><!-- th:field="*{servicos}" -->
 		                    <option value="">-- Selecione um serviço --</option>
 		                    <option th:each="servico : ${servicos}" th:value="${servico.codigo}" th:text="${servico.descricao}">Serviço</option> 
 		                </select>

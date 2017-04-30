@@ -52,7 +52,7 @@ Quatropatas.MaskMoney = (function(){
 
 Quatropatas.MaskMinuto = (function(){
 	function MaskMinuto(){
-		this.inputMinuto = $('.js-minuto');
+		this.inputMinuto = $('.js-numero-inteiro');
 	};
 	
 	MaskMinuto.prototype.enable = function(){
@@ -64,6 +64,21 @@ Quatropatas.MaskMinuto = (function(){
 	}
 	
 	return MaskMinuto;
+}());
+
+/*
+ * Campo select personalizado usando Select2
+ */
+Quatropatas.FormatarSelect2 = (function(){
+	function FormatarSelect2(){
+		this.selectField = $('.js-select2');
+	};
+	
+	FormatarSelect2.prototype.enable = function(){
+		this.selectField.select2();
+	}
+	
+	return FormatarSelect2;
 }());
 
 /*
@@ -107,6 +122,9 @@ $(function(){
 	
 	var maskMinuto = new Quatropatas.MaskMinuto();
 	maskMinuto.enable();
+	
+	var formatarSelect2 = new Quatropatas.FormatarSelect2();
+	formatarSelect2.enable();
 	
 	var security = new Quatropatas.Security();
 	security.enable();

@@ -35,9 +35,11 @@
 				<div class="col-sm-6  form-group">
 					<label for="duracaoDe">Duração</label>
 					<div class="form-inline">
-						<input id="duracaoDe" type="text" class="form-control  aw-form-control-inline-sm  js-minuto" th:field=*{duracaoDe}/>
+						<input id="duracaoDe" type="text" 
+							class="form-control  aw-form-control-inline-sm  js-numero-inteiro" th:field=*{duracaoDe}/>
 						<label for="valorAte" class="aw-form-label-between">até</label>
-						<input id="duracaoAte" type="text" class="form-control  aw-form-control-inline-sm  js-minuto" th:field=*{duracaoAte}/>
+						<input id="duracaoAte" type="text" 
+							class="form-control  aw-form-control-inline-sm  js-numero-inteiro" th:field=*{duracaoAte}/>
 	
 					</div>
 				</div>

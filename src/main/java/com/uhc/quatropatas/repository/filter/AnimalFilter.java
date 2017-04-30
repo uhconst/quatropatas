@@ -12,6 +12,10 @@ public class AnimalFilter {
 	
 	private Pessoa pessoa;
 	
+	private Integer pesoDe;
+	
+	private Integer pesoAte;
+	
 	private TipoSexoAnimal sexo;
 
 	public String getNome() {
@@ -36,6 +40,22 @@ public class AnimalFilter {
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public Integer getPesoDe() {
+		return pesoDe;
+	}
+
+	public void setPesoDe(Integer pesoDe) {
+		this.pesoDe = pesoDe;
+	}
+
+	public Integer getPesoAte() {
+		return pesoAte;
+	}
+
+	public void setPesoAte(Integer pesoAte) {
+		this.pesoAte = pesoAte;
 	}
 
 	public TipoSexoAnimal getSexo() {

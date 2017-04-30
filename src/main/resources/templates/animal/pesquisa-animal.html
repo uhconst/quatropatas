@@ -25,12 +25,12 @@
 			<div th:replace="fragments/mensagem-exclusao :: mensagemExclusao"></div>
 			
 			 <div class="row">
-				<div class="col-sm-6  form-group">
+				<div class="col-sm-4  form-group">
 					<label for="nome">Nome do Animal</label>
 					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 				</div>
 	
-					<div class="col-sm-6  form-group">
+					<div class="col-sm-3  form-group">
 						<label for="raca">Raça</label>
 						<div class="qp-field-action">
 							<select id="raca" class="form-control  js-select2" th:field="*{raca}">
@@ -40,6 +40,35 @@
 							</select>
 						</div>
 					</div>
+					
+					<div class="col-lg-3  col-sm-6  form-group">
+						<label>Sexo</label>
+						<div>
+							<th:block th:each="sexo : ${sexos}">
+		  						<div class="radio  radio-inline">
+			    					<input th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}"/>
+			    					<label th:for="|id_${sexo}|" th:text="#{|tipoSexoAnimal.${sexo}|}">Sexos</label>
+		    					</div>
+	  						</th:block>
+		  					<div class="radio  radio-inline">
+			    				<input id="todosSexos" type="radio" th:checked="*{sexo} == null" name="sexo" th:field="*{sexo}" th:value="null"/>
+			    				<label for="todosSexos">Todos</label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-6  form-group">
+						<label for="pesoDe">Peso</label>
+						<div class="form-inline">
+							<input id="pesoDe" type="text" 
+								class="form-control  aw-form-control-inline-sm  js-numero-inteiro" th:field=*{pesoDe}/>
+							<label for="valorAte" class="aw-form-label-between">até</label>
+							<input id="pesoAte" type="text" 
+								class="form-control  aw-form-control-inline-sm  js-numero-inteiro" th:field=*{pesoAte}/>
+		
+						</div>
+					</div>
+				
 				</div>
 	
 				<div class="row">
@@ -57,27 +86,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="col-lg-3  col-sm-6  form-group">
-						<label>Sexo</label>
-						<div>
-							<!-- 
-							<label th:each="sexo : ${sexos}" class="radio-inline">
-								<input type="radio" th:value="${sexo}" th:field="*{sexo}"/>
-								<span th:text="#{|tipoSexoAnimal.${sexo}|}"></span>
-							</label> 
-							 -->
-							<th:block th:each="sexo : ${sexos}">
-		  						<div class="radio  radio-inline">
-			    					<input th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}"/>
-			    					<label th:for="|id_${sexo}|" th:text="#{|tipoSexoAnimal.${sexo}|}">Sexos</label>
-		    					</div>
-	  						</th:block>
-		  					<div class="radio  radio-inline">
-			    				<input id="todosSexos" type="radio" th:checked="*{sexo} == null" name="sexo" th:field="*{sexo}" th:value="null"/>
-			    				<label for="todosSexos">Todos</label>
-							</div>
-						</div>
-					</div>
+
 				</div>
 			<button type="submit" class="btn  btn-primary">Pesquisar</button>
 		</form>
@@ -89,6 +98,7 @@
 						<th class="table-pesq-animal-col-nome">Nome</th>
 						<th class="table-pesq-animal-col-raca">Raça</th>
 						<th class="table-pesq-animal-col-dono">Dono</th>
+						<th class="table-pesq-animal-col-peso">Peso</th>
 						<th class="table-pesq-animal-col-sexo">Sexo</th>
 						<th class="table-pesq-col-acoes">Ações</th>
 					</tr>
@@ -102,6 +112,7 @@
 						</td>
 						<td class="table-pesq-animal-col-raca" th:text="${animal.raca.nome}"></td>
 						<td class="table-pesq-animal-col-dono" th:text="|${animal.pessoa.nome} ${animal.pessoa.sobrenome}|">Dono</td>
+						<td class="table-pesq-animal-col-peso" th:text="${animal.peso}"></td>
 						<td class="table-pesq-animal-col-sexo" th:text="#{|tipoSexoAnimal.${animal.sexo}|}"></td>
 						<td class="table-pesq-col-acoes">
 							<div class="btn-group">

@@ -57,14 +57,14 @@
 		
 			<div class="row">	
 
-				<div class="col-sm-2  form-group">
+				<div class="col-sm-3  form-group">
 					<label for="input-produto-nome" class="control-label">Nascimento</label>
 					<input id="input-produto-nome" type="text" class="form-control  js-date" th:field=*{nascimento}
 						data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
 						data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off"/>
 				</div>
 				
-				<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('cpf')} ? has-error">
+				<div class="col-sm-3  form-group" th:classappend="${#fields.hasErrors('cpf')} ? has-error">
 					<label for="input-produto-nome" class="control-label">CPF</label>
 					<input id="input-produto-nome" type="text" class="form-control  js-cpf-number" th:field=*{cpf}/>
 				</div>

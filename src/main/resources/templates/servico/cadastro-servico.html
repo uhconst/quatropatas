@@ -34,7 +34,7 @@
 				<div class="col-sm-2  form-group  qp-required" th:classappend="${#fields.hasErrors('duracao')} ? has-error">
 					<label for="duracao" class="control-label">Duração</label>
 					<div class="input-group">
-						<input id="duracao" type="text" class="form-control  js-minuto" th:field=*{duracao}/>
+						<input id="duracao" type="text" class="form-control  js-numero-inteiro" th:field=*{duracao}/>
 						<div class="input-group-addon">Minutos</div>
 					</div>
 				</div>
