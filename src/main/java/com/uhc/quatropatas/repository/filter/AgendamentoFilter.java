@@ -2,6 +2,7 @@ package com.uhc.quatropatas.repository.filter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import com.uhc.quatropatas.model.StatusAgendamento;
 
@@ -100,7 +101,9 @@ public class AgendamentoFilter {
 	}
 
 	public String getCpfPessoa() {
-		//return cpfPessoa.replaceAll("\\.|-", "");
+		if(cpfPessoa!=null){
+			return cpfPessoa.replaceAll("\\.|-", "");
+		}
 		return cpfPessoa;
 	}
 

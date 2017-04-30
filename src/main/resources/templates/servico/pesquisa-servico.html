@@ -25,14 +25,12 @@
 			<div th:replace="fragments/mensagem-exclusao :: mensagemExclusao"></div>
 
 			<div class="row">
-				<div class="col-sm-12  form-group">
+				<div class="col-sm-4  form-group">
 					<label for="nome">Descrição</label>
 					<input id="nome" type="text" class="form-control" th:field=*{descricao}/>
 				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-sm-6  form-group">
+				
+				<div class="col-sm-4  form-group">
 					<label for="duracaoDe">Duração</label>
 					<div class="form-inline">
 						<input id="duracaoDe" type="text" 
@@ -43,7 +41,8 @@
 	
 					</div>
 				</div>
-				<div class="col-sm-6  form-group">
+				
+				<div class="col-sm-4  form-group">
 					<label for="valorDe">Valor</label>
 					<div class="form-inline">
 						<input id="valorDe" type="text" class="form-control  aw-form-control-inline-sm  js-money" th:field=*{valorDe} />
@@ -51,6 +50,11 @@
 						<input id="valorAte" type="text" class="form-control  aw-form-control-inline-sm  js-money" th:field=*{valorAte} />
 					</div>
 				</div>
+			</div>
+			
+			<div class="row">
+
+
 			</div>
 			<button type="submit" class="btn  btn-primary">Pesquisar</button>
 		</form>

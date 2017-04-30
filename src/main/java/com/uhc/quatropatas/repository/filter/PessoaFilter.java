@@ -25,6 +25,9 @@ public class PessoaFilter {
 	}
 
 	public String getCpf() {
+		if(cpf!=null){
+			return cpf.replaceAll("\\.|-", "");
+		}
 		return cpf;
 	}
 

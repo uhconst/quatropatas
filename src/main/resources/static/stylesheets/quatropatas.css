@@ -175,6 +175,9 @@
 	height: 32px;
 }
 
+.aw-form-control-inline-sm {
+	width:auto !important;
+} 
 
 /* ############### Tabela Item ############### */
 .qp-tabela-servico {

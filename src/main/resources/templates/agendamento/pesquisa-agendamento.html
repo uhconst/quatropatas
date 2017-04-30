@@ -22,12 +22,12 @@
 		<form method="GET" th:object="${agendamentoFilter}" th:action="@{/agendamentos}">
 	
 			<div class="row">
-				<div class="form-group  col-sm-2">
+				<div class="form-group  col-sm-1">
 					<label class="control-label" for="codigo">Código</label>
 					<input type="text" class="form-control" id="codigo" autofocus="autofocus" th:field="*{codigo}"/>
 				</div>
 				
-				<div class="form-group  col-sm-4">
+				<div class="form-group  col-sm-3">
 					<label for="status" class="control-label">Status</label>
 					<select id="status" class="form-control" th:field="*{status}">
 	                    <option value="">Todos os status</option>
@@ -35,50 +35,68 @@
 	                </select>
 				</div>
 				
-				<div class="form-group  col-sm-6">
-					<label for="dataAgendamentoInicial">Data do agendamento</label>
-					<div class="form-inline">
-						<input type="text" class="form-control  aw-form-control-inline-sm  js-date" id="dataAgendamentoInicial" 
-							th:field="*{desdeAgendamento}" autocomplete="off"/>
-						<label for="dataAgendamentoFinal" class="aw-form-label-between">até</label>
-						<input type="text" class="form-control  aw-form-control-inline-sm  js-date" id="dataAgendamentoInicial" 
-							th:field="*{ateAgendamento}" autocomplete="off"/>
-					</div>
-				</div>
-				
-			</div>
-			
-			<div class="row">
-				<div class="form-group  col-sm-6">
-					<label for="dataCriacaoInicial">Data de criação</label>
-					<div class="form-inline">
-						<input type="text" class="form-control  aw-form-control-inline-sm  js-date" id="dataCriacaoInicial" 
-							th:field="*{desdeCriacao}" autocomplete="off"/>
-						<label for="dataCriacaoFinal" class="aw-form-label-between">até</label>
-						<input type="text" class="form-control  aw-form-control-inline-sm  js-date" id="dataCriacaoInicial" 
-							th:field="*{ateCriacao}" autocomplete="off"/>
-					</div>
-				</div>
-				
-				<div class="form-group  col-sm-6">
-					<label for="valorMinimo">Valor total</label>
-					<div class="form-inline">
-						<input type="text" class="form-control  aw-form-control-inline-sm  js-money" id="valorMinimo" th:field="*{valorMinimo}"/>
-						<label for="valorMaximo" class="aw-form-label-between">até</label>
-						<input type="text" class="form-control  aw-form-control-inline-sm  js-money" id="valorMaximo" th:field="*{valorMaximo}"/>
-					</div>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="form-group  col-sm-6">
+				<div class="form-group  col-sm-5">
 					<label class="control-label" for="nomePessoa">Nome cliente</label>
 					<input type="text" class="form-control" id="nomePessoa" th:field="*{nomePessoa}"/>
 				</div>
 			
-				<div class="form-group  col-sm-6">
+				<div class="form-group  col-sm-3">
 					<label for="cpf" class="control-label">CPF</label>
-					<input type="text" class="form-control" id="cpf" th:field="*{cpfPessoa}"/>
+					<input type="text" class="form-control  js-cpf-number" id="cpf" th:field="*{cpfPessoa}"/>
+				</div>
+				
+			</div>
+			
+			<div class="row">
+					
+<!-- 					<div class="col-sm-1  form-group" th:classappend="${#fields.hasErrors('dataAgendamento')} ? has-error">
+						<label for="dataAgendamento" class="control-label">Data</label>
+						<input id="dataAgendamento" type="text"
+							class="form-control  js-date" th:field=*{dataAgendamento} 
+							data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
+							data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off" 
+							 th:disabled="${agendamento.salvarNegado}"/>
+					</div> -->
+					
+				<div class="form-group  col-sm-4">
+					<label for="dataAgendamentoInicial">Data do agendamento</label>
+					<div class="form-inline">
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-date" id="dataAgendamentoInicial" 
+							th:field="*{desdeAgendamento}" 
+							data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
+							data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off"/>
+						<label for="dataAgendamentoFinal" class="aw-form-label-between">até</label>
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-date" id="dataAgendamentoInicial" 
+							th:field="*{ateAgendamento}" 
+							data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
+							data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off" />
+					</div>
+				</div>
+				
+				<div class="form-group  col-sm-4">
+					<label for="valorMinimo">Valor total</label>
+					<div class="form-inline">
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-money" 
+							id="valorMinimo" th:field="*{valorMinimo}"/>
+						<label for="valorMaximo" class="aw-form-label-between">até</label>
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-money" 
+							id="valorMaximo" th:field="*{valorMaximo}"/>
+					</div>
+				</div>
+				
+				<div class="form-group  col-sm-4">
+					<label for="dataCriacaoInicial">Data de criação</label>
+					<div class="form-inline">
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-date" id="dataCriacaoInicial" 
+							th:field="*{desdeCriacao}" 
+							data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
+							data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off"/>
+						<label for="dataCriacaoFinal" class="aw-form-label-between">até</label>
+						<input type="text" class="form-control  aw-form-control-inline-sm  js-date"
+							id="dataCriacaoInicial" th:field="*{ateCriacao}" 
+							data-provide="datepicker" data-date-orientation="bottom" data-date-language="pt-BR"
+							data-date-today-highlight="true" data-date-autoclose="true" autocomplete="off"/>
+					</div>
 				</div>
 				
 			</div>
@@ -138,6 +156,9 @@
 
 <th:block layout:fragment="javascript-extra">
 	<!-- <script th:src="@{/javascripts/excluir-modal.js}"></script> -->
+	<script th:src="@{/javascripts/vendors/bootstrap-datepicker.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/bootstrap-datepicker.pt-BR.min.js}"></script>
+	<script th:src="@{/javascripts/pessoa.mask-cpf.js}"></script>
 </th:block>
 
 </body>

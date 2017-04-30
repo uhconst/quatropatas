@@ -50,20 +50,20 @@ Quatropatas.MaskMoney = (function(){
 }());
 
 
-Quatropatas.MaskMinuto = (function(){
-	function MaskMinuto(){
-		this.inputMinuto = $('.js-numero-inteiro');
+Quatropatas.MaskNumeroInteiro = (function(){
+	function MaskNumeroInteiro(){
+		this.inputNumeroInteiro = $('.js-numero-inteiro');
 	};
 	
-	MaskMinuto.prototype.enable = function(){
+	MaskNumeroInteiro.prototype.enable = function(){
 		
-		this.inputMinuto.maskNumber({
+		this.inputNumeroInteiro.maskNumber({
 			integer: 2,
 			thousands: '.'
 		});
 	}
 	
-	return MaskMinuto;
+	return MaskNumeroInteiro;
 }());
 
 Quatropatas.MaskHorario = (function(){
@@ -132,8 +132,8 @@ $(function(){
 	var maskMoney = new Quatropatas.MaskMoney();
 	maskMoney.enable();
 	
-	var maskMinuto = new Quatropatas.MaskMinuto();
-	maskMinuto.enable();
+	var maskNumeroInteiro = new Quatropatas.MaskNumeroInteiro();
+	maskNumeroInteiro.enable();
 	
 	var maskHorario = new Quatropatas.MaskHorario();
 	maskHorario.enable();
