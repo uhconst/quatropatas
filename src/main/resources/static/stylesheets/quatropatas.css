@@ -160,14 +160,10 @@
     color: #bdbdbd;
 }
 
-/* SELECT2 RESPONSIVIDADE*/
+/* SELECT2 RESPONSIVIDADE */
 .select2-container {
     display: block;
     width: 100% !important;
-}
-
-.select2-container .select2-cidade-container{
-	
 }
 
 .form-control, output {
@@ -175,7 +171,9 @@
     width: 100% !important;
 }
 
-
+.select2-container .select2-selection--single {
+	height: 32px;
+}
 
 
 /* ############### Tabela Item ############### */

@@ -66,6 +66,18 @@ Quatropatas.MaskMinuto = (function(){
 	return MaskMinuto;
 }());
 
+Quatropatas.MaskHorario = (function(){
+	function MaskHorario(){
+		this.inputHorario = $('.js-horario');
+	};
+	
+	MaskHorario.prototype.enable = function(){
+		this.inputHorario.mask('00:00');
+	}
+	
+	return MaskHorario;
+}());
+
 /*
  * Campo select personalizado usando Select2
  */
@@ -122,6 +134,9 @@ $(function(){
 	
 	var maskMinuto = new Quatropatas.MaskMinuto();
 	maskMinuto.enable();
+	
+	var maskHorario = new Quatropatas.MaskHorario();
+	maskHorario.enable();
 	
 	var formatarSelect2 = new Quatropatas.FormatarSelect2();
 	formatarSelect2.enable();

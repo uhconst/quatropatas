@@ -79,7 +79,7 @@
 					
 					<div class="form-group  col-sm-1" th:classappend="${#fields.hasErrors('horarioAgendamento')} ? has-error">
 							<label class="control-label" for="horarioAgendamento">Horário</label>
-							<input type="text" class="form-control" id="horarioAgendamento" 
+							<input type="text" class="form-control  js-horario" id="horarioAgendamento" 
 								th:field="*{horarioAgendamento}" th:disabled="${agendamento.salvarNegado}"/>
 					</div>
 					

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -34,6 +35,7 @@ public class Cidade implements Serializable {
 	 * Usando Fetch LAZY para não iniciar o Estado quando mapear
 	 * Ignorar o Estado quando forem arquivos JSon.
 	 */
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_estado")
 	@JsonIgnore
