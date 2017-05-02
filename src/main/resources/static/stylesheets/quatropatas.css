@@ -147,7 +147,7 @@
     border-left-color: #196e9a;
 }
 
-.aw-box__icon, .aw-menu__item.is-active>a {
+.aw-menu__item.is-active>a {
     color: #bdbdbd;
 }
 

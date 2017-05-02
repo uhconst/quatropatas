@@ -1,6 +1,7 @@
 package com.uhc.quatropatas.repository.helper.pessoa;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,7 +30,7 @@ public class PessoasImpl implements PessoasQueries{
 		
 		return criteria.list();
 	}
-
+	
 	private void adicionarFiltro(PessoaFilter filtro, Criteria criteria) {
 		if(filtro != null){
 			if(!StringUtils.isEmpty(filtro.getNome())){

@@ -1,7 +1,11 @@
 package com.uhc.quatropatas.repository.helper.agendamento;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.MonthDay;
+import java.time.Year;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import com.uhc.quatropatas.model.Agendamento;
+import com.uhc.quatropatas.model.StatusAgendamento;
 import com.uhc.quatropatas.repository.filter.AgendamentoFilter;
 import com.uhc.quatropatas.repository.paginacao.PaginacaoUtil;
 
@@ -40,6 +45,45 @@ public class AgendamentosImpl implements AgendamentosQueries {
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
 
+	@Override
+	public BigDecimal valorTotalNoAno() {
+		/*
+		 * Fazendo a consulta com JPQL
+		 */
+		Optional<BigDecimal> optional =  Optional.ofNullable(
+			manager.createQuery("select sum(valorTotal) from Agendamento where year(dataCriacao) = :ano and status = :status", BigDecimal.class)
+				.setParameter("ano", Year.now().getValue())
+				.setParameter("status", StatusAgendamento.AGENDADO)
+				.getSingleResult());
+		return optional.orElse(BigDecimal.ZERO);
+	}
+	
+	@Override
+	public BigDecimal valorTotalNoMes() {
+		/*
+		 * Fazendo a consulta com JPQL
+		 */
+		Optional<BigDecimal> optional =  Optional.ofNullable(
+			manager.createQuery("select sum(valorTotal) from Agendamento where month(dataCriacao) = :mes and status = :status", BigDecimal.class)
+				.setParameter("mes", MonthDay.now().getMonthValue())
+				.setParameter("status", StatusAgendamento.AGENDADO)
+				.getSingleResult());
+		return optional.orElse(BigDecimal.ZERO);
+	}
+	
+	@Override
+	public BigDecimal valorTicketMedioNoAno() {
+        /*
+         * Fazendo a consulta com JPQL
+         */
+        Optional<BigDecimal> optional =  Optional.ofNullable(
+            manager.createQuery("select sum(valorTotal)/count(*) from Agendamento where year(dataCriacao) = :ano and status = :status", BigDecimal.class)
+                .setParameter("ano", Year.now().getValue())
+                .setParameter("status", StatusAgendamento.AGENDADO)
+                .getSingleResult());
+        return optional.orElse(BigDecimal.ZERO);
+	}
+	
 //	@Override
 //	public Agendamento buscarComServicos(Long codigo){
 //		Criteria criteria = manager.unwrap(Session.class).createCriteria(Agendamento.class);
