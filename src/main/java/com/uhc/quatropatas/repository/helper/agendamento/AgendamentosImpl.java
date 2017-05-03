@@ -1,10 +1,13 @@
 package com.uhc.quatropatas.repository.helper.agendamento;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -15,13 +18,13 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
+import com.uhc.quatropatas.dto.AgendamentoMes;
 import com.uhc.quatropatas.model.Agendamento;
 import com.uhc.quatropatas.model.StatusAgendamento;
 import com.uhc.quatropatas.repository.filter.AgendamentoFilter;
@@ -51,7 +54,7 @@ public class AgendamentosImpl implements AgendamentosQueries {
 		 * Fazendo a consulta com JPQL
 		 */
 		Optional<BigDecimal> optional =  Optional.ofNullable(
-			manager.createQuery("select sum(valorTotal) from Agendamento where year(dataCriacao) = :ano and status = :status", BigDecimal.class)
+			manager.createQuery("select sum(valorTotal) from Agendamento where year(dataHoraAgendamento) = :ano and status = :status", BigDecimal.class)
 				.setParameter("ano", Year.now().getValue())
 				.setParameter("status", StatusAgendamento.AGENDADO)
 				.getSingleResult());
@@ -64,7 +67,7 @@ public class AgendamentosImpl implements AgendamentosQueries {
 		 * Fazendo a consulta com JPQL
 		 */
 		Optional<BigDecimal> optional =  Optional.ofNullable(
-			manager.createQuery("select sum(valorTotal) from Agendamento where month(dataCriacao) = :mes and status = :status", BigDecimal.class)
+			manager.createQuery("select sum(valorTotal) from Agendamento where month(dataHoraAgendamento) = :mes and status = :status", BigDecimal.class)
 				.setParameter("mes", MonthDay.now().getMonthValue())
 				.setParameter("status", StatusAgendamento.AGENDADO)
 				.getSingleResult());
@@ -77,11 +80,49 @@ public class AgendamentosImpl implements AgendamentosQueries {
          * Fazendo a consulta com JPQL
          */
         Optional<BigDecimal> optional =  Optional.ofNullable(
-            manager.createQuery("select sum(valorTotal)/count(*) from Agendamento where year(dataCriacao) = :ano and status = :status", BigDecimal.class)
+            manager.createQuery("select sum(valorTotal)/count(*) from Agendamento where year(dataHoraAgendamento) = :ano and status = :status", BigDecimal.class)
                 .setParameter("ano", Year.now().getValue())
                 .setParameter("status", StatusAgendamento.AGENDADO)
                 .getSingleResult());
         return optional.orElse(BigDecimal.ZERO);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AgendamentoMes> totalPorMes() {
+		/*
+		 * Pegando a data do sexto mes atras
+		 */
+		String ultimosSeisMeses = LocalDate.now().minusMonths(6).format(DateTimeFormatter.ofPattern("yyyy/MM"));
+		
+		String query = "select to_char(data_hora_agendamento, 'YYYY/MM'), count(*) from Agendamento where to_char(data_hora_agendamento, 'YYYY/MM') > :sextoMes and status = 'AGENDADO' group by to_char(data_hora_agendamento, 'YYYY/MM') order by to_char(data_hora_agendamento, 'YYYY/MM') desc";
+		
+		
+		List<AgendamentoMes> agendamentosMes = manager.createQuery(query)
+				.setParameter("sextoMes", ultimosSeisMeses)
+				.getResultList();
+		
+		/*
+		List<AgendamentoMes> agendamentosMes = manager.createNamedQuery("Agendamentos.totalPorMes").getResultList();
+		
+		LocalDate hoje = LocalDate.now();
+		for (int i = 1; i <= 6; i++) {
+			String mesIdeal = String.format("%d/%02d", hoje.getYear(), hoje.getMonthValue());
+			
+			System.out.println(">>>Fora do não possui mes, ideal: " + mesIdeal);
+
+			boolean possuiMes = agendamentosMes.stream().filter(v -> v.getMes().equals(mesIdeal)).findAny().isPresent();
+			
+			if (!possuiMes) {
+				System.out.println(">>>Dentro do não possui mes: " + mesIdeal);
+				agendamentosMes.add(i - 1, new AgendamentoMes(mesIdeal, 0));
+			}
+			
+			hoje = hoje.minusMonths(1);
+		}
+		*/
+		
+		return agendamentosMes;
 	}
 	
 //	@Override

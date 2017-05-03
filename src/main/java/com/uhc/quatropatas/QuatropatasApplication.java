@@ -52,5 +52,4 @@ public class QuatropatasApplication extends WebMvcConfigurerAdapter{
 		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
 		registry.addFormatterForFieldType(Integer.class, integerFormatter);
     }
-
 }
