@@ -95,7 +95,7 @@ public class AgendamentosImpl implements AgendamentosQueries {
 		 */
 		String ultimosSeisMeses = LocalDate.now().minusMonths(6).format(DateTimeFormatter.ofPattern("yyyy/MM"));
 		
-		String query = "select to_char(data_hora_agendamento, 'YYYY/MM'), count(*) from Agendamento where to_char(data_hora_agendamento, 'YYYY/MM') > :sextoMes and status = 'AGENDADO' group by to_char(data_hora_agendamento, 'YYYY/MM') order by to_char(data_hora_agendamento, 'YYYY/MM') desc";
+		String query = "select new com.uhc.quatropatas.dto.AgendamentoMes(to_char(data_hora_agendamento, 'YYYY/MM'), count(*)) from Agendamento where to_char(data_hora_agendamento, 'YYYY/MM') > :sextoMes and status = 'AGENDADO' group by to_char(data_hora_agendamento, 'YYYY/MM') order by to_char(data_hora_agendamento, 'YYYY/MM') desc";
 		
 		
 		List<AgendamentoMes> agendamentosMes = manager.createQuery(query)
@@ -104,24 +104,29 @@ public class AgendamentosImpl implements AgendamentosQueries {
 		
 		/*
 		List<AgendamentoMes> agendamentosMes = manager.createNamedQuery("Agendamentos.totalPorMes").getResultList();
+		*/
 		
+		/*
+		 * Percorrendo mes a mes dos ultimos 6 meses
+		 * e verificando se tem o mes mesIdeal na lista.
+		 * Caso não tenha adiciona o mesIdeal nela (o mes faltando)
+		 * e seta como 0 sua quantidade de agendamento.
+		 * Porque quando busca do banco o banco não retornava nada
+		 * para quando não tinha agendamento, ai quebrava o grafico
+		 * por pular algum mes.
+		 */
 		LocalDate hoje = LocalDate.now();
 		for (int i = 1; i <= 6; i++) {
 			String mesIdeal = String.format("%d/%02d", hoje.getYear(), hoje.getMonthValue());
-			
-			System.out.println(">>>Fora do não possui mes, ideal: " + mesIdeal);
 
 			boolean possuiMes = agendamentosMes.stream().filter(v -> v.getMes().equals(mesIdeal)).findAny().isPresent();
 			
 			if (!possuiMes) {
-				System.out.println(">>>Dentro do não possui mes: " + mesIdeal);
-				agendamentosMes.add(i - 1, new AgendamentoMes(mesIdeal, 0));
+				agendamentosMes.add(i - 1, new AgendamentoMes(mesIdeal, (long) 0));
 			}
 			
 			hoje = hoje.minusMonths(1);
 		}
-		*/
-		
 		return agendamentosMes;
 	}
 	

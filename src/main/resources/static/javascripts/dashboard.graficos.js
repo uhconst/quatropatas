@@ -22,8 +22,8 @@ Quatropatas.GraficoAgendamentoPorMes = (function() {
 			 * Unshift insere no inicio, pra ficar na ordem
 			 * correta para poder mostrar
 			 */
-			meses.unshift(obj[0]);
-			valores.unshift(obj[1]);
+			meses.unshift(obj.mes);
+			valores.unshift(obj.total);
 		});
 		
 		var graficoAgendamentoPorMes = new Chart(this.ctx, {
