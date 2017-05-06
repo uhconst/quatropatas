@@ -29,14 +29,14 @@ public class UsuariosImpl implements UsuariosQueries{
 	private EntityManager manager;
 	
 	@Override
-	public Optional<Usuario> porEmailAtivo(String email) {
+	public Optional<Usuario> porUsernameAtivo(String username) {
 		
 		/*
 		 * Usando JPQL para a consulta
 		 */
 		return manager
-				.createQuery("from Usuario where lower(email) = lower(:email) and ativo = true", Usuario.class)
-				.setParameter("email", email).getResultList().stream().findFirst();
+				.createQuery("from Usuario where lower(username) = lower(:username) and ativo = true", Usuario.class)
+				.setParameter("username", username).getResultList().stream().findFirst();
 	}
 
 	@Override
@@ -66,12 +66,11 @@ public class UsuariosImpl implements UsuariosQueries{
 
 	private void adicionarFiltro(UsuarioFilter filtro, Criteria criteria) {
 		if(filtro != null){
-			if(!StringUtils.isEmpty(filtro.getNome())){
-				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
-			}
-			
-			if(!StringUtils.isEmpty(filtro.getEmail())){
-				criteria.add(Restrictions.ilike("email", filtro.getEmail(), MatchMode.ANYWHERE));
+			if (!StringUtils.isEmpty(filtro.getNome())) {
+				criteria.add(
+						Restrictions.or(
+								Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE),
+								Restrictions.ilike("sobrenome", filtro.getNome(), MatchMode.ANYWHERE)));
 			}
 			
 			criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);

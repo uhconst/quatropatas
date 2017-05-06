@@ -10,9 +10,9 @@ import com.uhc.quatropatas.repository.helper.usuario.UsuariosQueries;
 
 public interface Usuarios extends JpaRepository<Usuario, Long>, UsuariosQueries{
 	
-	public Optional<Usuario> findByEmail(String email);
+	public Optional<Usuario> findByUsername(String username);
 
 	public List<Usuario> findByCodigoIn(Long[] codigos);
 
-	public Optional<Usuario> findByEmailOrCodigo(String email, Long codigo);
+	public Optional<Usuario> findByUsernameOrCodigo(String username, Long codigo);
 }

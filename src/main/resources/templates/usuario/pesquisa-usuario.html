@@ -31,8 +31,8 @@
 				</div>
 				
 				<div class="form-group  col-sm-6">
-					<label class="control-label" for="email">E-mail</label>
-					<input type="text" class="form-control" id="email" th:field="*{email}"/>
+					<label class="control-label" for="username">Usuário</label>
+					<input type="text" class="form-control" id="username" th:field="*{username}"/>
 				</div>
 			</div>
 			
@@ -74,7 +74,7 @@
 	            			</div>
 	            		</th>
 	            		<th>Nome</th>
-	                	<th>E-mail</th>
+	                	<th>Usuário</th>
 	                	<th>Grupo</th>
 	                	<th>Status</th>
 	                 	<th class="table-pesq-col-acoes">Ações</th>
@@ -90,8 +90,8 @@
 	            				<label></label>
 	            			</div>
 						</td>
-						<td th:text="${usuario.nome}"></td>
-						<td th:text="${usuario.email}"></td>
+						<td th:text="|${usuario.nome} ${usuario.sobrenome}|"></td>
+						<td th:text="${usuario.username}"></td>
 						<td>
 							<span th:each="grupo : ${usuario.grupos}" th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|"></span>
 						</td>

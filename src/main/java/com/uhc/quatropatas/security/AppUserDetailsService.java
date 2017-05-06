@@ -24,9 +24,9 @@ public class AppUserDetailsService implements UserDetailsService{
 	private Usuarios usuarios;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Optional<Usuario> usuarioOptional = usuarios.porEmailAtivo(email);
+		Optional<Usuario> usuarioOptional = usuarios.porUsernameAtivo(username);
 		
 		/*
 		 * Exceção para caso não encontre o usuário

@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
 
 import com.uhc.quatropatas.model.Usuario;
 import com.uhc.quatropatas.repository.Usuarios;
-import com.uhc.quatropatas.service.exception.EmailUsuarioJaCadastradoException;
+import com.uhc.quatropatas.service.exception.UsernameUsuarioJaCadastradoException;
 import com.uhc.quatropatas.service.exception.ImpossivelExcluirEntidadeException;
 import com.uhc.quatropatas.service.exception.SenhaObrigatoriaUsuarioException;
 
@@ -30,10 +30,10 @@ public class UsuarioService {
 	public void salvar(Usuario usuario) {
 		
 //		Optional<Usuario> emailUsuarioExistente = usuarios.findByEmail(usuario.getEmail());
-		Optional<Usuario> emailUsuarioExistente = usuarios.findByEmailOrCodigo(usuario.getEmail(), usuario.getCodigo());
+		Optional<Usuario> usernameUsuarioExistente = usuarios.findByUsernameOrCodigo(usuario.getUsername(), usuario.getCodigo());
 
-		if(emailUsuarioExistente.isPresent() && !emailUsuarioExistente.get().equals(usuario)){
-			throw new EmailUsuarioJaCadastradoException("Email já cadastrado");
+		if(usernameUsuarioExistente.isPresent() && !usernameUsuarioExistente.get().equals(usuario)){
+			throw new UsernameUsuarioJaCadastradoException("Username já cadastrado");
 		}
 		
 		if(usuario.isNovo() && StringUtils.isEmpty(usuario.getSenha())){
@@ -49,7 +49,7 @@ public class UsuarioService {
 			usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
 		}
 		else if(StringUtils.isEmpty(usuario.getSenha())){
-			usuario.setSenha(emailUsuarioExistente.get().getSenha());
+			usuario.setSenha(usernameUsuarioExistente.get().getSenha());
 		}
 		usuario.setConfirmacaoSenha(usuario.getSenha());
 		

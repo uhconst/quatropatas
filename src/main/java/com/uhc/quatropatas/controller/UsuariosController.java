@@ -23,7 +23,7 @@ import com.uhc.quatropatas.repository.Usuarios;
 import com.uhc.quatropatas.repository.filter.UsuarioFilter;
 import com.uhc.quatropatas.service.StatusUsuario;
 import com.uhc.quatropatas.service.UsuarioService;
-import com.uhc.quatropatas.service.exception.EmailUsuarioJaCadastradoException;
+import com.uhc.quatropatas.service.exception.UsernameUsuarioJaCadastradoException;
 import com.uhc.quatropatas.service.exception.ImpossivelExcluirEntidadeException;
 import com.uhc.quatropatas.service.exception.SenhaObrigatoriaUsuarioException;
 
@@ -59,7 +59,7 @@ public class UsuariosController {
 			usuarioService.salvar(usuario);
 		}
 		
-		catch (EmailUsuarioJaCadastradoException e){
+		catch (UsernameUsuarioJaCadastradoException e){
 			result.rejectValue("email", e.getMessage(), e.getMessage());
 			return novo(usuario);
 		}

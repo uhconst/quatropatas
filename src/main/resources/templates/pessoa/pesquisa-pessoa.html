@@ -26,14 +26,9 @@
 			<div th:replace="fragments/mensagem-exclusao :: mensagemExclusao"></div>
 			
 			<div class="row">
-				<div class="col-sm-4  form-group">
+				<div class="col-sm-8  form-group">
 					<label for="input-produto-nome">Nome</label>
 					<input id="input-produto-nome" type="text" class="form-control" th:field=*{nome}/>
-				</div>
-					
-				<div class="col-sm-4  form-group">
-					<label for="input-produto-nome">Sobrenome</label>
-					<input id="input-produto-nome" type="text" class="form-control" th:field=*{sobrenome}/>
 				</div>
 				
 				<div class="col-sm-4  form-group">
@@ -49,8 +44,7 @@
 			<table id="tabela-pessoas" class="table  table-hover">
 				<thead class="aw-table-header-solid">
 					<tr>
-						<th class="table-pesq-pessoa-col-codigo">Nome</th>
-						<th class="table-pesq-pessoa-col-codigo">Sobrenome</th>
+						<th class="table-pesq-pessoa-col-nome">Nome</th>
 						<th class="table-pesq-pessoa-col-codigo">Email</th>
 						<th class="table-pesq-pessoa-col-codigo">Nascimento</th>
 						<th class="table-pesq-pessoa-col-codigo">CPF</th>
@@ -63,8 +57,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="pessoa : ${pessoas}">
-						<td th:text="${pessoa.nome}"></td>
-						<td th:text="${pessoa.sobrenome}"></td>
+						<td th:text="|${pessoa.nome} ${pessoa.sobrenome}|"></td>
 						
 						<td>
 							<span th:each="email : ${pessoa.emails}" th:text="|${email.endereco}${emailStat.last ? '' : ', '}|"></span>

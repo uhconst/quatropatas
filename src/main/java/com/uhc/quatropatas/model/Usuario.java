@@ -16,7 +16,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.uhc.quatropatas.validation.AtributoConfirmacao;
@@ -38,9 +37,12 @@ public class Usuario implements Serializable {
 	private String nome;
 	
 	@NotBlank
-	@Size(max=65)
-	@Email
-	private String email;
+	@Size(max=45)
+	private String sobrenome;
+	
+	@NotBlank
+	@Size(max=50)
+	private String username;
 	
 	private String senha;
 
@@ -80,12 +82,20 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getSobrenome() {
+		return sobrenome;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getSenha() {

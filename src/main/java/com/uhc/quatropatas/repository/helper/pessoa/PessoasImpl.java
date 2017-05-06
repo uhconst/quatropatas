@@ -33,12 +33,11 @@ public class PessoasImpl implements PessoasQueries{
 	
 	private void adicionarFiltro(PessoaFilter filtro, Criteria criteria) {
 		if(filtro != null){
-			if(!StringUtils.isEmpty(filtro.getNome())){
-				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
-			}
-			
-			if(!StringUtils.isEmpty(filtro.getSobrenome())){
-				criteria.add(Restrictions.ilike("sobrenome", filtro.getSobrenome(), MatchMode.ANYWHERE));
+			if (!StringUtils.isEmpty(filtro.getNome())) {
+				criteria.add(
+						Restrictions.or(
+								Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE),
+								Restrictions.ilike("sobrenome", filtro.getNome(), MatchMode.ANYWHERE)));
 			}
 			
 			if(!StringUtils.isEmpty(filtro.getCpf())){

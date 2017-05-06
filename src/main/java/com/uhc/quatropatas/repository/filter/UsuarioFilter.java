@@ -7,7 +7,7 @@ import com.uhc.quatropatas.model.Grupo;
 public class UsuarioFilter {
 	private String nome;
 	
-	private String email;
+	private String username;
 	
 	private List<Grupo> grupos;
 
@@ -19,12 +19,12 @@ public class UsuarioFilter {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public List<Grupo> getGrupos() {

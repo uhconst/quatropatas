@@ -233,6 +233,11 @@
 	font-weight: 200;
 }
 
+/* Tabela Pessoa */
+.table-pesq-pessoa-col-nome {
+	width: 180px;
+}
+
 /*
 .qp-tabela-servico-campo-quantidade {
 	width: 30px;
