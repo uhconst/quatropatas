@@ -30,12 +30,12 @@
 			<input type="hidden" th:field="*{codigo}"/>
 			 
 			 <div class="row">
-				<div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+				<div class="col-sm-4  form-group  qp-required" th:classappend="${#fields.hasErrors('nome')} ? has-error">
 					<label for="nome" class="control-label">Nome do Animal</label>
 					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 				</div>
 
-					<div class="col-sm-3  form-group">
+					<div class="col-sm-3  form-group  qp-required">
   						<label for="raca">Raça</label>
 						<select id="raca" class="form-control  js-select2" th:field="*{raca}">
 							<option value="">-- Selecione a raça --</option>
@@ -52,7 +52,7 @@
 						</div>
 					</div>
 					
-					<div class="col-lg-3  col-sm-6  form-group" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
+					<div class="col-lg-3  col-sm-6  form-group  qp-required" th:classappend="${#fields.hasErrors('sexo')} ? has-error">
 						<label class="control-label">Sexo</label>
 						<div>
 							<th:block th:each="sexo : ${sexos}">
@@ -68,10 +68,10 @@
 				<div class="row">
 								
 					<div class="form-group  col-sm-4  qp-required">
-						<label class="control-label" for="nomePessoa">Cliente</label>
+						<label class="control-label" for="nomePessoa">Dono</label>
 						<div class="input-group">
 							<input id="nomePessoa" type="text" readonly="readonly" class="form-control"
-								placeholder="Clique na lupa para pesquisar o cliente" /> 
+								th:placeholder="${animal.novo}? 'Clique na lupa para pesquisar o cliente' : |*{pessoa.nome} *{pessoa.sobrenome}|"/>
 							<input id="codigoPessoa" type="hidden" th:field="*{pessoa}"/>
 								<span class="input-group-btn">
 								<button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada" 

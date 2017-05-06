@@ -119,7 +119,7 @@
 						<!-- <span th:text="*{pessoa.animal}"></span> -->
 						<input type="hidden" id="inputHiddenAnimalSelecionado" /><!-- th:value="*{animal} != null ? *{animal.codigo}" -->
 						<select id="animal" class="form-control  js-select2" data:url="@{/animals}" disabled th:disabled="${agendamento.salvarNegado}"> <!-- th:field="*{animal}"  -->
-		                    <option value="">-- Selecione um animal --</option>
+		                    <option value="">Selecione um Cliente primeiro</option>
 		                </select>
 					</div>
 
@@ -172,14 +172,14 @@
 				<div class="row" style="clear: both" th:if="${agendamento.salvarPermitido}">
 					<div class="col-lg-12">
 						<div class="btn-group">
-						  <button type="submit" class="btn  btn-primary  js-submit-btn" data:acao="salvar">Salvar</button>
+						  <button type="submit" class="btn  btn-primary  js-submit-btn" data:acao="agendar">Agendar</button>
 						  <button type="button" class="btn  btn-primary  dropdown-toggle" data-toggle="dropdown">
 						    <span class="caret"></span>
 						  </button>
 						  
 						  <ul class="dropdown-menu">
-						    <li><a href="#" class="js-submit-btn" data:acao="agendar">Salvar e agendar</a></li>
-						    <li><a href="#" class="js-submit-btn" data:acao="enviarEmail">Salvar e enviar por e-mail</a></li>
+						    <li><a href="#" class="js-submit-btn" data:acao="salvar">Orçamento</a></li>
+						    <li><a href="#" class="js-submit-btn" data:acao="enviarEmail">Agendar e enviar por e-mail</a></li>
 						  </ul>
 						</div>
 					

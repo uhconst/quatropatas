@@ -111,7 +111,7 @@
 		            	<tr>
 		                	<th>Código</th>
 		                	<th>Cliente</th>
-		                	<th>Animal</th>
+		                	<th>Animal - Serviço</th>
 		                	<th>Data de agendamento</th>
 		                	<th>Data de criação</th>
 		                	<th>Valor total</th>
@@ -127,7 +127,7 @@
 							<td th:text="|${agendamento.pessoa.nome} ${agendamento.pessoa.sobrenome}|"></td>
 							<td>
 								<span th:each="agendamentoServico : ${agendamento.agendamentos}" 
-									th:text="|${agendamentoServico.animal.nome}${agendamentoServicoStat.last ? '' : ', '}|"></span>
+									th:text="|${agendamentoServico.animal.nome} - ${agendamentoServico.servico.descricao}${agendamentoServicoStat.last ? '' : ', '}|"></span>
 							</td>
 							<td th:text="${{agendamento.dataHoraAgendamento}}"></td>
 							<td th:text="${{agendamento.dataCriacao}}"></td>
