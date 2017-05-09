@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -16,6 +17,7 @@ public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
     //@CEP
+	@NotBlank
     private String cep;
     
     @NotBlank
@@ -30,15 +32,16 @@ public class Endereco implements Serializable {
 	@Size(max=45)
     private String logradouro;
     
-    @NotBlank
 	@Size(max=45)
     private String complemento;
     
 	@ManyToOne
 	@JoinColumn(name = "codigo_cidade")
+	//@NotNull
 	private Cidade cidade;
 	
 	@Transient
+	//@NotNull
 	private Estado estado;
 
 	public String getCep() {

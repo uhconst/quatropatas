@@ -35,8 +35,12 @@
 						<div class="qp-field-action">
 							<select id="raca" class="form-control  js-select2" th:field="*{raca}">
 								<option value="">-- Selecione a raça --</option>
-								<option th:each="raca : ${racas}" th:value="${raca.codigo}"
-									th:text="${raca.nome}">Raça</option>
+								<optgroup label="Cachorros"></optgroup>
+									<option th:each="racaCachorro : ${racasCachorro}" th:value="${racaCachorro.codigo}"
+										th:text="${racaCachorro.nome}">Raça</option>
+								<optgroup label="Gatos"></optgroup>
+									<option th:each="racaGato : ${racasGato}" th:value="${racaGato.codigo}"
+										th:text="${racaGato.nome}">Raça</option>
 							</select>
 						</div>
 					</div>

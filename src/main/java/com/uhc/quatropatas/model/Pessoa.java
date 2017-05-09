@@ -18,6 +18,7 @@ import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -48,24 +49,27 @@ public class Pessoa implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoSexo sexo;
 	
-	
 	//@DateTimeFormat(pattern = "dd/MM/yyyy")
 	//@DateTimeFormat(pattern = "yyyy-dd-MM")
+	@NotNull
     private LocalDate nascimento;
-    
+	
     @CPF
     //@JsonIgnore
     private String cpf;
     
+    @Valid
     @Embedded
     @JsonIgnore
     private Endereco endereco;
     
+    @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
     @JsonIgnore
     private List<Telefone> telefones;
     
+    @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="codigo_pessoa", referencedColumnName="codigo", nullable = false)
     @JsonIgnore

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uhc.quatropatas.model.Animal;
+import com.uhc.quatropatas.model.TipoEspecie;
 import com.uhc.quatropatas.model.TipoSexoAnimal;
 import com.uhc.quatropatas.repository.Animals;
 import com.uhc.quatropatas.repository.Racas;
@@ -44,7 +45,9 @@ public class AnimalsController {
 		ModelAndView mv = new ModelAndView("animal/cadastro-animal");
 		mv.addObject(animal);
 		mv.addObject("sexos", TipoSexoAnimal.values());
-		mv.addObject("racas", racas.findAll());
+		//mv.addObject("racas", racas.findAll());
+		mv.addObject("racasCachorro", racas.findByEspecieOrderByNome(TipoEspecie.CACHORRO));
+		mv.addObject("racasGato", racas.findByEspecieOrderByNome(TipoEspecie.GATO));
 		
 		return mv;
 	}
@@ -64,7 +67,9 @@ public class AnimalsController {
 	public ModelAndView pesquisar(AnimalFilter animalFilter){
 		ModelAndView mv = new ModelAndView("animal/pesquisa-animal");
 		mv.addObject("sexos", TipoSexoAnimal.values());
-		mv.addObject("racas", racas.findAll());
+		//mv.addObject("racas", racas.findAll());
+		mv.addObject("racasCachorro", racas.findByEspecieOrderByNome(TipoEspecie.CACHORRO));
+		mv.addObject("racasGato", racas.findByEspecieOrderByNome(TipoEspecie.GATO));
 		
 		mv.addObject("animals", animals.filtrar(animalFilter));
 		return mv;

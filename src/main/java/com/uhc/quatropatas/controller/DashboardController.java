@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.uhc.quatropatas.dto.AgendamentoMes;
+import com.uhc.quatropatas.model.StatusAgendamento;
 import com.uhc.quatropatas.repository.Agendamentos;
 import com.uhc.quatropatas.repository.Animals;
 import com.uhc.quatropatas.repository.Pessoas;
@@ -29,6 +30,7 @@ public class DashboardController {
 	public ModelAndView dashboard() {
 		ModelAndView mv = new ModelAndView("Dashboard");
 		
+		mv.addObject("totalCancelamentosMes", agendamentos.countByStatus(StatusAgendamento.CANCELADO));
 		mv.addObject("totalAnimais", animals.count());
 		mv.addObject("totalClientes", pessoas.count());
 		
