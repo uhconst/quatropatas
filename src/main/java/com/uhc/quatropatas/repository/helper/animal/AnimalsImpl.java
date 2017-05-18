@@ -31,6 +31,8 @@ public class AnimalsImpl implements AnimalsQueries {
 	}
 
 	private void adicionarFiltro(AnimalFilter filtro, Criteria criteria) {
+		criteria.createAlias("pessoa", "p");
+		
 		if(filtro != null){
 			if(!StringUtils.isEmpty(filtro.getNome())){
 				criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
@@ -45,12 +47,22 @@ public class AnimalsImpl implements AnimalsQueries {
 			}
 			
 			if (filtro.getSexo() != null) {
-				System.out.println(">>>>>>>Dentro do Impl, sexo: " + filtro.getSexo());
 				criteria.add(Restrictions.eq("sexo", filtro.getSexo()));
 			}
 			
 			if(isRacaInformada(filtro)){
 				criteria.add(Restrictions.eq("raca", filtro.getRaca()));
+			}
+			
+			if (!StringUtils.isEmpty(filtro.getNomePessoa())) {
+				criteria.add(
+						Restrictions.or(
+								Restrictions.ilike("p.nome", filtro.getNomePessoa(), MatchMode.ANYWHERE),
+								Restrictions.ilike("p.sobrenome", filtro.getNomePessoa(), MatchMode.ANYWHERE)));
+			}
+			
+			if (!StringUtils.isEmpty(filtro.getCpfPessoa())) {
+				criteria.add(Restrictions.ilike("p.cpf", filtro.getCpfPessoa(), MatchMode.ANYWHERE));
 			}
 		}
 	}

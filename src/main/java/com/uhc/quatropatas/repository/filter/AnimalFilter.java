@@ -18,6 +18,10 @@ public class AnimalFilter {
 	
 	private TipoSexoAnimal sexo;
 
+	private String nomePessoa;
+	
+	private String cpfPessoa;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -64,6 +68,22 @@ public class AnimalFilter {
 
 	public void setSexo(TipoSexoAnimal sexo) {
 		this.sexo = sexo;
+	}
+
+	public String getNomePessoa() {
+		return nomePessoa;
+	}
+
+	public void setNomePessoa(String nomePessoa) {
+		this.nomePessoa = nomePessoa;
+	}
+
+	public String getCpfPessoa() {
+		return cpfPessoa;
+	}
+
+	public void setCpfPessoa(String cpfPessoa) {
+		this.cpfPessoa = cpfPessoa;
 	}
 	
 }

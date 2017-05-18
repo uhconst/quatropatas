@@ -93,17 +93,20 @@
 						</div>
 					</div>
 
-					<div class="form-group  col-sm-4  qp-required">
+					<div class="form-group  col-sm-4  qp-required" th:classappend="${#fields.hasErrors('dataAgendamento')} ? has-error">
 						<label class="control-label" for="nomePessoa">Cliente</label>
 						<div class="input-group">
 						
 							<input id="nomePessoa" type="text" readonly="readonly"
 								class="form-control" 
-								th:placeholder="${agendamento.nova}? 'Clique na lupa para pesquisar o cliente' : |*{pessoa.nome} *{pessoa.sobrenome}|"/> 
+								th:placeholder="${agendamento.nova}? 'Clique na lupa para pesquisar o cliente' : |*{pessoa.nome} *{pessoa.sobrenome}|"/>
+								<!-- th:placeholder="${agendamento.nova}? 'Clique na lupa para pesquisar o cliente' : |*{agendamentos[0].animal.pessoa.nome} *{agendamentos[0].animal.pessoa.sobrenome}"/> -->
+
 								
 								<!-- th:field="*{pessoa.nome}" -->
 								
-								<input id="codigoPessoa" type="hidden" th:field="*{pessoa}"/> <!-- th:field="*{pessoa}" -->
+								<input id="codigoPessoa" type="hidden" th:field="*{pessoa}"/>
+								<!-- <input id="codigoPessoa" type="hidden" th:value="${agendamento.nova} ? '' : *{agendamentos[0].animal.pessoa.codigo}"/>  --><!-- th:field="*{pessoa}" -->
 								<span class="input-group-btn">
 								<button class="btn  btn-default  js-tooltip" type="button"
 									title="Pesquisa avançada" data-toggle="modal"
@@ -114,7 +117,7 @@
 						</div>
 					</div>
 					
- 					<div class="form-group  col-sm-4">
+ 					<div class="form-group  col-sm-4" th:classappend="${#fields.hasErrors('dataAgendamento')} ? has-error">
 						<label for="animal" class="control-label">Animal</label>
 						<!-- <span th:text="*{pessoa.animal}"></span> -->
 						<input type="hidden" id="inputHiddenAnimalSelecionado" /><!-- th:value="*{animal} != null ? *{animal.codigo}" -->
@@ -139,7 +142,7 @@
 			</div>
 						
 			<div class="row">
-					<div class="form-group  col-sm-4">
+					<div class="form-group  col-sm-4" th:classappend="${#fields.hasErrors('dataAgendamento')} ? has-error">
 						<label for="servico" class="control-label">Serviço</label>
 						<select id="servico" class="form-control  js-select2" th:disabled="${agendamento.salvarNegado}"><!-- th:field="*{servicos}" -->
 		                    <option value="">-- Selecione um serviço --</option>
@@ -163,31 +166,35 @@
 
 				
 				<!-- #### DETALHES DO AGENDAMENTO #### -->
-
-				<div class="qp-tabela-servicos  js-tabela-servicos-agendamentos-container" data:valor="${valorTotalServicos}">
+ 				<div class="qp-tabela-servicos  js-tabela-servicos-agendamentos-container" data:valor="${valorTotalServicos}">
 					<th:block th:replace="agendamento/tabela-servicos-agendamento"/>
 				</div>
-					
+				
+
+
 				<!-- BOTÕES DO FORMULÁRIO -->
 				<div class="row" style="clear: both" th:if="${agendamento.salvarPermitido}">
 					<div class="col-lg-12">
 						<div class="btn-group">
-						  <button type="submit" class="btn  btn-primary  js-submit-btn" data:acao="agendar">Agendar</button>
-						  <button type="button" class="btn  btn-primary  dropdown-toggle" data-toggle="dropdown">
-						    <span class="caret"></span>
-						  </button>
-						  
-						  <ul class="dropdown-menu">
-						    <li><a href="#" class="js-submit-btn" data:acao="salvar">Orçamento</a></li>
-						    <li><a href="#" class="js-submit-btn" data:acao="enviarEmail">Agendar e enviar por e-mail</a></li>
-						  </ul>
+							<button type="submit" class="btn  btn-primary  js-submit-btn"
+								data:acao="agendar">Agendar</button>
+							<button type="button" class="btn  btn-primary  dropdown-toggle"
+								data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+
+							<ul class="dropdown-menu">
+								<li><a href="#" class="js-submit-btn" data:acao="salvar">Orçamento</a></li>
+								<li><a href="#" class="js-submit-btn"
+									data:acao="enviarEmail">Agendar e enviar por e-mail</a></li>
+							</ul>
 						</div>
-					
-						<button class="btn  btn-danger  js-submit-btn" data:acao="cancelar" th:unless="${agendamento.nova}">Cancelar</button>
+
+						<button class="btn  btn-danger  js-submit-btn"
+							data:acao="cancelar" th:unless="${agendamento.nova}">Cancelar</button>
 					</div>
 				</div>
-
-			</form>
+		</form>
 		</div>
 		
 		<th:block th:replace="pessoa/pesquisa-rapida-pessoa :: pesquisaRapidaPessoa"></th:block>

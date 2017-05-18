@@ -148,6 +148,7 @@ public class AgendamentosImpl implements AgendamentosQueries {
 	
 	private void adicionarFiltro(AgendamentoFilter filtro, Criteria criteria) {
 		criteria.createAlias("pessoa", "p");
+		//criteria.createAlias("agendamentos", "as");
 		
 		if (filtro != null) {
 			if (!StringUtils.isEmpty(filtro.getCodigo())) {
@@ -187,7 +188,7 @@ public class AgendamentosImpl implements AgendamentosQueries {
 			}
 			
 			if (!StringUtils.isEmpty(filtro.getNomePessoa())) {
-				//criteria.add(Restrictions.ilike("p.nome", filtro.getNomePessoa(), MatchMode.ANYWHERE));
+				//criteria.add(Restrictions.ilike("as.animal.nome", filtro.getNomePessoa(), MatchMode.ANYWHERE));
 				
 				criteria.add(
 						Restrictions.or(

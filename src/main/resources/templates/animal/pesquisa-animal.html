@@ -25,7 +25,7 @@
 			<div th:replace="fragments/mensagem-exclusao :: mensagemExclusao"></div>
 			
 			 <div class="row">
-				<div class="col-sm-4  form-group">
+				<div class="col-sm-6  form-group">
 					<label for="nome">Nome do Animal</label>
 					<input id="nome" type="text" class="form-control" th:field=*{nome}/>
 				</div>
@@ -61,6 +61,20 @@
 						</div>
 					</div>
 					
+
+				
+				</div>
+	
+				<div class="row">
+					<div class="form-group  col-sm-6">
+						<label class="control-label" for="nomePessoa">Nome cliente</label>
+						<input type="text" class="form-control" id="nomePessoa" th:field="*{nomePessoa}"/>
+					</div>
+				
+					<div class="form-group  col-sm-3">
+						<label for="cpf" class="control-label">CPF</label>
+						<input type="text" class="form-control  js-cpf-number" id="cpf" th:field="*{cpfPessoa}"/>
+					</div>
 					<div class="col-sm-6  form-group">
 						<label for="pesoDe">Peso</label>
 						<div class="form-inline">
@@ -72,26 +86,8 @@
 		
 						</div>
 					</div>
+				</div>
 				
-				</div>
-	
-				<div class="row">
-					<div class="form-group  col-sm-4">
-						<label for="nomePessoa">Cliente</label>
-						<div class="input-group">
-							<input id="nomePessoa" type="text" readonly="readonly" class="form-control"
-								placeholder="Clique na lupa para pesquisar o cliente" /> 
-							<input id="codigoPessoa" type="hidden" th:field="*{pessoa}"/>
-								<span class="input-group-btn">
-								<button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa avançada" 
-									data-toggle="modal" data-target="#pesquisaRapidaPessoa" >
-									<i class="glyphicon  glyphicon-search"></i>
-								</button>
-							</span>
-						</div>
-					</div>
-
-				</div>
 			<button type="submit" class="btn  btn-primary">Pesquisar</button>
 		</form>
 		

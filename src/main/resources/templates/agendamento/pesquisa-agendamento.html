@@ -124,6 +124,7 @@
 		            <tbody>
 						<tr th:each="agendamento : ${pagina.conteudo}">
 							<td th:text="${agendamento.codigo}"></td>
+							<!-- <td th:text="|${agendamento.agendamentos[0].animal.pessoa.nome} ${agendamento.agendamentos[0].animal.pessoa.sobrenome}|"> -->
 							<td th:text="|${agendamento.pessoa.nome} ${agendamento.pessoa.sobrenome}|"></td>
 							<td>
 								<span th:each="agendamentoServico : ${agendamento.agendamentos}" 

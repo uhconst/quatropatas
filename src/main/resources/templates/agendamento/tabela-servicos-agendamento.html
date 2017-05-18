@@ -16,8 +16,8 @@
 			<div class="qp-tabela-servico-valor-grande">R$[[${agendamentoServico.valorUnitario}]]</div>
 		</div>
 
-		<div class="qp-tabela-servico__painel-exclusao" th:if="${agendamento != null ? agendamento.salvarPermitido : false}">
-			<span class="qp-tabela-servico__titulo-exclusao">Escluir este serviço do agendamento?</span>
+		<div class="qp-tabela-servico__painel-exclusao" th:if="${agendamento != null ? agendamento.salvarPermitido : true}">
+			<span class="qp-tabela-servico__titulo-exclusao">Excluir este serviço do agendamento?</span>
 			<button type="button" class="btn  btn-danger  js-exclusao-agendamento-btn"
 				data:codigo-servico="${agendamentoServico.servico.codigo}" 
 				data:codigo-animal="${agendamentoServico.animal.codigo}">Sim, excluir</button>
