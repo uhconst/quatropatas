@@ -78,21 +78,11 @@ public class Pessoa implements Serializable {
     @PrePersist @PreUpdate
     private void prePersistPreUpdate(){
     	this.cpf = getCpfSemFormatacao();
-    	
-    	//TESTE, PODE APAGAR
-    	for(Long codigoEmail : emails.stream().mapToLong(Email::getCodigo).toArray()){
-    		System.out.println(">>>>Codigo email pre update: " +  codigoEmail);
-    	}
     }
     
     @PostLoad
     private void postLoad(){
     	this.cpf = formatarCpf(this.cpf);
-    	
-    	//TESTE, PODE APAGAR
-    	for(Long codigoEmail : emails.stream().mapToLong(Email::getCodigo).toArray()){
-    		System.out.println(">>>>Codigo email pos load: " +  codigoEmail);
-    	}
     }
 
 	public Long getCodigo() {

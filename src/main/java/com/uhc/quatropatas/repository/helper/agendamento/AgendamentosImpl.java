@@ -161,12 +161,12 @@ public class AgendamentosImpl implements AgendamentosQueries {
 			
 			if (filtro.getDesdeAgendamento() != null) {
 				LocalDateTime desdeAgendamento = LocalDateTime.of(filtro.getDesdeAgendamento(), LocalTime.of(0, 0));
-				criteria.add(Restrictions.ge("dataAgendamento", desdeAgendamento));
+				criteria.add(Restrictions.ge("dataHoraAgendamento", desdeAgendamento));
 			}
 			
 			if (filtro.getAteAgendamento() != null) {
 				LocalDateTime ateAgendamento = LocalDateTime.of(filtro.getAteAgendamento(), LocalTime.of(23, 59));
-				criteria.add(Restrictions.le("dataAgendamento", ateAgendamento));
+				criteria.add(Restrictions.le("dataHoraAgendamento", ateAgendamento));
 			}
 			
 			if (filtro.getDesdeCriacao() != null) {

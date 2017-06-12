@@ -69,7 +69,7 @@ public class UsuariosController {
 			return novo(usuario);
 		}
 		
-		attributes.addFlashAttribute("mensagem", "Usuário salva com sucesso!");
+		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
 		return new ModelAndView("redirect:/usuarios/novo");
 	}
 	

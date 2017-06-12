@@ -79,6 +79,9 @@ public class AnimalFilter {
 	}
 
 	public String getCpfPessoa() {
+		if(cpfPessoa!=null){
+			return cpfPessoa.replaceAll("\\.|-", "");
+		}
 		return cpfPessoa;
 	}
 

@@ -62,6 +62,7 @@ public class AnimalsImpl implements AnimalsQueries {
 			}
 			
 			if (!StringUtils.isEmpty(filtro.getCpfPessoa())) {
+				System.out.println(">>Cpf: " + filtro.getCpfPessoa());
 				criteria.add(Restrictions.ilike("p.cpf", filtro.getCpfPessoa(), MatchMode.ANYWHERE));
 			}
 		}
